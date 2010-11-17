@@ -81,6 +81,8 @@ let g:surround_{char2nr("w")} = "{% with\1 \r..*\r &\1 %}\r{% endwith %}"
 let g:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1 %}\r{% endfor %}"
 
+" Key Mappings
+
 " Change the mapleader from \ to ,
 let mapleader=","
 
@@ -98,3 +100,10 @@ nmap <C-k> <C-W>k
 vmap >  >gv
 vmap <  <gv
 vmap =  =gv
+
+" Convenient editing shortcuts
+imap <C-Enter> <C-o>o
+imap <C-S-Enter> <C-o>O
+
+" command completion
+inoremap <C-SPACE> <C-N>
