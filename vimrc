@@ -38,6 +38,11 @@ set autoindent
 set showmatch
 let loaded_matchparen = 1
 
+" Mouse support
+if has("mouse")
+    set mouse=a
+endif
+
 " Folding
 set foldmethod=manual
 autocmd BufRead *.txt set foldmethod=marker
