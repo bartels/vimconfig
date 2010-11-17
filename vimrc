@@ -87,3 +87,8 @@ nmap <C-h> <C-W>h
 nmap <C-l> <C-W>l
 nmap <C-j> <C-W>j
 nmap <C-k> <C-W>k
+
+" Dont lose selection when indenting in visual mode
+vmap >  >gv
+vmap <  <gv
+vmap =  =gv
