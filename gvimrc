@@ -26,8 +26,6 @@ inoremap    <C-TAB>             <C-O>:tabnext<CR><ESC>
 
 " open a tab
 nnoremap    <C-N>               <C-C>:tabnew<CR>
-noremap     <C-N>               <C-O>:tabnew<CR>
-inoremap    <C-N>               <C-O>:tabnew<CR>
 
 " close the current buffer
 inoremap    <C-W>               <C-O>:bd<CR>
