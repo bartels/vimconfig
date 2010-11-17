@@ -2,6 +2,7 @@
 " plugins under the ~/.vim/bundle directory
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+runtime macros/matchit.vim
 
 " Some nice settings
 set nocompatible
