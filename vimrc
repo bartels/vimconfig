@@ -101,11 +101,6 @@ nmap <C-l> <C-W>l
 nmap <C-j> <C-W>j
 nmap <C-k> <C-W>k
 
-" Dont lose selection when indenting in visual mode
-vmap >  >gv
-vmap <  <gv
-vmap =  =gv
-
 " Convenient editing shortcuts
 imap <C-Enter> <C-o>o
 imap <C-S-Enter> <C-o>O
