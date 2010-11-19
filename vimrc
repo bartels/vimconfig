@@ -112,3 +112,6 @@ inoremap <C-SPACE> <C-N>
 nmap <silent> <leader>f :FufFile<CR>
 let g:fuf_keyOpen = '<CR>'
 let g:fuf_keyOpenTabpage = '<S-CR>'
+
+" tabs
+nmap <silent> <leader>t :tabnew<CR>

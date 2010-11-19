@@ -23,6 +23,6 @@ inoremap <C-BACKSPACE> <C-LEFT><C-O>dw
 
 " tabs
 noremap <C-TAB> gt
-inoremap <C-TAB> <C-O>gt
+inoremap <C-TAB> <ESC>gt
 noremap <C-S-TAB> gT
-inoremap <C-S-TAB> <C-O>gT
+inoremap <C-S-TAB> <ESC>gt
