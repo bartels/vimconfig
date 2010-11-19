@@ -107,3 +107,8 @@ imap <C-S-Enter> <C-o>O
 
 " command completion
 inoremap <C-SPACE> <C-N>
+
+" Fuzzy Finder
+nmap <silent> <leader>f :FufFile<CR>
+let g:fuf_keyOpen = '<CR>'
+let g:fuf_keyOpenTabpage = '<S-CR>'
