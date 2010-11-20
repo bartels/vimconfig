@@ -55,6 +55,7 @@ autocmd BufEnter *.xml setlocal indentexpr=
 " Highlight parts of lines longer than 79 columns
 autocmd filetype python highlight OverLength ctermbg=black guibg=black
 autocmd filetype python match OverLength /\%80v.\+/
+autocmd BufRead,BufNewFile *.wsgi set filetype=python
 
 " omnicomplete customizations
 set completeopt=longest,menuone
