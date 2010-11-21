@@ -71,11 +71,6 @@ autocmd BufRead,BufNewFile *.ctp set filetype=php
 " Use htmldjango syntax for .html files
 autocmd BufEnter *.html set filetype=htmldjango.html
 
-" supertab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType="<c-x><c-p>"
-
-
 " View for invisible chars when using set list
 set listchars=tab:>-,eol:$
 
@@ -107,7 +102,7 @@ imap <C-Enter> <C-o>o
 imap <C-S-Enter> <C-o>O
 
 " command completion
-inoremap <Nul> <C-X><C-O>
+inoremap <C-Space> <C-x><C-o>
 
 " Fuzzy Finder
 nmap <silent> <leader>f :FufFile<CR>
