@@ -3,7 +3,7 @@ source $VIMRUNTIME/mswin.vim
 
 
 " GUI Options
-colorscheme desert
+colorscheme wombat
 set guifont=DejaVu\ Sans\ Mono\ 9.6
 " set guifont=Droid\ Sans\ Mono\ 9.6
 " set guifont=Inconsolata\ 11.7
