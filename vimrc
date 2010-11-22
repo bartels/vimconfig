@@ -74,13 +74,16 @@ autocmd BufEnter *.html set filetype=htmldjango.html
 " View for invisible chars when using set list
 set listchars=tab:>-,eol:$
 
-
 " surround plugin for django templates
 let g:surround_{char2nr("b")} = "{% block\1 \r..*\r &\1 %}\r{% endblock %}"
 let g:surround_{char2nr("i")} = "{% if\1 \r..*\r &\1 %}\r{% endif %}"
 let g:surround_{char2nr("w")} = "{% with\1 \r..*\r &\1 %}\r{% endwith %}"
 let g:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1 %}\r{% endfor %}"
+
+" Only snippets in ~/.vim/snippets/
+let g:snippets_dir = "~/.vim/snippets/"
+
 
 " Key Mappings
 
