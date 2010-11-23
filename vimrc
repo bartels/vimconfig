@@ -84,6 +84,10 @@ let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1 %}\r{% endfor %}"
 " Only snippets in ~/.vim/snippets/
 let g:snippets_dir = "~/.vim/snippets/"
 
+" command-t
+nmap <silent> <leader>f :CommandT<CR>
+let g:CommandTAcceptSelectionTabMap = "<C-CR>"
+
 
 " Key Mappings
 
@@ -106,11 +110,6 @@ imap <C-S-Enter> <C-o>O
 
 " command completion
 inoremap <C-Space> <C-x><C-o>
-
-" Fuzzy Finder
-nmap <silent> <leader>f :FufFile<CR>
-let g:fuf_keyOpen = '<CR>'
-let g:fuf_keyOpenTabpage = '<S-CR>'
 
 " tabs
 nmap <silent> <leader>t :tabnew<CR>

@@ -16,9 +16,6 @@
 [submodule "bundle/xmledit"]
 	path = bundle/xmledit
 	url = https://github.com/sukima/xmledit.git
-[submodule "bundle/fuzzyfinder"]
-	path = bundle/fuzzyfinder
-	url = https://github.com/vim-scripts/FuzzyFinder.git
 [submodule "bundle/L9"]
 	path = bundle/L9
 	url = https://github.com/vim-scripts/L9.git
@@ -28,3 +25,6 @@
 [submodule "bundle/hexhighlight/plugin"]
 	path = bundle/hexhighlight/plugin
 	url = https://github.com/yurifury/hexHighlight.git
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = https://github.com/wincent/Command-T.git

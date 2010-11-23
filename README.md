@@ -9,3 +9,11 @@ Vim plugins are installed as git submodules.  To get them, issue the following c
 
     git submodule init
     git submodule update
+
+
+The command-t extension requires vim to have ruby support build in. 
+Use the following commands to compile the ruby extension:
+
+    cd bundles/command-t/
+    rake make 
+
