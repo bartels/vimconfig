@@ -26,3 +26,6 @@ noremap <C-TAB> gt
 inoremap <C-TAB> <ESC>gt
 noremap <C-S-TAB> gT
 inoremap <C-S-TAB> <ESC>gt
+
+" get scrolling back from mswin.vim
+noremap <C-y> <C-y>
