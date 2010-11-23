@@ -84,15 +84,16 @@ let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1 %}\r{% endfor %}"
 " Only snippets in ~/.vim/snippets/
 let g:snippets_dir = "~/.vim/snippets/"
 
-" command-t
-nmap <silent> <leader>f :CommandT<CR>
-let g:CommandTAcceptSelectionTabMap = "<C-CR>"
-
 
 " Key Mappings
 
 " Change the mapleader from \ to ,
 let mapleader=","
+
+" command-t
+nmap <silent> <leader>f :CommandT<CR>
+let g:CommandTAcceptSelectionTabMap = "<C-CR>"
+
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
