@@ -84,6 +84,13 @@ let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1 %}\r{% endfor %}"
 " Only snippets in ~/.vim/snippets/
 let g:snippets_dir = "~/.vim/snippets/"
 
+" gundo plugin (only works with vim >= 7.3
+if v:version >= 703
+    nnoremap <F5> :GundoToggle<CR>
+else
+    let g:gundo_disable = 1
+endif
+
 
 " Key Mappings
 
