@@ -43,6 +43,10 @@ if has("mouse")
     set mouse=a
 endif
 
+" Change the mapleader from \ to ,
+let mapleader=","
+
+
 " Folding
 set foldmethod=manual
 autocmd BufRead *.txt set foldmethod=marker
@@ -72,7 +76,8 @@ autocmd BufRead,BufNewFile *.ctp set filetype=php
 autocmd BufEnter *.html set filetype=htmldjango.html
 
 " View for invisible chars when using set list
-set listchars=tab:>-,eol:$
+set listchars=tab:▸\ ,eol:¬
+nmap <leader>l :set list!<CR>
 
 " surround plugin for django templates
 let g:surround_{char2nr("b")} = "{% block\1 \r..*\r &\1 %}\r{% endblock %}"
@@ -93,9 +98,6 @@ endif
 
 
 " Key Mappings
-
-" Change the mapleader from \ to ,
-let mapleader=","
 
 " command-t
 nmap <silent> <leader>f :CommandT<CR>
