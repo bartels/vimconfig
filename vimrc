@@ -123,6 +123,7 @@ inoremap <C-Space> <C-x><C-o>
 
 " tabs
 nmap <silent> <leader>t :tabnew<CR>
+nmap <silent> <leader>w :bd<CR>
 
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call <SID>SynStack()<CR>
