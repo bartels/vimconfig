@@ -7,7 +7,7 @@ colorscheme wombat
 set guifont=DejaVu\ Sans\ Mono\ 9.6
 " set guifont=Droid\ Sans\ Mono\ 9.6
 " set guifont=Inconsolata\ 11.7
-win 140 50
+win 160 60
 set showtabline=1
 set guitablabel=%t
 set guioptions-=T
