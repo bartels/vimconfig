@@ -3,5 +3,5 @@ highlight OverLength ctermbg=black guibg=black
 match OverLength /\%80v.\+/
 
 " Highlight end of line whitespace.
-highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraWhitespace ctermbg=black guibg=black
 2match ExtraWhitespace /\s\+\%#\@<!$/
