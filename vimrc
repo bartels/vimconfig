@@ -101,6 +101,9 @@ endif
 nmap <silent> <leader>f :CommandT<CR>
 let g:CommandTAcceptSelectionTabMap = "<C-CR>"
 
+" pep8
+let g:pep8_map='<leader>8'
+
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
