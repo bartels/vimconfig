@@ -10,9 +10,6 @@
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "bundle/pyflakes/ftplugin/python"]
-	path = bundle/pyflakes/ftplugin/python
-	url = https://github.com/kevinw/pyflakes-vim.git
 [submodule "bundle/xmledit"]
 	path = bundle/xmledit
 	url = https://github.com/sukima/xmledit.git
