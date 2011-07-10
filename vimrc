@@ -46,7 +46,6 @@ endif
 " Change the mapleader from \ to ,
 let mapleader=","
 
-
 " Folding
 set foldmethod=manual
 autocmd BufRead *.txt set foldmethod=marker
@@ -56,7 +55,7 @@ autocmd BufEnter *.html setlocal indentexpr=
 autocmd BufEnter *.htm setlocal indentexpr=
 autocmd BufEnter *.xml setlocal indentexpr=
 
-" Highlight parts of lines longer than 79 columns
+" wsgi files get python filetype
 autocmd BufRead,BufNewFile *.wsgi set filetype=python
 
 " omnicomplete customizations
