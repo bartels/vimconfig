@@ -58,6 +58,9 @@ autocmd BufEnter *.xml setlocal indentexpr=
 " wsgi files get python filetype
 autocmd BufRead,BufNewFile *.wsgi set filetype=python
 
+" LESS files
+autocmd BufNewFile,BufRead *.less set filetype=less
+
 " omnicomplete customizations
 set completeopt=longest,menuone
 autocmd FileType python set omnifunc=pythoncomplete#Complete
