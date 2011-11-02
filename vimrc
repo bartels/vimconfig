@@ -61,6 +61,12 @@ autocmd BufRead,BufNewFile *.wsgi set filetype=python
 " LESS files
 autocmd BufNewFile,BufRead *.less set filetype=less
 
+" Vagrantfile
+autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
+
+" JSON files
+autocmd BufNewFile,BufRead *.json set filetype=javascript
+
 " omnicomplete customizations
 set completeopt=longest,menuone
 autocmd FileType python set omnifunc=pythoncomplete#Complete
