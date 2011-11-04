@@ -69,10 +69,14 @@ autocmd BufNewFile,BufRead *.json set filetype=javascript
 
 " omnicomplete customizations
 set completeopt=longest,menuone
-autocmd FileType python set omnifunc=pythoncomplete#Complete
+" autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+" python-mode settings
+let g:pymode_lint = 0 " Turn off pylint since we're using pyflakes already.
+let g:python_highlight_space_errors = 0
 
 " cakephp filetypes
 autocmd BufRead,BufNewFile *.thtml set filetype=php
