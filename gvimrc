@@ -2,7 +2,9 @@
 source $VIMRUNTIME/mswin.vim
 
 " Colors
-colorscheme wombat
+let g:solarized_menu=0
+call togglebg#map("<F6>")
+colorscheme solarized
 
 " Fonts
 set guifont=DejaVu\ Sans\ Mono\ 9.6
