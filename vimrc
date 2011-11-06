@@ -21,7 +21,7 @@ set nowritebackup
 
 " spaces, not tabs
 set tabstop=8
-set shiftwidth=4    
+set shiftwidth=4
 set shiftround
 set softtabstop=4
 set expandtab
@@ -102,7 +102,6 @@ else
     let g:gundo_disable = 1
 endif
 
-
 " Key Mappings
 
 " command-t
@@ -111,7 +110,6 @@ let g:CommandTAcceptSelectionTabMap = "<C-CR>"
 
 " pep8
 let g:pep8_map='<leader>8'
-
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
