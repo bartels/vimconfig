@@ -121,7 +121,7 @@ let g:CommandTAcceptSelectionTabMap = "<C-CR>"
 let g:pep8_map='<leader>8'
 
 " Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Easy switching between split windows
