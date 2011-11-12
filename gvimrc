@@ -21,9 +21,13 @@ inoremap <C-DEL> <C-O>dw
 inoremap <C-BACKSPACE> <C-LEFT><C-O>dw
 
 " tabs
+noremap <S-A-J> gt
+noremap <S-A-K> gT
+inoremap <S-A-J> <ESC>gt
+inoremap <S-A-K> <ESC>gT
 noremap <C-TAB> gt
-inoremap <C-TAB> <ESC>gt
 noremap <C-S-TAB> gT
+inoremap <C-TAB> <ESC>gt
 inoremap <C-S-TAB> <ESC>gt
 
 " get scrolling back from mswin.vim
