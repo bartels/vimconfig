@@ -110,7 +110,14 @@ endif
 " Key Mappings
 " ============
 
-" clear last search
+" Escape insert mode
+inoremap <Esc> <Esc>`^
+imap kj <Esc>
+
+" Command mode
+nnoremap ; :
+
+" Clear last search
 nnoremap <leader><space> :noh<CR>
 
 " command-t
