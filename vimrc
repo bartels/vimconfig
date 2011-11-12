@@ -106,7 +106,12 @@ else
     let g:gundo_disable = 1
 endif
 
+" ============
 " Key Mappings
+" ============
+
+" clear last search
+nnoremap <leader><space> :noh<CR>
 
 " command-t
 nmap <silent> <leader>f :CommandT<CR>
