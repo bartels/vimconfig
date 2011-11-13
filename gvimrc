@@ -20,7 +20,7 @@ inoremap <C-W> <C-O>:bd<CR>
 inoremap <C-DEL> <C-O>dw
 inoremap <C-BACKSPACE> <C-LEFT><C-O>dw
 
-" tabs
+" Switching GUI Tabs
 noremap <S-A-J> gt
 noremap <S-A-K> gT
 inoremap <S-A-J> <ESC>gt
@@ -29,6 +29,10 @@ noremap <C-TAB> gt
 noremap <C-S-TAB> gT
 inoremap <C-TAB> <ESC>gt
 inoremap <C-S-TAB> <ESC>gt
+
+" compiz+nvidia sometimes results in the screen not being fully redrawn.
+" This mapping allows for a quick screen redraw.
+noremap <silent><leader>d :redraw!<CR>
 
 " get scrolling back from mswin.vim
 noremap <C-y> <C-y>
