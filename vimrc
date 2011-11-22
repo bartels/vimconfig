@@ -106,6 +106,9 @@ else
     let g:gundo_disable = 1
 endif
 
+" delimitMate chars that should be matched.
+let delimitMate_matchpairs = "(:),[:],{:}"
+
 " ============
 " Key Mappings
 " ============
