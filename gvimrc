@@ -20,6 +20,9 @@ inoremap <C-W> <C-O>:bd<CR>
 inoremap <C-DEL> <C-O>dw
 inoremap <C-BACKSPACE> <C-LEFT><C-O>dw
 
+" We don't want ctrl-a in normal mode
+nunmap <C-A>
+
 " Switching GUI Tabs
 noremap <S-A-J> gt
 noremap <S-A-K> gT
