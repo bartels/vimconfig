@@ -1,6 +1,6 @@
 " Use pathogen to modify the runtime path to include all
 " plugins under the ~/.vim/bundle directory
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
 runtime macros/matchit.vim
 
