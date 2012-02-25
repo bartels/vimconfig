@@ -77,6 +77,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 " python-mode settings
 let g:pymode_lint = 0 " Turn off pylint since we're using pyflakes already.
 let g:python_highlight_space_errors = 0
+let g:pymode_breakpoint_cmd = "import ipdb; ipdb.set_trace() ### XXX BREAKPOINT"
 
 " cakephp filetypes
 autocmd BufRead,BufNewFile *.thtml set filetype=php
