@@ -127,7 +127,8 @@ nnoremap ; :
 nnoremap <leader><space> :noh<CR>
 
 " command-t
-nmap <silent> <leader>f :CommandT<CR>
+nnoremap <silent> <leader>f :CommandT<CR>
+let g:CommandTAcceptSelectionSplitMap = "<C-s>"
 let g:CommandTAcceptSelectionTabMap = "<C-CR>"
 
 " pep8
