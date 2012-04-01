@@ -120,9 +120,6 @@ let g:AutoPairsCenterLine = 0
 inoremap <Esc> <Esc>`^
 imap kj <Esc>
 
-" Command mode
-nnoremap ; :
-
 " Clear last search
 nnoremap <leader><space> :noh<CR>
 
