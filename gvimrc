@@ -30,8 +30,6 @@ inoremap <S-A-J> <ESC>gt
 inoremap <S-A-K> <ESC>gT
 noremap <C-TAB> gt
 noremap <C-S-TAB> gT
-inoremap <C-TAB> <ESC>gt
-inoremap <C-S-TAB> <ESC>gt
 
 " compiz+nvidia sometimes results in the screen not being fully redrawn.
 " This mapping allows for a quick screen redraw.

@@ -97,8 +97,11 @@ let g:surround_{char2nr("w")} = "{% with\1 \r..*\r &\1 %}\r{% endwith %}"
 let g:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1 %}\r{% endfor %}"
 
-" Only snippets in ~/.vim/snippets/
-let g:snippets_dir = "~/.vim/snippets/"
+" ultisnips Settings
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsListSnippets = "<s-tab>"
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
+let g:UltiSnipsEditSplit = "vertical"
 
 " gundo plugin (only works with vim >= 7.3
 if v:version >= 703
