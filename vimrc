@@ -143,6 +143,8 @@ nnoremap <silent> <leader>f :CommandT<CR>
 if has('gui_running')
     let g:CommandTAcceptSelectionSplitMap = "<C-s>"
     let g:CommandTAcceptSelectionTabMap = "<C-Enter>"
+else
+    let g:CommandTAcceptSelectionSplitMap = "<C-x>"
 endif
 
 " pep8
