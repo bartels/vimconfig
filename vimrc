@@ -38,6 +38,18 @@ set autoindent
 set showmatch
 let loaded_matchparen = 1
 
+" Colors
+set t_Co=256
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+let g:solarized_menu=0
+let g:solarized_termcolors=256
+call togglebg#map("<F6>")
+colorscheme solarized
+
 " Mouse support
 if has("mouse")
     set mouse=a

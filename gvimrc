@@ -1,11 +1,6 @@
 " Get us some familiar keybindings in insert mode
 source $VIMRUNTIME/mswin.vim
 
-" Colors
-let g:solarized_menu=0
-call togglebg#map("<F6>")
-colorscheme solarized
-
 " Fonts
 set guifont=DejaVu\ Sans\ Mono\ 9.6
 
