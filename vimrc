@@ -140,8 +140,10 @@ nnoremap <leader><space> :noh<CR>
 
 " command-t
 nnoremap <silent> <leader>f :CommandT<CR>
-let g:CommandTAcceptSelectionSplitMap = "<C-s>"
-let g:CommandTAcceptSelectionTabMap = "<C-CR>"
+if has('gui_running')
+    let g:CommandTAcceptSelectionSplitMap = "<C-s>"
+    let g:CommandTAcceptSelectionTabMap = "<C-Enter>"
+endif
 
 " pep8
 let g:pep8_map='<leader>8'
@@ -157,8 +159,10 @@ nmap <C-j> <C-W>j
 nmap <C-k> <C-W>k
 
 " Convenient editing shortcuts
-imap <C-Enter> <C-o>o
-imap <C-S-Enter> <C-o>O
+if has('gui_running')
+    imap <C-Enter> <C-o>o
+    imap <C-S-Enter> <C-o>O
+endif
 
 " command completion
 inoremap <C-Space> <C-x><C-o>
