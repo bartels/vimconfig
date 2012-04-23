@@ -14,6 +14,7 @@ set scrolloff=3  " min number of lines of context to show while scrolling
 set sidescrolloff=3  " same as above but with columns
 set wildmode=longest,list  " sets file completion search to stop at common substring
 set wildignore=*~,*.bak,*.o,*.pyc  " ignore these file globs in wildmode
+set laststatus=2  " always show statusline
 
 " Don't write pesky backup files
 set nobackup
