@@ -11,7 +11,6 @@ set guitablabel=%t
 set guioptions-=T
 
 " Some Key Bindings we want in gui mode
-inoremap <C-W> <C-O>:bd<CR>
 inoremap <C-DEL> <C-O>dw
 inoremap <C-BACKSPACE> <C-LEFT><C-O>dw
 
