@@ -123,11 +123,6 @@ else
     let g:gundo_disable = 1
 endif
 
-" auto-pairs settings
-let g:AutoPairsShortcuts = 0
-let g:AutoPairsMapCR = 0
-let g:AutoPairsCenterLine = 0
-
 " ============
 " Key Mappings
 " ============

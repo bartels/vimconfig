@@ -40,9 +40,6 @@
 [submodule "bundle/solarized"]
 	path = bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "bundle/auto-pairs"]
-	path = bundle/auto-pairs
-	url = https://github.com/jiangmiao/auto-pairs.git
 [submodule "bundle/vim-repeat"]
 	path = bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
