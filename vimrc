@@ -88,9 +88,15 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " python-mode settings
-let g:pymode_lint = 0 " Turn off pylint since we're using pyflakes already.
+let g:pymode_lint = 0 " Turn off pylint since we're using syntastic
 let g:pymode_folding = 0
 let g:python_highlight_space_errors = 0
+
+" Syntastic settings
+let g:syntastic_mode_map = { 'mode': 'passive' }
+let g:syntastic_auto_jump = 1
+let g:syntastic_auto_loc_list = 1
+nmap <leader>e :SyntasticToggleMode<CR>
 
 " cakephp filetypes
 autocmd BufRead,BufNewFile *.thtml set filetype=php
@@ -142,9 +148,6 @@ if has('gui_running')
 else
     let g:CommandTAcceptSelectionSplitMap = "<C-x>"
 endif
-
-" pep8
-let g:pep8_map='<leader>8'
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
