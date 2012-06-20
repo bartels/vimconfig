@@ -94,8 +94,8 @@ let g:python_highlight_space_errors = 0
 
 " Syntastic settings
 let g:syntastic_mode_map = { 'mode': 'passive' }
-let g:syntastic_auto_jump = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_jump = 0
+let g:syntastic_auto_loc_list = 2
 nmap <leader>e :SyntasticToggleMode<CR>
 
 " cakephp filetypes
