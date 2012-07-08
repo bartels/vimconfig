@@ -13,7 +13,7 @@ set incsearch hlsearch  " highlight and show search terms as you type
 set scrolloff=3  " min number of lines of context to show while scrolling
 set sidescrolloff=3  " same as above but with columns
 set wildmode=longest,list  " sets file completion search to stop at common substring
-set wildignore=*~,*.bak,*.o,*.pyc  " ignore these file globs in wildmode
+set wildignore=*~,*.bak,*.o,*.pyc,*.pyo  " ignore these file globs in wildmode
 set laststatus=2  " always show statusline
 
 " Don't write pesky backup files
@@ -140,14 +140,15 @@ imap kj <Esc>
 " Clear last search
 nnoremap <leader><space> :noh<CR>
 
-" command-t
-nnoremap <silent> <leader>f :CommandT<CR>
-if has('gui_running')
-    let g:CommandTAcceptSelectionSplitMap = "<C-s>"
-    let g:CommandTAcceptSelectionTabMap = "<C-Enter>"
-else
-    let g:CommandTAcceptSelectionSplitMap = "<C-x>"
-endif
+" ctrlp
+nnoremap <leader>f :CtrlP<CR>
+let g:ctrlp_max_height = 30
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("h")': ['<c-x>', '<c-s>'],
+    \ 'AcceptSelection("t")': ['<c-t>', '<c-Enter>'],
+    \ }
+
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
