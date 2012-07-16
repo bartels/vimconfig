@@ -144,6 +144,7 @@ nnoremap <leader><space> :noh<CR>
 nnoremap <leader>f :CtrlP<CR>
 let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_open_multiple_files = 't'
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("h")': ['<c-x>', '<c-s>'],
     \ 'AcceptSelection("t")': ['<c-t>', '<c-Enter>'],
