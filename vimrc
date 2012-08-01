@@ -103,7 +103,7 @@ autocmd BufRead,BufNewFile *.thtml set filetype=php
 autocmd BufRead,BufNewFile *.ctp set filetype=php
 
 " Use htmldjango syntax for .html files
-autocmd BufEnter *.html set filetype=htmldjango.html
+autocmd BufEnter *.html set filetype=htmldjango
 
 " View for invisible chars when using set list
 set listchars=tab:▸\ ,eol:¬
