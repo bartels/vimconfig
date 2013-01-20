@@ -35,9 +35,24 @@ filetype plugin indent on
 " Indenting
 set autoindent
 
-"Show matching parens as typing
+" Show matching parens as typing
 set showmatch
 let loaded_matchparen = 1
+
+" Use ~/.cache/vim/ for swap files, backups & undo history
+" but only if it exists: mkdir -p ~/.cache/vim/{swap,backup,undo}
+if isdirectory(expand('~/.cache/vim'))
+    if &directory =~# '^\.,' && isdirectory(expand('~/.cache/vim/swap'))
+        set directory^=~/.cache/vim/swap//
+    endif
+    if &backupdir =~# '^\.,' && isdirectory(expand('~/.cache/vim/backup'))
+        set backupdir^=~/.cache/vim/backup//
+    endif
+    if exists('+undodir') && isdirectory(expand('~/.cache/vim/undo')) && &undodir =~# '^\.\%(,\|$\)'
+        set undodir^=~/.cache/vim/undo//
+        set undofile
+    endif
+endif
 
 " Colors
 set t_Co=256
