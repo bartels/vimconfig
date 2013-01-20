@@ -137,6 +137,9 @@ endif
 inoremap <Esc> <Esc>`^
 imap kj <Esc>
 
+" Save file with sudo
+cmap w!! w !sudo tee % > /dev/null
+
 " Clear last search
 nnoremap <leader><space> :noh<CR>
 
