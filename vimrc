@@ -1,10 +1,11 @@
-" Use pathogen to modify the runtime path to include all
-" plugins under the ~/.vim/bundle directory
+" pathogen modifes the runtime path to include plugins under ~/.vim/bundle/
 call pathogen#infect()
 call pathogen#helptags()
+
+" matchit is nice for extended matching using '%'
 runtime macros/matchit.vim
 
-" Some nice settings
+" Some nice defaults
 set nocompatible
 set number  " line numbering
 set title   " display title in terminal window
@@ -15,10 +16,6 @@ set sidescrolloff=3  " same as above but with columns
 set wildmode=longest,list  " sets file completion search to stop at common substring
 set wildignore=*~,*.bak,*.o,*.pyc,*.pyo  " ignore these file globs in wildmode
 set laststatus=2  " always show statusline
-
-" Don't write pesky backup files
-set nobackup
-set nowritebackup
 
 " spaces, not tabs
 set tabstop=8
@@ -38,6 +35,10 @@ set autoindent
 " Show matching parens as typing
 set showmatch
 let loaded_matchparen = 1
+
+" Don't write pesky backup files
+set nobackup
+set nowritebackup
 
 " Use ~/.cache/vim/ for swap files, backups & undo history
 " but only if it exists: mkdir -p ~/.cache/vim/{swap,backup,undo}
@@ -76,36 +77,17 @@ let mapleader=","
 
 " Folding
 set foldmethod=manual
-autocmd BufRead *.txt set foldmethod=marker
-
-" Fix annoying indenting for xml files
-autocmd BufEnter *.html setlocal indentexpr=
-autocmd BufEnter *.htm setlocal indentexpr=
-autocmd BufEnter *.xml setlocal indentexpr=
-
-" wsgi files get python filetype
-autocmd BufRead,BufNewFile *.wsgi set filetype=python
-
-" LESS files
-autocmd BufNewFile,BufRead *.less set filetype=less
-
-" Vagrantfile
-autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
-
-" JSON files
-autocmd BufNewFile,BufRead *.json set filetype=javascript
+autocmd FileType text setlocal foldmethod=marker
 
 " omnicomplete customizations
 set completeopt=longest,menuone
-" autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
-" python-mode settings
-let g:pymode_lint = 0 " Turn off pylint since we're using syntastic
-let g:pymode_folding = 0
-let g:python_highlight_space_errors = 0
+" Special filetypes
+autocmd FileType html set filetype=htmldjango
+autocmd BufRead,BufNewFile *.thtml set filetype=php
+autocmd BufRead,BufNewFile *.ctp set filetype=php
+autocmd BufRead,BufNewFile *.wsgi set filetype=python
+autocmd BufRead,BufNewFile  Vagrantfile set filetype=ruby
 
 " Syntastic settings
 let g:syntastic_mode_map = { 'mode': 'passive' }
@@ -113,23 +95,9 @@ let g:syntastic_auto_jump = 0
 let g:syntastic_auto_loc_list = 2
 nmap <leader>e :SyntasticToggleMode<CR>
 
-" cakephp filetypes
-autocmd BufRead,BufNewFile *.thtml set filetype=php
-autocmd BufRead,BufNewFile *.ctp set filetype=php
-
-" Use htmldjango syntax for .html files
-autocmd BufEnter *.html set filetype=htmldjango
-
 " View for invisible chars when using set list
 set listchars=tab:▸\ ,eol:¬
 nmap <leader>l :set list!<CR>
-
-" surround plugin for django templates
-let g:surround_{char2nr("b")} = "{% block\1 \r..*\r &\1 %}\r{% endblock %}"
-let g:surround_{char2nr("i")} = "{% if\1 \r..*\r &\1 %}\r{% endif %}"
-let g:surround_{char2nr("w")} = "{% with\1 \r..*\r &\1 %}\r{% endwith %}"
-let g:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
-let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1 %}\r{% endfor %}"
 
 " ultisnips Settings
 let g:UltiSnipsUsePythonVersion = 2
@@ -144,20 +112,6 @@ else
     let g:gundo_disable = 1
 endif
 
-" ============
-" Key Mappings
-" ============
-
-" Escape insert mode
-inoremap <Esc> <Esc>`^
-imap kj <Esc>
-
-" Save file with sudo
-cmap w!! w !sudo tee % > /dev/null
-
-" Clear last search
-nnoremap <leader><space> :noh<CR>
-
 " ctrlp
 nnoremap <leader>f :CtrlP<CR>
 let g:ctrlp_max_height = 30
@@ -169,26 +123,29 @@ let g:ctrlp_prompt_mappings = {
     \ }
 
 
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" Custom Mappings
+"""""""""""""""""
 
-" Easy switching between split windows
+" Escape insert mode
+inoremap <Esc> <Esc>`^
+imap kj <Esc>
+
+" Save file with sudo
+cmap w!! w !sudo tee % > /dev/null
+
+" Clear last search
+nnoremap <leader><space> :noh<CR>
+
+" navigating windows
 nmap <C-h> <C-W>h
 nmap <C-l> <C-W>l
 nmap <C-j> <C-W>j
 nmap <C-k> <C-W>k
 
-" Convenient editing shortcuts
-if has('gui_running')
-    imap <C-Enter> <C-o>o
-    imap <C-S-Enter> <C-o>O
-endif
-
-" command completion
+" omnicomplete shortcut
 inoremap <C-Space> <C-x><C-o>
 
-" tabs
+" tabpanes
 nmap <silent> <leader>t :tabnew<CR>
 nmap <silent> <leader>w :bd<CR>
 
@@ -200,3 +157,13 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+" Quickly edit & source vimrc
+nmap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" These only work in GUI mode
+if has('gui_running')
+    imap <C-Enter> <C-o>o
+    imap <C-S-Enter> <C-o>O
+endif
