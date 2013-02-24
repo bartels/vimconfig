@@ -2,9 +2,6 @@
 "let g:pathogen_disabled = []
 call pathogen#infect()
 
-" matchit is nice for extended matching using '%'
-runtime macros/matchit.vim
-
 " Some nice defaults
 set nocompatible
 set number  " line numbering
@@ -13,9 +10,18 @@ set hidden  " buffers can be hidden without requiring disk write
 set incsearch hlsearch  " highlight and show search terms as you type
 set scrolloff=3  " min number of lines of context to show while scrolling
 set sidescrolloff=3  " same as above but with columns
+set wildmenu
 set wildmode=longest,list  " sets file completion search to stop at common substring
 set wildignore=*~,*.bak,*.o,*.pyc,*.pyo  " ignore these file globs in wildmode
+set completeopt=longest,menuone  " insert mode completion menu
 set laststatus=2  " always show statusline
+set backspace=indent,eol,start	" more powerful backspacing
+set showmatch " show mataching parens/brackets
+set autoindent
+set fileformats+=mac
+set display+=lastline
+set history=1000
+set tabpagemax=50
 
 " spaces, not tabs
 set tabstop=8
@@ -25,8 +31,6 @@ set softtabstop=4
 set expandtab
 set smarttab
 
-" Indenting
-set autoindent
 
 " Turn on syntax and filetype detection
 syntax on
@@ -38,10 +42,6 @@ autocmd BufRead,BufNewFile *.thtml set filetype=php
 autocmd BufRead,BufNewFile *.ctp set filetype=php
 autocmd BufRead,BufNewFile *.wsgi set filetype=python
 autocmd BufRead,BufNewFile  Vagrantfile set filetype=ruby
-
-" Show matching parens as typing
-set showmatch
-let loaded_matchparen = 1
 
 " Don't write pesky backup files
 set nobackup
@@ -84,9 +84,6 @@ endif
 set foldmethod=manual
 autocmd FileType text setlocal foldmethod=marker
 
-" omnicomplete customizations
-set completeopt=longest,menuone
-
 " Change the mapleader from \ to ,
 let mapleader=","
 
@@ -94,6 +91,8 @@ let mapleader=","
 set listchars=tab:▸\ ,eol:¬
 nmap <leader>l :set list!<CR>
 
+" matchit is nice for extended matching using '%'
+runtime macros/matchit.vim
 
 " Plugin Settings
 """""""""""""""""
