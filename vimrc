@@ -1,6 +1,6 @@
 " pathogen modifes the runtime path to include plugins under ~/.vim/bundle/
+"let g:pathogen_disabled = []
 call pathogen#infect()
-call pathogen#helptags()
 
 " matchit is nice for extended matching using '%'
 runtime macros/matchit.vim
