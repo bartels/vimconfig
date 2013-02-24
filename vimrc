@@ -25,12 +25,19 @@ set softtabstop=4
 set expandtab
 set smarttab
 
+" Indenting
+set autoindent
+
 " Turn on syntax and filetype detection
 syntax on
 filetype plugin indent on
 
-" Indenting
-set autoindent
+" Special filetypes
+autocmd FileType html set filetype=htmldjango
+autocmd BufRead,BufNewFile *.thtml set filetype=php
+autocmd BufRead,BufNewFile *.ctp set filetype=php
+autocmd BufRead,BufNewFile *.wsgi set filetype=python
+autocmd BufRead,BufNewFile  Vagrantfile set filetype=ruby
 
 " Show matching parens as typing
 set showmatch
@@ -72,9 +79,6 @@ if has("mouse")
     set mouse=a
 endif
 
-" Change the mapleader from \ to ,
-let mapleader=","
-
 " Folding
 set foldmethod=manual
 autocmd FileType text setlocal foldmethod=marker
@@ -82,22 +86,22 @@ autocmd FileType text setlocal foldmethod=marker
 " omnicomplete customizations
 set completeopt=longest,menuone
 
-" Special filetypes
-autocmd FileType html set filetype=htmldjango
-autocmd BufRead,BufNewFile *.thtml set filetype=php
-autocmd BufRead,BufNewFile *.ctp set filetype=php
-autocmd BufRead,BufNewFile *.wsgi set filetype=python
-autocmd BufRead,BufNewFile  Vagrantfile set filetype=ruby
+" Change the mapleader from \ to ,
+let mapleader=","
+
+" View for invisible chars when using set list
+set listchars=tab:▸\ ,eol:¬
+nmap <leader>l :set list!<CR>
+
+
+" Plugin Settings
+"""""""""""""""""
 
 " Syntastic settings
 let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_auto_jump = 0
 let g:syntastic_auto_loc_list = 2
 nmap <leader>e :SyntasticToggleMode<CR>
-
-" View for invisible chars when using set list
-set listchars=tab:▸\ ,eol:¬
-nmap <leader>l :set list!<CR>
 
 " ultisnips Settings
 let g:UltiSnipsUsePythonVersion = 2
