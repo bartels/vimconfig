@@ -1,5 +1,10 @@
 "setlocal omnifunc=pythoncomplete#Complete
 
+" jedi-vim
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_function_definition = 0
+let g:jedi#popup_select_first = 1
+
 " Inserting breakpoints (this code was borrowed from python-mode plugin)
 python << EOF
 from imp import find_module
@@ -24,6 +29,6 @@ endfunction
 nnoremap <silent> <buffer> <leader>b :call python:breakpoint_Set(line('.'))<CR>
 
 " Highlight lines over 80 chars
-match LineNr /\%80v.\+/
+" match LineNr /\%80v.\+/
 " Highlight end of line whitespace.
 2match LineNr /\s\+\%#\@<!$/
