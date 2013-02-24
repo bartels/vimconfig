@@ -65,14 +65,15 @@ endif
 " Colors
 set t_Co=256
 if has('gui_running')
+    let g:solarized_menu=0
+    call togglebg#map("<F6>")
     set background=light
+    colorscheme solarized
 else
+    let g:solarized_termcolors=256
     set background=dark
+    colorscheme wombat
 endif
-let g:solarized_menu=0
-let g:solarized_termcolors=256
-call togglebg#map("<F6>")
-colorscheme solarized
 
 " Mouse support
 if has("mouse")
