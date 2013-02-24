@@ -6,6 +6,7 @@ let g:jedi#show_function_definition = 0
 let g:jedi#popup_select_first = 1
 
 " Inserting breakpoints (this code was borrowed from python-mode plugin)
+if has('python')
 python << EOF
 from imp import find_module
 try:
@@ -27,6 +28,7 @@ fun! python:breakpoint_Set(lnum)
 endfunction
 
 nnoremap <silent> <buffer> <leader>b :call python:breakpoint_Set(line('.'))<CR>
+endif
 
 " Highlight lines over 80 chars
 " match LineNr /\%80v.\+/

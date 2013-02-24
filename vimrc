@@ -1,5 +1,9 @@
 " pathogen modifes the runtime path to include plugins under ~/.vim/bundle/
-"let g:pathogen_disabled = []
+let g:pathogen_disabled = []
+if !has('python')
+    call add(g:pathogen_disabled, 'ultisnips')
+    call add(g:pathogen_disabled, 'jedi')
+endif
 call pathogen#infect()
 
 " Some nice defaults
@@ -110,7 +114,7 @@ let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 let g:UltiSnipsEditSplit = "vertical"
 
 " gundo plugin (only works with vim >= 7.3
-if v:version >= 703
+if v:version >= 703 && has("python")
     nnoremap <F5> :GundoToggle<CR>
 else
     let g:gundo_disable = 1
