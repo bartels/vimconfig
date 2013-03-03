@@ -20,12 +20,13 @@ set wildignore=*~,*.bak,*.o,*.pyc,*.pyo  " ignore these file globs in wildmode
 set completeopt=longest,menuone  " insert mode completion menu
 set laststatus=2  " always show statusline
 set backspace=indent,eol,start	" more powerful backspacing
-set showmatch " show mataching parens/brackets
 set autoindent
 set fileformats+=mac
 set display+=lastline
 set history=1000
 set tabpagemax=50
+" Turn off match paren
+let loaded_matchparen = 1
 
 " spaces, not tabs
 set tabstop=8
