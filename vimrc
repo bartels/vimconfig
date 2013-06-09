@@ -68,13 +68,13 @@ if isdirectory(expand('~/.cache/vim'))
 endif
 
 " Colors
-set t_Co=256
 if has('gui_running')
     let g:solarized_menu=0
     call togglebg#map("<F6>")
     set background=light
     colorscheme solarized
 else
+    set t_Co=256
     let g:solarized_termcolors=256
     set background=dark
     colorscheme wombat
