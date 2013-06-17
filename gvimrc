@@ -14,7 +14,7 @@ set guioptions-=L
 
 " Some Key Bindings we want in gui mode
 inoremap <C-DEL> <C-O>dw
-inoremap <C-BACKSPACE> <C-LEFT><C-O>dw
+inoremap <C-BACKSPACE> <C-W>
 
 " We don't want ctrl-a in normal mode
 nunmap <C-A>
