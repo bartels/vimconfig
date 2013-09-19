@@ -159,6 +159,9 @@ endif
 inoremap <Esc> <Esc>`^
 imap kj <Esc>
 
+" Escaping command mode (I've been playing with emacs evil-mode)
+cnoremap <C-g> <C-c>
+
 " Save file with sudo
 cmap w!! w !sudo tee % > /dev/null
 
