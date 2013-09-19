@@ -67,12 +67,13 @@ if isdirectory(expand('~/.cache/vim'))
     endif
 endif
 
-" Colors
+" Color Theme
 if has('gui_running')
     let g:solarized_menu=0
     call togglebg#map("<F6>")
     set background=light
     colorscheme solarized
+    set guifont=DejaVu\ Sans\ Mono\ 9.6
 else
     set t_Co=256
     let g:solarized_termcolors=256
@@ -135,6 +136,24 @@ let g:ctrlp_prompt_mappings = {
 " Custom Mappings
 """""""""""""""""
 
+if has("gui_running")
+    " Get us some familiar keybindings in insert mode
+    source $VIMRUNTIME/mswin.vim
+
+    " no ctrl-a in normal mode
+    nunmap <C-A>
+
+    " get scrolling back from mswin.vim
+    noremap <C-y> <C-y>
+
+    " editing helpers (these only work in gui mode)
+    inoremap <C-Enter> <C-o>o
+    inoremap <C-S-Enter> <C-o>O
+    inoremap <C-DEL> <C-O>dw
+    inoremap <C-BACKSPACE> <C-W>
+endif
+
+
 " Escape insert mode
 inoremap <Esc> <Esc>`^
 imap kj <Esc>
@@ -157,6 +176,18 @@ inoremap <C-Space> <C-x><C-o>
 " tabpanes
 nmap <silent> <leader>t :tabnew<CR>
 nmap <silent> <leader>w :bd<CR>
+if has ('gui_running')
+    noremap <C-TAB> gt
+    noremap <C-S-TAB> gT
+    noremap <S-A-J> gt
+    noremap <S-A-K> gT
+    inoremap <S-A-J> <ESC>gt
+    inoremap <S-A-K> <ESC>gT
+endif
+
+" splits
+nmap <silent> <leader>v :vsplit<CR>
+nmap <silent> <leader>s :split<CR>
 
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call <SID>SynStack()<CR>
@@ -170,9 +201,3 @@ endfunc
 " Quickly edit & source vimrc
 nmap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" These only work in GUI mode
-if has('gui_running')
-    imap <C-Enter> <C-o>o
-    imap <C-S-Enter> <C-o>O
-endif
