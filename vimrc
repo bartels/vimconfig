@@ -175,7 +175,7 @@ inoremap <C-Space> <C-x><C-o>
 
 " tabpanes
 nmap <silent> <leader>t :tabnew<CR>
-nmap <silent> <leader>w :bd<CR>
+nmap <silent> <leader>w :close<CR>
 if has ('gui_running')
     noremap <C-TAB> gt
     noremap <C-S-TAB> gT
