@@ -124,6 +124,7 @@ endif
 
 " ctrlp
 nnoremap <leader>f :CtrlP<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
 let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_open_multiple_files = 't'
