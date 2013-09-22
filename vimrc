@@ -137,6 +137,19 @@ let g:ctrlp_prompt_mappings = {
 " Custom Mappings
 """""""""""""""""
 
+" Fix so vim can recognize "Alt" key in terminal that send it as an escape
+" sequence (gnome-terminal, for example)
+if ! has("gui_running")
+    let c='a'
+    while c <= 'z'
+        exec "set <A-".c.">=\e".c
+        exec "imap \e".c." <A-".c.">"
+        let c = nr2char(1+char2nr(c))
+    endw
+    set timeout ttimeoutlen=50
+endif
+
+
 if has("gui_running")
     " Get us some familiar keybindings in insert mode
     source $VIMRUNTIME/mswin.vim
@@ -180,13 +193,13 @@ inoremap <C-Space> <C-x><C-o>
 " tabpanes
 nmap <silent> <leader>t :tabnew<CR>
 nmap <silent> <leader>w :close<CR>
-if has ('gui_running')
+noremap <A-j> gt
+noremap <A-k> gT
+if has("gui_running")
     noremap <C-TAB> gt
     noremap <C-S-TAB> gT
     noremap <S-A-J> gt
     noremap <S-A-K> gT
-    inoremap <S-A-J> <ESC>gt
-    inoremap <S-A-K> <ESC>gT
 endif
 
 " splits
