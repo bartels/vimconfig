@@ -2,6 +2,7 @@
 let g:pathogen_disabled = []
 if !has('python')
     call add(g:pathogen_disabled, 'ultisnips')
+    call add(g:pathogen_disabled, 'gundo')
     call add(g:pathogen_disabled, 'jedi')
 endif
 call pathogen#infect()
