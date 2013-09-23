@@ -195,11 +195,15 @@ nmap <silent> <leader>t :tabnew<CR>
 nmap <silent> <leader>w :close<CR>
 noremap <A-j> gt
 noremap <A-k> gT
+inoremap <A-j> <ESC>gt
+inoremap <A-k> <ESC>gT
 if has("gui_running")
     noremap <C-TAB> gt
     noremap <C-S-TAB> gT
-    noremap <S-A-J> gt
-    noremap <S-A-K> gT
+    noremap <S-A-j> gt
+    noremap <S-A-k> gT
+    inoremap <S-A-j> <ESC>gt
+    inoremap <S-A-k> <ESC>gT
 endif
 
 " splits
