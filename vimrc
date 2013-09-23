@@ -130,7 +130,7 @@ let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_open_multiple_files = 't'
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("h")': ['<C-x>', '<C-s>'],
-    \ 'AcceptSelection("t")': ['<C-t>', '<C-Enter>', '<NL>'],
+    \ 'AcceptSelection("t")': ['<C-t>', '<C-Enter>'],
     \ }
 
 
