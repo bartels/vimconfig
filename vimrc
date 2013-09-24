@@ -43,7 +43,7 @@ syntax on
 filetype plugin indent on
 
 " Special filetypes
-autocmd FileType html set filetype=htmldjango
+" autocmd FileType html set filetype=htmldjango
 autocmd BufRead,BufNewFile *.thtml set filetype=php
 autocmd BufRead,BufNewFile *.ctp set filetype=php
 autocmd BufRead,BufNewFile *.wsgi set filetype=python
