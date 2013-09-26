@@ -37,6 +37,10 @@ set softtabstop=4
 set expandtab
 set smarttab
 
+" clipboard integration
+if has("unnamedplus")
+    set clipboard=unnamedplus
+endif
 
 " Turn on syntax and filetype detection
 syntax on
