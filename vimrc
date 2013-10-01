@@ -216,7 +216,7 @@ nmap <silent> <leader>v :vsplit<CR>
 nmap <silent> <leader>s :split<CR>
 
 " Show syntax highlighting groups for word under cursor
-nmap <C-S-P> :call <SID>SynStack()<CR>
+nmap <leader>y :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
