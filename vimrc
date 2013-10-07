@@ -47,11 +47,32 @@ syntax on
 filetype plugin indent on
 
 " Special filetypes
-" autocmd FileType html set filetype=htmldjango
-autocmd BufRead,BufNewFile *.thtml set filetype=php
-autocmd BufRead,BufNewFile *.ctp set filetype=php
-autocmd BufRead,BufNewFile *.wsgi set filetype=python
-autocmd BufRead,BufNewFile  Vagrantfile set filetype=ruby
+augroup filetypedetect
+  au BufNewFile,BufRead *.thtml,*.ctp set filetype=php
+  au BufNewFile,BufRead *.wsgi set filetype=python
+  au BufNewFile,BufRead  Vagrantfile set filetype=ruby
+
+  " removes current htmldjango detection located at $VIMRUNTIME/filetype.vim
+  au! BufNewFile,BufRead *.html,*.htm
+  au  BufNewFile,BufRead,BufWrite *.html,*.htm  call FThtml()
+
+  " Better htmldjango detection
+  func! FThtml()
+    let n = 1
+    while n < 10 && n <= line("$")
+      if getline(n) =~ '\<DTD\s\+XHTML\s'
+        setf xhtml
+        return
+      endif
+      if getline(n) =~ '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>'
+        setf htmldjango
+        return
+      endif
+      let n = n + 1
+    endwhile
+    setf html
+  endfunc
+augroup END
 
 " Don't write pesky backup files
 set nobackup
@@ -93,7 +114,7 @@ endif
 
 " Folding
 set foldmethod=manual
-autocmd FileType text setlocal foldmethod=marker
+au FileType text setlocal foldmethod=marker
 
 " Change the mapleader from \ to ,
 let mapleader=","
