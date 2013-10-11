@@ -9,16 +9,16 @@ call pathogen#infect()
 
 " Some nice defaults
 set nocompatible
-set number  " line numbering
-set title   " display title in terminal window
+set number
+set title   " title in terminal window
 set hidden  " buffers can be hidden without requiring disk write
-set incsearch hlsearch  " highlight and show search terms as you type
-set scrolloff=3  " min number of lines of context to show while scrolling
-set sidescrolloff=3  " same as above but with columns
+set incsearch hlsearch
+set scrolloff=3  "context lines while scrolling
+set sidescrolloff=3  " same but with columns
 set wildmenu
-set wildmode=longest,list  " sets file completion search to stop at common substring
-set wildignore=*~,*.bak,*.o,*.pyc,*.pyo  " ignore these file globs in wildmode
-set completeopt=longest,menuone  " insert mode completion menu
+set wildmode=longest,list  " complete to common string, list all matches
+set wildignore=*~,*.bak,*.o,*.pyc,*.pyo
+set completeopt=longest,menuone,preview
 set laststatus=2  " always show statusline
 set backspace=indent,eol,start	" more powerful backspacing
 set autoindent
@@ -26,8 +26,8 @@ set fileformats+=mac
 set display+=lastline
 set history=1000
 set tabpagemax=50
-" Turn off match paren
-let loaded_matchparen = 1
+
+let loaded_matchparen = 1 " Turns off matchparen
 
 " spaces, not tabs
 set tabstop=8
