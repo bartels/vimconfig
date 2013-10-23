@@ -82,3 +82,7 @@
 	path = bundle/virtualenv
 	url = https://github.com/jmcantrell/vim-virtualenv.git
         ignore = untracked
+[submodule "bundle/neocomplete"]
+	path = bundle/neocomplete
+	url = https://github.com/Shougo/neocomplete.vim.git
+        ignore = untracked

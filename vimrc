@@ -5,6 +5,9 @@ if !has('python')
     call add(g:pathogen_disabled, 'gundo')
     call add(g:pathogen_disabled, 'jedi')
 endif
+if !has('lua')
+    call add(g:pathogen_disabled, 'neocomplete')
+endif
 call pathogen#infect()
 
 " Some nice defaults
@@ -18,7 +21,7 @@ set sidescrolloff=3  " same but with columns
 set wildmenu
 set wildmode=longest,list  " complete to common string, list all matches
 set wildignore=*~,*.bak,*.o,*.pyc,*.pyo
-set completeopt=longest,menuone,preview
+set completeopt=menuone,longest,preview
 set laststatus=2  " always show statusline
 set backspace=indent,eol,start	" more powerful backspacing
 set autoindent
@@ -136,6 +139,18 @@ let g:syntastic_auto_jump = 0
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_python_flake8_args='--ignore=E12'
 nmap <leader>e :SyntasticToggleMode<CR>
+
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 0
+let g:neocomplete#data_directory = '~/.cache/vim/neocomplete'
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w\|from \w'
+"let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
 
 " ultisnips Settings
 let g:UltiSnipsUsePythonVersion = 2
