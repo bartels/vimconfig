@@ -152,7 +152,10 @@ endif
 let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w\|from \w'
 "let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
 
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " ultisnips Settings
+let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsListSnippets = "<s-tab>"
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
