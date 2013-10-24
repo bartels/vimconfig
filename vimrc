@@ -208,6 +208,8 @@ function! s:unite_buf_settings()
     imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
 
+" surround
+let g:surround_no_insert_mappings = 1
 
 " Custom Mappings
 """""""""""""""""
