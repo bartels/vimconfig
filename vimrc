@@ -151,14 +151,13 @@ if !exists('g:neocomplete#force_omni_input_patterns')
 endif
 let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w\|from \w'
 
-
 " Tab completion in menus
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " ultisnips Settings
-let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsExpandTrigger = "<c-j>"
+"let g:UltiSnipsListSnippets = "<c-j>"
 let g:UltiSnipsUsePythonVersion = 2
-let g:UltiSnipsListSnippets = "<s-tab>"
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 let g:UltiSnipsEditSplit = "vertical"
 
@@ -184,6 +183,7 @@ nnoremap <leader>f :<C-u>Unite -buffer-name=files     -start-insert file_rec/asy
 nnoremap <leader>b :<C-u>Unite -buffer-name=buffers   -start-insert buffer<CR>
 nnoremap <leader>a :<C-u>Unite -buffer-name=grep      grep:.<CR>
 nnoremap <leader>y :<C-u>Unite -buffer-name=yank      history/yank<CR>
+nnoremap <leader>u <C-o>:<C-u> Unite ultisnips<CR>
 
 " Unite buffer settings
 au FileType unite call s:unite_buf_settings()
