@@ -150,8 +150,9 @@ if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w\|from \w'
-"let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
 
+
+" Tab completion in menus
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " ultisnips Settings
@@ -168,16 +169,42 @@ else
     let g:gundo_disable = 1
 endif
 
-" ctrlp
-nnoremap <leader>f :CtrlP<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
-let g:ctrlp_max_height = 30
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_open_multiple_files = 't'
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("h")': ['<C-x>', '<C-s>'],
-    \ 'AcceptSelection("t")': ['<C-t>', '<C-Enter>'],
-    \ }
+" Unite.vim
+let g:unite_winheight = 30
+let g:unite_split_rule = 'botright'
+let g:unite_force_overwrite_statusline = 0
+let g:unite_source_history_yank_enable = 1
+
+call unite#filters#matcher_default#use(['matcher_glob', 'matcher_fuzzy'])
+call unite#custom#source('buffer,file,file_mru,file_rec,file_rec/async',
+            \ 'sorters', ['sorter_length', 'sorter_rank'])
+
+" Unite command maps
+nnoremap <leader>f :<C-u>Unite -buffer-name=files     -start-insert file_rec/async:!<CR>
+nnoremap <leader>b :<C-u>Unite -buffer-name=buffers   -start-insert buffer<CR>
+nnoremap <leader>a :<C-u>Unite -buffer-name=grep      grep:.<CR>
+nnoremap <leader>y :<C-u>Unite -buffer-name=yank      history/yank<CR>
+
+" Unite buffer settings
+au FileType unite call s:unite_buf_settings()
+function! s:unite_buf_settings()
+    " exiting
+    nmap <buffer> <ESC> <Plug>(unite_exit)
+    nmap <buffer> <C-c> <Plug>(unite_all_exit)
+    imap <buffer> <C-c> <ESC><Plug>(unite_all_exit)
+    nmap <buffer> <C-g> <Plug>(unite_all_exit)
+    imap <buffer> <C-g> <ESC><Plug>(unite_all_exit)
+
+    " actions
+    imap <silent><buffer><expr> <C-Enter> unite#do_action('tabopen')
+    imap <silent><buffer><expr> <C-s> unite#do_action('split')
+    imap <silent><buffer><expr> <C-x> unite#do_action('split')
+    imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+
+    " navigation
+    imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+    imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
 
 
 " Custom Mappings
@@ -257,7 +284,7 @@ nmap <silent> <leader>v :vsplit<CR>
 nmap <silent> <leader>s :split<CR>
 
 " Show syntax highlighting groups for word under cursor
-nmap <leader>y :call <SID>SynStack()<CR>
+nmap <leader>sy :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
