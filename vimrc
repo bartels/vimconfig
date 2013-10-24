@@ -29,6 +29,8 @@ set fileformats+=mac
 set display+=lastline
 set history=1000
 set tabpagemax=50
+set timeout
+set timeoutlen=250 ttimeoutlen=50
 
 let loaded_matchparen = 1 " Turns off matchparen
 
@@ -192,8 +194,8 @@ function! s:unite_buf_settings()
     nmap <buffer> <ESC> <Plug>(unite_exit)
     nmap <buffer> <C-c> <Plug>(unite_all_exit)
     imap <buffer> <C-c> <ESC><Plug>(unite_all_exit)
-    nmap <buffer> <C-g> <Plug>(unite_all_exit)
-    imap <buffer> <C-g> <ESC><Plug>(unite_all_exit)
+    nmap <buffer> <C-g> <C-c>
+    imap <buffer> <C-g> <C-c>
 
     " actions
     imap <silent><buffer><expr> <C-Enter> unite#do_action('tabopen')
@@ -219,7 +221,6 @@ if ! has("gui_running")
         exec "imap \e".c." <A-".c.">"
         let c = nr2char(1+char2nr(c))
     endw
-    set timeout ttimeoutlen=50
 endif
 
 
