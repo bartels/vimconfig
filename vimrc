@@ -208,6 +208,7 @@ nnoremap <silent><expr><leader>b UniteCmd('buffer', '-start-insert -buffer-name=
 nnoremap <silent><expr><leader>a UniteCmd('grep:.', '-buffer-name=grep')
 nnoremap <silent><expr><leader>y UniteCmd('history/yank', '-buffer-name=yank')
 nnoremap <silent><expr><leader>u UniteCmd('ultisnips', '-buffer-name=ultisnips')
+nnoremap <silent><expr><leader>o UniteCmd('outline', '-buffer-name=outline')
 
 " Unite buffer settings
 au FileType unite call s:unite_buffer_maps()
