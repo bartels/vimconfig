@@ -30,7 +30,7 @@ set cpo&vim
 let s:source = {
       \ 'name' : 'ultisnips',
       \ 'kind' : 'keyword',
-      \ 'mark': '[UL]',
+      \ 'mark': '[US]',
       \ 'rank' : 8,
       \ 'hooks' : {},
       \}
@@ -40,14 +40,21 @@ function! s:source.hooks.on_init(context) "{{{
 endfunction"}}}
 
 function! s:source.gather_candidates(context) "{{{
-  return keys(UltiSnips_SnippetsInCurrentScope())
-endfunction"}}}
+  let snippet_list = UltiSnips_SnippetsInCurrentScope()
+  let candidates = []
+  for snip in items(snippet_list)
+    let curr = {'word': snip[0]}
+    " set info
+    "if snip[1] != ''
+    "  let curr['info'] = snip[0] . ': ' . snip[1]
+    "endif
+    if snip[1] != ''
+        let curr['menu'] = '[US] ' . snip[1]
+    endif
 
-function! s:source.hooks.on_post_filter(context)
-  for snippet in a:context.candidates
-    let snippet.dup = 1
+    call add(candidates, curr)
   endfor
-  return a:context.candidates
+  return candidates
 endfunction"}}}
 
 function! neocomplete#sources#ultisnips#define() "{{{
