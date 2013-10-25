@@ -132,8 +132,13 @@ nmap <leader>l :set list!<CR>
 " matchit is nice for extended matching using '%'
 runtime macros/matchit.vim
 
+
+"""""""""""""""""
 " Plugin Settings
 """""""""""""""""
+
+" what search programs are available
+let s:has_ag = executable('ag')
 
 " Syntastic settings
 let g:syntastic_mode_map = { 'mode': 'passive' }
@@ -171,25 +176,42 @@ else
 endif
 
 " Unite.vim
-let g:unite_winheight = 30
+let g:unite_winheight = 25
 let g:unite_split_rule = 'botright'
 let g:unite_force_overwrite_statusline = 0
 let g:unite_source_history_yank_enable = 1
+let g:unite_enable_smart_case = 1
+let g:unite_source_rec_max_cache_files = 5000
+let g:unite_data_directory = '~/.cache/vim/unite'
 
-call unite#filters#matcher_default#use(['matcher_glob', 'matcher_fuzzy'])
-call unite#custom#source('buffer,file,file_mru,file_rec,file_rec/async',
-            \ 'sorters', ['sorter_length', 'sorter_rank'])
+if s:has_ag
+    let g:unite_source_rec_async_command = 'ag -l .'
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+    let g:unite_source_grep_recursive_opt = ''
+end
+
+call unite#custom#source(
+            \ 'buffer,file,file_mru,file_rec,file_rec/async',
+            \ 'sorters', ['sorter_length'])
 
 " Unite command maps
-nnoremap <leader>f :<C-u>Unite -buffer-name=files     -start-insert file_rec/async:!<CR>
-nnoremap <leader>b :<C-u>Unite -buffer-name=buffers   -start-insert buffer<CR>
-nnoremap <leader>a :<C-u>Unite -buffer-name=grep      grep:.<CR>
-nnoremap <leader>y :<C-u>Unite -buffer-name=yank      history/yank<CR>
-nnoremap <leader>u <C-o>:<C-u> Unite ultisnips<CR>
+function! UniteCmd(action, arguments)
+    return ":\<C-u>Unite " . a:action . " " . a:arguments . "\<CR>"
+endfunction
+
+nnoremap <silent><expr><leader>f UniteCmd(
+                \ 'file' . (expand('%') == '' ? '' : ':%:h') .
+                \' file_rec/async:!' . (expand('%') == '' ? '' : ':%:h'),
+            \'-start-insert -buffer-name=files')
+nnoremap <silent><expr><leader>b UniteCmd('buffer', '-start-insert -buffer-name=buffer')
+nnoremap <silent><expr><leader>a UniteCmd('grep:.', '-buffer-name=grep')
+nnoremap <silent><expr><leader>y UniteCmd('history/yank', '-buffer-name=yank')
+nnoremap <silent><expr><leader>u UniteCmd('ultisnips', '-buffer-name=ultisnips')
 
 " Unite buffer settings
-au FileType unite call s:unite_buf_settings()
-function! s:unite_buf_settings()
+au FileType unite call s:unite_buffer_maps()
+function! s:unite_buffer_maps()
     " exiting
     nmap <buffer> <ESC> <Plug>(unite_exit)
     nmap <buffer> <C-c> <Plug>(unite_all_exit)
@@ -211,6 +233,8 @@ endfunction
 " surround
 let g:surround_no_insert_mappings = 1
 
+
+"""""""""""""""""
 " Custom Mappings
 """""""""""""""""
 
