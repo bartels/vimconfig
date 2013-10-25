@@ -90,3 +90,6 @@
 [submodule "bundle/unite-outline"]
 	path = bundle/unite-outline
 	url = https://github.com/h1mesuke/unite-outline.git
+[submodule "bundle/unite-help"]
+	path = bundle/unite-help
+	url = https://github.com/tsukkee/unite-help.git
