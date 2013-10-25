@@ -29,7 +29,7 @@ fun! python:breakpoint_Set(lnum)
     endif
 endfunction
 
-nnoremap <silent> <buffer> <leader>b :call python:breakpoint_Set(line('.'))<CR>
+nnoremap <silent> <buffer> <leader>p :call python:breakpoint_Set(line('.'))<CR>
 endif
 
 " Highlight lines over 80 chars
