@@ -106,8 +106,6 @@ else
     set background=dark
     colorscheme wombat
 endif
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
 
 " Mouse support
 if has("mouse")
