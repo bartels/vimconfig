@@ -11,10 +11,6 @@
 	path = bundle/xmledit
 	url = https://github.com/sukima/xmledit.git
         ignore = untracked
-[submodule "bundle/hexhighlight"]
-	path = bundle/hexhighlight
-	url = https://github.com/yurifury/hexHighlight.git
-        ignore = untracked
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
@@ -90,6 +86,12 @@
 [submodule "bundle/unite-outline"]
 	path = bundle/unite-outline
 	url = https://github.com/h1mesuke/unite-outline.git
+        ignore = untracked
 [submodule "bundle/unite-help"]
 	path = bundle/unite-help
 	url = https://github.com/tsukkee/unite-help.git
+        ignore = untracked
+[submodule "bundle/color_highlight"]
+	path = bundle/color_highlight
+	url = https://github.com/chrisbra/color_highlight.git
+        ignore = untracked
