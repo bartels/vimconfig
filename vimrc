@@ -1,10 +1,12 @@
-" pathogen modifes the runtime path to include plugins under ~/.vim/bundle/
+" Use pathogen for plugins - install plugins under ~/.vim/bundle/
 let g:pathogen_disabled = []
+" These plugins require python support
 if !has('python')
     call add(g:pathogen_disabled, 'ultisnips')
     call add(g:pathogen_disabled, 'gundo')
     call add(g:pathogen_disabled, 'jedi')
 endif
+" These plugins require lua support
 if !has('lua')
     call add(g:pathogen_disabled, 'neocomplete')
 endif
