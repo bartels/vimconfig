@@ -32,7 +32,7 @@ set display+=lastline
 set history=1000
 set tabpagemax=50
 set timeout
-set timeoutlen=250 ttimeoutlen=50
+set timeoutlen=500 ttimeoutlen=50
 
 let loaded_matchparen = 1 " Turns off matchparen
 
