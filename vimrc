@@ -159,7 +159,9 @@ let g:neocomplete#data_directory = '~/.cache/vim/neocomplete'
 if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
 endif
-let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w\|from \w'
+"let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w\|from \w'
+let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w'
+
 
 " Tab completion in menus
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
