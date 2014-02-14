@@ -1,5 +1,5 @@
 " GUI Options
-win 160 60
+win 160 52
 set showtabline=1  " Only show tabs if there are more than one
 set guitablabel=%t
 set guioptions-=T  " Remove toolbar
