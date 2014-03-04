@@ -27,10 +27,6 @@
 	path = bundle/vim-less
 	url = https://github.com/groenewege/vim-less
         ignore = untracked
-[submodule "bundle/python-mode"]
-	path = bundle/python-mode
-	url = https://github.com/klen/python-mode.git
-        ignore = untracked
 [submodule "bundle/solarized"]
 	path = bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
