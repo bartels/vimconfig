@@ -95,3 +95,7 @@
 	path = bundle/goyo
 	url = https://github.com/junegunn/goyo.vim.git
         ignore = untracked
+[submodule "bundle/airline"]
+	path = bundle/airline
+	url = https://github.com/bling/vim-airline.git
+        ignore = untracked

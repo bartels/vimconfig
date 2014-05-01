@@ -10,6 +10,8 @@ endif
 if !has('lua')
     call add(g:pathogen_disabled, 'neocomplete')
 endif
+" TEMP
+call add(g:pathogen_disabled, 'powerline')
 call pathogen#infect()
 
 " Some nice defaults
@@ -114,6 +116,13 @@ else
     set background=dark
     colorscheme lucius
     LuciusDark
+endif
+
+" airline
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+if ! has("gui_running")
+    let g:airline_theme = 'powerlineish'
 endif
 
 " Mouse support
