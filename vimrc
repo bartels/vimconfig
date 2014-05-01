@@ -271,6 +271,33 @@ endfunction
 " surround
 let g:surround_no_insert_mappings = 1
 
+" goyo (distraction free writing)
+map <leader>` :Goyo<CR>
+
+function! s:goyo_before()
+    noremap     <buffer> <silent> <Up> g<Up>
+    noremap     <buffer> <silent> <Down> g<Down>
+    noremap     <buffer> <silent> k gk
+    noremap     <buffer> <silent> j gj
+    inoremap    <buffer> <silent> <Up> <C-o>g<Up>
+    inoremap    <buffer> <silent> <Down> <C-o>g<Down>
+    set scrolloff=999
+    set linebreak
+endfunction
+
+function! s:goyo_after()
+    unmap     <buffer>  <Up>
+    unmap     <buffer>  <Down>
+    unmap     <buffer>  k
+    unmap     <buffer>  j
+    iunmap    <buffer>  <Up>
+    iunmap    <buffer>  <Down>
+    set scrolloff=3
+    set nolinebreak
+endfunction
+
+let g:goyo_callbacks = [function('s:goyo_before'), function('s:goyo_after')]
+
 
 """""""""""""""""
 " Custom Mappings
