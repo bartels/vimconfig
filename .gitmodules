@@ -47,10 +47,6 @@
 	path = bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
         ignore = untracked
-[submodule "bundle/powerline"]
-	path = bundle/powerline
-	url = https://github.com/Lokaltog/vim-powerline.git
-        ignore = untracked
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git

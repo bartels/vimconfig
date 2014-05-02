@@ -10,8 +10,6 @@ endif
 if !has('lua')
     call add(g:pathogen_disabled, 'neocomplete')
 endif
-" TEMP
-call add(g:pathogen_disabled, 'powerline')
 call pathogen#infect()
 
 " Some nice defaults
