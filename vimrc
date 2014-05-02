@@ -160,7 +160,7 @@ function! ToggleVExplorer()
       endif
   else
       exec '1wincmd w'
-      Vexplore
+      exec 'Vexplore ' . getcwd()
       let t:expl_buf_num = bufnr("%")
   endif
 endfunction
