@@ -95,3 +95,6 @@
 	path = bundle/airline
 	url = https://github.com/bling/vim-airline.git
         ignore = untracked
+[submodule "bundle/vim-jsx"]
+	path = bundle/vim-jsx
+	url = https://github.com/mxw/vim-jsx.git
