@@ -198,8 +198,7 @@ let g:neocomplete#data_directory = '~/.cache/vim/neocomplete'
 if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
 endif
-"let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w\|from \w'
-let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|import \w'
+let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|from \w\+\s\+import \w'
 
 
 " Tab completion in menus
