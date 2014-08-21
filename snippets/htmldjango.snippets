@@ -10,3 +10,15 @@ snippet comment "django comment" !
   ${VISUAL}
 {% endcomment %}
 endsnippet
+
+
+snippet verbatim "verbatim templatetag"
+{% verbatim %}
+$1${VISUAL}
+{% endverbatim %}
+endsnippet
+
+
+snippet static "static templatetag" w
+{% static "$1" %}
+endsnippet
