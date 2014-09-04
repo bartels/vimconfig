@@ -107,3 +107,7 @@
 	path = bundle/instant-markdown
 	url = https://github.com/suan/vim-instant-markdown.git
         ignore = untracked
+[submodule "bundle/tern_for_vim"]
+	path = bundle/tern_for_vim
+	url = https://github.com/marijnh/tern_for_vim.git
+        ignore = untracked
