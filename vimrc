@@ -174,6 +174,9 @@ endfunction
 
 map <silent> <f12> :call ToggleVExplorer()<CR>
 
+let g:vim_json_syntax_conceal = 0
+
+
 """""""""""""""""
 " Plugin Settings
 """""""""""""""""
@@ -187,6 +190,7 @@ let g:syntastic_auto_jump = 0
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_python_flake8_args='--ignore=E12'
 let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_json_checkers = ['jsonlint']
 nmap <leader>e :SyntasticToggleMode<CR>
 
 " neocomplete
