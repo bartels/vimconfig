@@ -257,6 +257,7 @@ nnoremap <silent><expr><leader>y UniteCmd('history/yank', '-buffer-name=yank')
 nnoremap <silent><expr><leader>u UniteCmd('ultisnips', '-buffer-name=ultisnips')
 nnoremap <silent><expr><leader>o UniteCmd('outline', '-buffer-name=outline')
 nnoremap <silent><expr><leader>h UniteCmd('help', '-start-insert -buffer-name=help')
+nnoremap <silent><expr><leader>r UniteCmd('file_mru', '-start-insert')
 
 " Unite buffer settings
 au FileType unite call s:unite_buffer_maps()
