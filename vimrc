@@ -59,6 +59,7 @@ augroup filetypedetect
   au BufNewFile,BufRead *.wsgi set filetype=python
   au BufNewFile,BufRead  Vagrantfile set filetype=ruby
   au BufNewFile,BufRead *.conf set filetype=conf
+  au BufNewFile,BufRead *.ejs set filetype=html
 
   " removes current htmldjango detection located at $VIMRUNTIME/filetype.vim
   au! BufNewFile,BufRead *.html,*.htm
