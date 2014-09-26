@@ -311,6 +311,7 @@ endfunction
 
 let g:goyo_callbacks = [function('s:goyo_before'), function('s:goyo_after')]
 
+let g:instant_markdown_autostart = 0
 
 """""""""""""""""
 " Custom Mappings
