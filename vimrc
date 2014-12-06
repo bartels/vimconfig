@@ -35,8 +35,7 @@ set fileformats+=mac
 set display+=lastline
 set history=1000
 set tabpagemax=50
-set timeout
-set timeoutlen=500 ttimeoutlen=50
+set timeout timeoutlen=500 ttimeoutlen=50
 
 let loaded_matchparen = 1 " Turns off matchparen
 
@@ -333,8 +332,8 @@ let g:instant_markdown_autostart = 0
 " Custom Mappings
 """""""""""""""""
 
-" Fix so vim can recognize "Alt" key in terminal that send it as an escape
-" sequence (gnome-terminal, for example)
+" Fix so vim can recognize "Alt" key in terminals that send an escape sequence
+" see: https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
 if ! has("gui_running")
     let c='a'
     while c <= 'z'
@@ -345,30 +344,22 @@ if ! has("gui_running")
 endif
 
 
-if has("gui_running")
-    " Get us some familiar keybindings in insert mode
-    source $VIMRUNTIME/mswin.vim
-
-    " no ctrl-a in normal mode
-    nunmap <C-A>
-
-    " get scrolling back from mswin.vim
-    noremap <C-y> <C-y>
-
-    " editing helpers (these only work in gui mode)
-    inoremap <C-Enter> <C-o>o
-    inoremap <C-S-Enter> <C-o>O
-    inoremap <C-DEL> <C-O>dw
-    inoremap <C-BACKSPACE> <C-W>
-endif
-
-
 " Escape insert mode
 inoremap <Esc> <Esc>`^
 imap kj <Esc>
 
 " Escaping command mode (I've been playing with emacs evil-mode)
 cnoremap <C-g> <C-c>
+
+" Some familiar editing bindings
+" These do not work in terminal
+if has("gui_running")
+    inoremap <C-DEL> <C-O>dw
+    inoremap <C-BACKSPACE> <C-W>
+    inoremap <C-Enter> <C-o>o
+    inoremap <C-S-Enter> <C-o>O
+endif
+
 
 " Save file with sudo
 cmap w!! w !sudo tee % > /dev/null
@@ -385,13 +376,14 @@ nmap <C-k> <C-W>k
 " omnicomplete shortcut
 inoremap <C-Space> <C-x><C-o>
 
-" tabpanes
+" tabpages
 nmap <silent> <leader>t :tabnew<CR>
 nmap <silent> <leader>w :close<CR>
 noremap <A-j> gt
 noremap <A-k> gT
 inoremap <A-j> <ESC>gt
 inoremap <A-k> <ESC>gT
+" these do not work in terminal
 if has("gui_running")
     noremap <C-TAB> gt
     noremap <C-S-TAB> gT
