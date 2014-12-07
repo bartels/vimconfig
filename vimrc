@@ -350,6 +350,8 @@ imap kj <Esc>
 
 " Escaping command mode (I've been playing with emacs evil-mode)
 cnoremap <C-g> <C-c>
+vnoremap <C-g> <C-c>
+snoremap <C-g> <C-c>
 
 " Some familiar editing bindings
 " These do not work in terminal
