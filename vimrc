@@ -90,6 +90,10 @@ augroup END
 set nobackup
 set nowritebackup
 
+" update file when changes are made outside of vim
+set autoread
+au CursorHold,CursorHoldI * checktime
+
 " Use ~/.cache/vim/ for swap files, backups & undo history
 " but only if it exists: mkdir -p ~/.cache/vim/{swap,backup,undo}
 if isdirectory(expand('~/.cache/vim'))
