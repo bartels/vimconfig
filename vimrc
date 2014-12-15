@@ -14,7 +14,7 @@ if !has('lua')
 endif
 
 " init pathogen
-call pathogen#infect()
+execute pathogen#infect()
 
 " Some nice defaults
 set nocompatible
