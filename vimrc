@@ -254,7 +254,7 @@ let g:unite_data_directory = '~/.cache/vim/unite'
 if s:has_ag
     let g:unite_source_rec_async_command = 'ag -l .'
     let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column --ignore dist/ --ignore bower_components/ --ignore node_modules/'
     let g:unite_source_grep_recursive_opt = ''
 end
 
