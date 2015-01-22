@@ -52,6 +52,13 @@ if has("unnamedplus")
     set clipboard=unnamedplus
 endif
 
+" Set sgr style mouse handling
+" Settings this works fine with gnome-terminal/tmux combo.  It should be
+" compatible with xterm too, but not sure what other terminals support it.
+" :help ttymouse
+set ttymouse=sgr
+
+
 " Turn on syntax and filetype detection
 syntax on
 filetype plugin indent on
