@@ -261,7 +261,7 @@ let g:unite_data_directory = '~/.cache/vim/unite'
 if s:has_ag
     let g:unite_source_rec_async_command = 'ag -l .'
     let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column --ignore dist/ --ignore bower_components/ --ignore node_modules/'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column --ignore dist/ --ignore bower_components/ --ignore node_modules/ --ignore coverage/'
     let g:unite_source_grep_recursive_opt = ''
 end
 
@@ -373,6 +373,9 @@ if has("gui_running")
     inoremap <C-S-Enter> <C-o>O
 endif
 
+" Easier way to jump to the beginning/end of the line
+nnoremap <S-H> ^
+nnoremap <S-L> $
 
 " Save file with sudo
 cmap w!! w !sudo tee % > /dev/null
