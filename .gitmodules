@@ -111,3 +111,6 @@
 	path = bundle/tern_for_vim
 	url = https://github.com/marijnh/tern_for_vim.git
         ignore = untracked
+[submodule "bundle/tmux-navigator"]
+	path = bundle/tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
