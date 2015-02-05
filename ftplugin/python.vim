@@ -19,7 +19,7 @@ except ImportError:
     vim.command('let g:python_breakpoint_cmd = "import pdb; pdb.set_trace() ### XXX BREAKPOINT"')
 EOF
 
-fun! python:breakpoint_Set(lnum)
+fun! BreakpointSet(lnum)
     let line = getline(a:lnum)
     if strridx(line, g:python_breakpoint_cmd) != -1
         normal dd
@@ -30,7 +30,7 @@ fun! python:breakpoint_Set(lnum)
     endif
 endfunction
 
-nnoremap <silent> <buffer> <leader>p :call python:breakpoint_Set(line('.'))<CR>
+nnoremap <silent> <buffer> <leader>p :call BreakpointSet(line('.'))<CR>
 endif
 
 " Highlight lines over 80 chars
