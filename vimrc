@@ -48,7 +48,7 @@ set expandtab
 set smarttab
 
 " clipboard integration
-if has("unnamedplus")
+if has("unnamedplus") || has("nvim")
     set clipboard=unnamedplus
 endif
 
