@@ -17,7 +17,6 @@ endif
 execute pathogen#infect()
 
 " Some nice defaults
-set nocompatible
 set number
 set title   " title in terminal window
 set hidden  " buffers can be hidden without requiring disk write
