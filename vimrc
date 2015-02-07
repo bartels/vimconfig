@@ -1,4 +1,9 @@
-" Use pathogen for plugins - install plugins under ~/.vim/bundle/
+" Use pathogen for plugins
+" Plugins are installed using 'git submodule', under ~/.vim/bundle/
+
+" By default, pathogen will try to load all plugins, so selectively disable
+" some if features are not available, makes this vimrc more useful on systems
+" that lack features such as pythyon or lua support.
 let g:pathogen_disabled = []
 
 " These plugins require python support
@@ -17,26 +22,31 @@ endif
 execute pathogen#infect()
 
 " Some nice defaults
-set number
-set title   " title in terminal window
-set hidden  " buffers can be hidden without requiring disk write
-set incsearch hlsearch
-set scrolloff=3  "context lines while scrolling
-set sidescrolloff=3  " same but with columns
-set wildmenu
-set wildmode=longest,list  " complete to common string, list all matches
-set wildignore=*~,*.bak,*.o,*.pyc,*.pyo
-set completeopt=menuone,longest,preview
-set laststatus=2  " always show statusline
+set number                      " show line numbers
+set title                       " title in terminal window
+set hidden                      " buffers can be hidden without requiring disk write
+set incsearch hlsearch          " highlight the current search term
+set scrolloff=3                 " number of context lines while scrolling
+set sidescrolloff=3             " number of context columns
+set laststatus=2                " always show the statusline
 set backspace=indent,eol,start	" more powerful backspacing
-set autoindent
-set fileformats+=mac
-set display+=lastline
-set history=1000
-set tabpagemax=50
+set fileformats+=mac            " add 'mac' style EOLs
+set display+=lastline           " always show as much of last line as possible
+set history=1000                " command history entries
+set tabpagemax=50               " increase max tabpages
+
+" key sequence timeouts
 set timeout timeoutlen=500 ttimeoutlen=50
 
-let loaded_matchparen = 1 " Turns off matchparen
+" Enhanced command line completion options
+set wildmenu
+set wildmode=longest,list
+set wildignore=*~,*.bak,*.o,*.pyc,*.pyo
+
+" Insert mode completion
+set completeopt=menuone,longest,preview
+
+let loaded_matchparen = 1   " Turns off matchparen which I find annoying
 
 " spaces, not tabs
 set tabstop=8
@@ -51,18 +61,17 @@ if has("unnamedplus") || has("nvim")
     set clipboard=unnamedplus
 endif
 
-" Set sgr style mouse handling
-" Settings this works fine with gnome-terminal/tmux combo.  It should be
-" compatible with xterm too, but not sure what other terminals support it.
-" :help ttymouse
-set ttymouse=sgr
-
+" Don't litter backup files everywhere
+set nobackup
+set nowritebackup
 
 " Turn on syntax and filetype detection
 syntax on
 filetype plugin indent on
+set autoindent
 
 " Special filetypes
+" These are filetypes which should be recognized as another type.
 augroup filetypedetect
   au BufNewFile,BufRead *.thtml,*.ctp set filetype=php
   au BufNewFile,BufRead *.wsgi set filetype=python
@@ -92,24 +101,24 @@ augroup filetypedetect
   endfunc
 augroup END
 
-" Don't write pesky backup files
-set nobackup
-set nowritebackup
-
-" update file when changes are made outside of vim
+" This will update the buffer when file changes outside of vim
 set autoread
 au CursorHold,CursorHoldI * checktime
 
-" Use ~/.cache/vim/ for swap files, backups & undo history
-" but only if it exists: mkdir -p ~/.cache/vim/{swap,backup,undo}
+" Use ~/.cache/vim/ but only if directories exist
+" to enable: mkdir -p ~/.cache/vim/{swap,backup,undo}
 if isdirectory(expand('~/.cache/vim'))
+    " swap files
     if &directory =~# '^\.,' && isdirectory(expand('~/.cache/vim/swap'))
         set directory^=~/.cache/vim/swap//
     endif
+    " backup files
     if &backupdir =~# '^\.,' && isdirectory(expand('~/.cache/vim/backup'))
         set backupdir^=~/.cache/vim/backup//
     endif
-    if exists('+undodir') && isdirectory(expand('~/.cache/vim/undo')) && &undodir =~# '^\.\%(,\|$\)'
+    " undo directory
+    if exists('+undodir') && isdirectory(expand('~/.cache/vim/undo'))
+                \&& &undodir =~# '^\.\%(,\|$\)'
         set undodir^=~/.cache/vim/undo//
         set undofile
     endif
@@ -130,7 +139,7 @@ else
     LuciusDark
 endif
 
-" airline
+" airline - enhanced status line plugin
 if ! has("gui_running")
     let g:airline_powerline_fonts=1
     "let g:airline_theme = 'powerlineish'
@@ -151,6 +160,13 @@ endif
 " Mouse support
 if has("mouse")
     set mouse=a
+
+    " Force sgr style mouse handling when in tmux.
+    " Setting this works fine with gnome-terminal/tmux combo. It should be
+    " compatible with xterm too, but not sure what other terminals support it.
+    if $TERM == 'screen-256color'
+        set ttymouse=sgr
+    endif
 endif
 
 " Folding
@@ -206,10 +222,7 @@ let g:vim_json_syntax_conceal = 0
 " Plugin Settings
 """""""""""""""""
 
-" what search programs are available
-let s:has_ag = executable('ag')
-
-" Syntastic settings
+" Syntastic
 let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_auto_jump = 0
 let g:syntastic_auto_loc_list = 2
@@ -217,6 +230,7 @@ let g:syntastic_python_flake8_args='--ignore=E12'
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_json_checkers = ['jsonlint']
 nmap <leader>e :SyntasticToggleMode<CR>
+
 
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -230,23 +244,24 @@ endif
 let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|from \w\+\s\+import \w'
 let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 
-
 " Tab completion in menus
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" ultisnips Settings
+
+" UltiSnips
 let g:UltiSnipsExpandTrigger = "<c-j>"
 "let g:UltiSnipsListSnippets = "<c-j>"
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 let g:UltiSnipsEditSplit = "vertical"
 
-" gundo plugin (only works with vim >= 7.3
+" Gundo (only works with vim >= 7.3
 if v:version >= 703 && has("python")
     nnoremap <F5> :GundoToggle<CR>
 else
     let g:gundo_disable = 1
 endif
+
 
 " Unite.vim
 let g:unite_winheight = 25
@@ -257,26 +272,32 @@ let g:unite_enable_smart_case = 1
 let g:unite_source_rec_max_cache_files = 5000
 let g:unite_data_directory = '~/.cache/vim/unite'
 
-if s:has_ag
+" Use 'ag' for unite grep if available
+if executable('ag')
     let g:unite_source_rec_async_command = 'ag -l .'
     let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column --ignore dist/ --ignore bower_components/ --ignore node_modules/ --ignore coverage/'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column
+                \ --ignore dist/
+                \ --ignore bower_components/
+                \ --ignore node_modules/
+                \ --ignore coverage/'
     let g:unite_source_grep_recursive_opt = ''
 end
 
+" Configure to sort by length
 call unite#custom#source(
             \ 'buffer,file,file_mru,file_rec,file_rec/async',
             \ 'sorters', ['sorter_length'])
 
-" Unite command maps
+" Shortcut for calling unite commands
 function! UniteCmd(action, arguments)
     return ":\<C-u>Unite " . a:action . " " . a:arguments . "\<CR>"
 endfunction
 
-nnoremap <silent><expr><leader>f UniteCmd(
-                \ 'file' . (expand('%') == '' ? '' : ':%:h') .
-                \' file_rec/async:!' . (expand('%') == '' ? '' : ':%:h'),
-            \'-start-insert -buffer-name=files')
+" Set up key mappings to start Unite actions
+nnoremap <silent><expr><leader>f UniteCmd('file' . (expand('%') == '' ? '' : ':%:h') .
+                                                \' file_rec/async:!' . (expand('%') == '' ? '' : ':%:h'),
+                                                \'-start-insert -buffer-name=files')
 nnoremap <silent><expr><leader>b UniteCmd('buffer', '-start-insert -buffer-name=buffer')
 nnoremap <silent><expr><leader>a UniteCmd('grep:.', '-buffer-name=grep')
 nnoremap <silent><expr><leader>y UniteCmd('history/yank', '-buffer-name=yank')
@@ -285,7 +306,7 @@ nnoremap <silent><expr><leader>o UniteCmd('outline', '-buffer-name=outline')
 nnoremap <silent><expr><leader>h UniteCmd('help', '-start-insert -buffer-name=help')
 nnoremap <silent><expr><leader>r UniteCmd('file_mru', '-start-insert')
 
-" Unite buffer settings
+" Custom mappings when inside Unite buffers
 au FileType unite call s:unite_buffer_maps()
 function! s:unite_buffer_maps()
     " exiting
@@ -306,12 +327,15 @@ function! s:unite_buffer_maps()
     imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
 
-" surround
-let g:surround_no_insert_mappings = 1
 
-" goyo (distraction free writing)
+" Surround
+let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
+
+
+" goyo (for distraction free writing)
 map <leader>` :Goyo<CR>
 
+" Custom settings when in goyo mode
 function! s:goyo_before()
     noremap     <buffer> <silent> <Up> g<Up>
     noremap     <buffer> <silent> <Down> g<Down>
@@ -323,6 +347,7 @@ function! s:goyo_before()
     set linebreak
 endfunction
 
+" Restore settings when leaving goyo mode
 function! s:goyo_after()
     unmap     <buffer>  <Up>
     unmap     <buffer>  <Down>
@@ -336,7 +361,11 @@ endfunction
 
 let g:goyo_callbacks = [function('s:goyo_before'), function('s:goyo_after')]
 
+
+" instant-markdown
+" Don't autostart, run :InstantMarkdownPreview to start it
 let g:instant_markdown_autostart = 0
+
 
 """""""""""""""""
 " Custom Mappings
@@ -353,18 +382,19 @@ if ! has("gui_running")
     endw
 endif
 
-
-" Escape insert mode
+" Prevnt jumping back one char when leaving insert mode
 inoremap <Esc> <Esc>`^
+
+" Escape insert mode with kj
 imap kj <Esc>
 
-" Escaping command mode (I've been playing with emacs evil-mode)
+" C-g => C-c (I've been playing with emacs evil-mode)
 cnoremap <C-g> <C-c>
 vnoremap <C-g> <C-c>
 snoremap <C-g> <C-c>
 
 " Some familiar editing bindings
-" These do not work in terminal
+" These do not work in terminal vim
 if has("gui_running")
     inoremap <C-DEL> <C-O>dw
     inoremap <C-BACKSPACE> <C-W>
@@ -377,28 +407,31 @@ nnoremap <S-H> ^
 nnoremap <S-L> $
 
 " Save file with sudo
+" This is for when you accidentally open a file and realize you need to sudo
+" in order to save your changes.  Just run :w!!
 cmap w!! w !sudo tee % > /dev/null
 
-" Clear last search
+" Clear last search (to clear our current highlighted search terms)
 nnoremap <leader><space> :noh<CR>
 
-" navigating windows
+" Keyboard navaigation between windows
 nmap <C-h> <C-W>h
 nmap <C-l> <C-W>l
 nmap <C-j> <C-W>j
 nmap <C-k> <C-W>k
 
-" omnicomplete shortcut
+" Use C-Space as omnicomplete shortcut
 inoremap <C-Space> <C-x><C-o>
 
-" tabpages
+" Custom mappings for dealing with tabpages
 nmap <silent> <leader>t :tabnew<CR>
 nmap <silent> <leader>w :close<CR>
 noremap <A-j> gt
 noremap <A-k> gT
 inoremap <A-j> <ESC>gt
 inoremap <A-k> <ESC>gT
-" these do not work in terminal
+
+" Familiar bindings - these ones do not work in terminal
 if has("gui_running")
     noremap <C-TAB> gt
     noremap <C-S-TAB> gT
@@ -408,11 +441,13 @@ if has("gui_running")
     inoremap <S-A-k> <ESC>gT
 endif
 
-" splits
+" Mappings for creating window splits
 nmap <silent> <leader>v :vsplit<CR>
 nmap <silent> <leader>s :split<CR>
 
-" Show syntax highlighting groups for word under cursor
+" Shows the syntax highlighting group for word under cursor
+" This is useful if you're interested in figuring out how the current word is
+" being highlighted by color themes.
 nmap <leader>sy :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
@@ -421,6 +456,7 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-" Quickly edit & source vimrc
+" Open up vimrc file
 nmap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
+" Source the vimrc file
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
