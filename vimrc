@@ -125,16 +125,27 @@ endif
 " airline - enhanced status line plugin
 if ! has("gui_running")
     let g:airline_powerline_fonts=1
-    "let g:airline_theme = 'powerlineish'
-    "let g:airline_left_sep=''
     let g:airline_right_sep=''
 
+    " tabline
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_min_count = 2
     let g:airline#extensions#tabline#show_tab_type = 0
     let g:airline#extensions#tabline#show_buffers = 0
     let g:airline#extensions#tabline#fnamemod = ':t'
-    "let g:airline#extensions#tabline#fnamemod = ':p:.'
+
+    " customize some theme colors
+    let g:airline_theme_patch_func = 'AirlineThemePatch'
+    function! AirlineThemePatch(palette)
+        if g:airline_theme == 'lucius'
+            " make inactive split colors darker
+            for colors in values(a:palette.inactive)
+                let colors[2] = 242
+                let colors[3] = 237
+            endfor
+            let a:palette.inactive['airline_c'][2] = 244
+        endif
+    endfunction
 else
     let g:airline_left_sep=''
     let g:airline_right_sep=''
