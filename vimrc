@@ -383,9 +383,10 @@ inoremap <Esc> <Esc>`^
 imap kj <Esc>
 
 " C-g => C-c (I've been playing with emacs evil-mode)
+noremap <C-g> <C-c>
+inoremap <C-g> <C-c>
 cnoremap <C-g> <C-c>
-vnoremap <C-g> <C-c>
-snoremap <C-g> <C-c>
+
 
 " Some familiar editing bindings
 " These do not work in terminal vim
