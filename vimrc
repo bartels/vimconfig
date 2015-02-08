@@ -172,7 +172,7 @@ let mapleader=","
 
 " View for invisible chars when using set list
 set listchars=tab:▸\ ,eol:¬
-nmap <leader>l :set list!<CR>
+nnoremap <leader>l :set list!<CR>
 
 " matchit is nice for extended matching using '%'
 runtime macros/matchit.vim
@@ -207,7 +207,7 @@ function! ToggleVExplorer()
   endif
 endfunction
 
-map <silent> <f12> :call ToggleVExplorer()<CR>
+noremap <silent> <f12> :call ToggleVExplorer()<CR>
 
 let g:vim_json_syntax_conceal = 0
 
@@ -223,7 +223,7 @@ let g:syntastic_auto_loc_list = 2
 let g:syntastic_python_flake8_args='--ignore=E12'
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_json_checkers = ['jsonlint']
-nmap <leader>e :SyntasticToggleMode<CR>
+nnoremap <leader>e :SyntasticToggleMode<CR>
 
 
 " neocomplete
@@ -327,7 +327,7 @@ let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
 
 
 " goyo (for distraction free writing)
-map <leader>` :Goyo<CR>
+noremap <leader>` :Goyo<CR>
 
 " Custom settings when in goyo mode
 function! s:goyo_before()
@@ -404,23 +404,23 @@ nnoremap <S-L> $
 " Save file with sudo
 " This is for when you accidentally open a file and realize you need to sudo
 " in order to save your changes.  Just run :w!!
-cmap w!! w !sudo tee % > /dev/null
+cnoremap w!! w !sudo tee % > /dev/null
 
 " Clear last search (to clear our current highlighted search terms)
 nnoremap <leader><space> :noh<CR>
 
 " Keyboard navaigation between windows
-nmap <C-h> <C-W>h
-nmap <C-l> <C-W>l
-nmap <C-j> <C-W>j
-nmap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
 
 " Use C-Space as omnicomplete shortcut
 inoremap <C-Space> <C-x><C-o>
 
 " Custom mappings for dealing with tabpages
-nmap <silent> <leader>t :tabnew<CR>
-nmap <silent> <leader>w :close<CR>
+nnoremap <silent> <leader>t :tabnew<CR>
+nnoremap <silent> <leader>w :close<CR>
 noremap <A-j> gt
 noremap <A-k> gT
 inoremap <A-j> <ESC>gt
@@ -437,13 +437,13 @@ if has("gui_running")
 endif
 
 " Mappings for creating window splits
-nmap <silent> <leader>v :vsplit<CR>
-nmap <silent> <leader>s :split<CR>
+nnoremap <silent> <leader>v :vsplit<CR>
+nnoremap <silent> <leader>s :split<CR>
 
 " Shows the syntax highlighting group for word under cursor
 " This is useful if you're interested in figuring out how the current word is
 " being highlighted by color themes.
-nmap <leader>sy :call <SID>SynStack()<CR>
+nnoremap <leader>sy :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
@@ -452,6 +452,6 @@ function! <SID>SynStack()
 endfunc
 
 " Open up vimrc file
-nmap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
+nnoremap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
 " Source the vimrc file
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
