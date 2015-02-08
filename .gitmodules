@@ -15,10 +15,6 @@
 	path = bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
         ignore = untracked
-[submodule "bundle/vcscommand"]
-	path = bundle/vcscommand
-	url = git://repo.or.cz/vcscommand
-        ignore = untracked
 [submodule "bundle/javascript"]
 	path = bundle/javascript
 	url = https://github.com/pangloss/vim-javascript.git
