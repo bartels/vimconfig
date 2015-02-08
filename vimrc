@@ -9,7 +9,6 @@ let g:pathogen_disabled = []
 " These plugins require python support
 if !has('python')
     call add(g:pathogen_disabled, 'ultisnips')
-    call add(g:pathogen_disabled, 'gundo')
     call add(g:pathogen_disabled, 'jedi')
 endif
 
@@ -249,13 +248,12 @@ let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 let g:UltiSnipsEditSplit = "vertical"
 
-" Gundo (only works with vim >= 7.3
-if v:version >= 703 && has("python")
-    nnoremap <F5> :GundoToggle<CR>
-else
-    let g:gundo_disable = 1
+" undotree (only works with vim >= 7.3)
+if v:version >= 703
+    nnoremap <F5> :UndotreeToggle<CR>
 endif
-
+let g:undotree_SplitWidth = 44
+let g:undotree_TreeNodeShape  = 'o'
 
 " Unite.vim
 let g:unite_winheight = 25
