@@ -101,24 +101,11 @@ augroup END
 set autoread
 au CursorHold,CursorHoldI * checktime
 
-" Use ~/.cache/vim/ but only if directories exist
-" to enable: mkdir -p ~/.cache/vim/{swap,backup,undo}
-if isdirectory(expand('~/.cache/vim'))
-    " swap files
-    if &directory =~# '^\.,' && isdirectory(expand('~/.cache/vim/swap'))
-        set directory^=~/.cache/vim/swap//
-    endif
-    " backup files
-    if &backupdir =~# '^\.,' && isdirectory(expand('~/.cache/vim/backup'))
-        set backupdir^=~/.cache/vim/backup//
-    endif
-    " undo directory
-    if exists('+undodir') && isdirectory(expand('~/.cache/vim/undo'))
-                \&& &undodir =~# '^\.\%(,\|$\)'
-        set undodir^=~/.cache/vim/undo//
-        set undofile
-    endif
-endif
+" Use ~/.cache/vim/ for swap & backup files
+silent! call mkdir(expand('~/.cache/vim/swap', 'p'))
+silent! call mkdir(expand('~/.cache/vim/backup', 'p'))
+set directory^=~/.cache/vim/swap//
+set backupdir^=~/.cache/vim/backup//
 
 " Color Theme
 if has('gui_running')
