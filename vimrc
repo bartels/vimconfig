@@ -61,10 +61,6 @@ if has("unnamedplus") || has("nvim")
     set clipboard=unnamedplus
 endif
 
-" Don't litter backup files everywhere
-set nobackup
-set nowritebackup
-
 " Turn on syntax and filetype detection
 syntax on
 filetype plugin indent on
