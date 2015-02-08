@@ -284,20 +284,28 @@ call unite#custom#source(
             \ 'sorters', ['sorter_length'])
 
 " Shortcut for calling unite commands
-function! UniteCmd(action, arguments)
-    return ":\<C-u>Unite " . a:action . " " . a:arguments . "\<CR>"
+function! UniteCmd(action, ...)
+    if a:0 > 0
+        let args = a:1
+    else
+        let args = ''
+    endif
+
+    let name = split(a:action)[0]
+
+    return ":\<C-u>Unite ".a:action." -buffer-name=".name.' '.args."\<CR>"
 endfunction
 
 " Set up key mappings to start Unite actions
-nnoremap <silent><expr><leader>f UniteCmd('file' . (expand('%') == '' ? '' : ':%:h') .
-                                                \' file_rec/async:!' . (expand('%') == '' ? '' : ':%:h'),
-                                                \'-start-insert -buffer-name=files')
-nnoremap <silent><expr><leader>b UniteCmd('buffer', '-start-insert -buffer-name=buffer')
-nnoremap <silent><expr><leader>a UniteCmd('grep:.', '-buffer-name=grep')
-nnoremap <silent><expr><leader>y UniteCmd('history/yank', '-buffer-name=yank')
-nnoremap <silent><expr><leader>u UniteCmd('ultisnips', '-buffer-name=ultisnips')
-nnoremap <silent><expr><leader>o UniteCmd('outline', '-buffer-name=outline')
-nnoremap <silent><expr><leader>h UniteCmd('help', '-start-insert -buffer-name=help')
+nnoremap <silent><expr><leader>f UniteCmd('file'             . (expand('%') == '' ? '' : ':%:h') .
+                                        \' file_rec/async:!' . (expand('%') == '' ? '' : ':%:h'),
+                                         \'-start-insert')
+nnoremap <silent><expr><leader>b UniteCmd('buffer', '-start-insert')
+nnoremap <silent><expr><leader>a UniteCmd('grep:.')
+nnoremap <silent><expr><leader>y UniteCmd('history/yank')
+nnoremap <silent><expr><leader>u UniteCmd('ultisnips')
+nnoremap <silent><expr><leader>o UniteCmd('outline')
+nnoremap <silent><expr><leader>h UniteCmd('help', '-start-insert')
 nnoremap <silent><expr><leader>r UniteCmd('file_mru', '-start-insert')
 
 " Custom mappings when inside Unite buffers
