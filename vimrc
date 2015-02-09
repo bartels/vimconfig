@@ -106,6 +106,7 @@ silent! call mkdir(expand('~/.cache/vim/swap', 'p'))
 silent! call mkdir(expand('~/.cache/vim/backup', 'p'))
 set directory^=~/.cache/vim/swap//
 set backupdir^=~/.cache/vim/backup//
+set viminfo+=n~/.cache/vim/viminfo
 
 " Color Theme
 if has('gui_running')
