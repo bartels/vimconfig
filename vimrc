@@ -371,7 +371,7 @@ let g:instant_markdown_autostart = 0
 " Custom Mappings
 """""""""""""""""
 
-" Fix so vim can recognize "Alt" key in terminals that send an escape sequence
+" Make vim recognize Alt key in terminals that send an escape sequence
 " see: https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
 if ! has("gui_running")
     let c='a'
@@ -380,6 +380,20 @@ if ! has("gui_running")
         exec "imap \e".c." <A-".c.">"
         let c = nr2char(1+char2nr(c))
     endw
+endif
+
+" Make Vim recognize XTerm escape sequences for Page and Arrow
+" keys combined with modifiers such as Shift, Control, and Alt.
+if &term =~ "^screen"
+    " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
+    execute "set t_kP=\e[5;*~"
+    execute "set t_kN=\e[6;*~"
+
+    " Arrow keys http://unix.stackexchange.com/a/34723
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
 endif
 
 " Prevnt jumping back one char when leaving insert mode
