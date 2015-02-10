@@ -157,7 +157,7 @@ if has("mouse")
     " Force sgr style mouse handling when in tmux.
     " Setting this works fine with gnome-terminal/tmux combo. It should be
     " compatible with xterm too, but not sure what other terminals support it.
-    if $TERM == 'screen-256color'
+    if &term =~ "^screen-256color"
         set ttymouse=sgr
     endif
 endif
