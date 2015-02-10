@@ -472,6 +472,6 @@ function! <SID>SynStack()
 endfunc
 
 " Open up vimrc file
-nnoremap <silent> <leader>ev :e $HOME/.vim/vimrc<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 " Source the vimrc file
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
