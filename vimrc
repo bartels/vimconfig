@@ -113,7 +113,7 @@ if has('gui_running')
     call togglebg#map("<F6>")
     set background=light
     colorscheme solarized
-    set guifont=DejaVu\ Sans\ Mono\ 9.6
+    set guifont=DejaVu\ Sans\ Mono\ 9
 else
     let g:solarized_termcolors=256
     set background=dark
