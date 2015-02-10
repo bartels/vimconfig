@@ -460,6 +460,19 @@ endif
 nnoremap <silent> <leader>v :vsplit<CR>
 nnoremap <silent> <leader>s :split<CR>
 
+" Toggle colorcolumn on/off
+if exists('+colorcolumn')
+    function! g:ToggleColorColumn()
+        if &colorcolumn != ''
+            setlocal colorcolumn&
+        else
+            setlocal colorcolumn=+1
+        endif
+    endfunction
+
+    nnoremap <silent> <leader>cc :call g:ToggleColorColumn()<CR>
+endif
+
 " Shows the syntax highlighting group for word under cursor
 " This is useful if you're interested in figuring out how the current word is
 " being highlighted by color themes.
