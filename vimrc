@@ -3,7 +3,7 @@
 
 " By default, pathogen will try to load all plugins, so selectively disable
 " some if features are not available, makes this vimrc more useful on systems
-" that lack features such as pythyon or lua support.
+" that lack features such as python or lua support.
 let g:pathogen_disabled = []
 
 " These plugins require python support
@@ -23,7 +23,7 @@ execute pathogen#infect()
 " Some nice defaults
 set number                      " show line numbers
 set title                       " title in terminal window
-set hidden                      " buffers can be hidden without requiring disk write
+set hidden                      " allow hiding buffers without a disk write
 set incsearch hlsearch          " highlight the current search term
 set scrolloff=3                 " number of context lines while scrolling
 set sidescrolloff=3             " number of context columns
@@ -396,7 +396,7 @@ if &term =~ "^screen"
     execute "set <xLeft>=\e[1;*D"
 endif
 
-" Prevnt jumping back one char when leaving insert mode
+" Prevent jumping back one char when leaving insert mode
 inoremap <Esc> <Esc>`^
 
 " Escape insert mode with kj
