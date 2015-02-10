@@ -463,10 +463,12 @@ nnoremap <silent> <leader>s :split<CR>
 " Toggle colorcolumn on/off
 if exists('+colorcolumn')
     function! g:ToggleColorColumn()
+        " Use textwidth but default to 80
+        let textWidth = (&textwidth ? &textwidth : 79) + 1
         if &colorcolumn != ''
             setlocal colorcolumn&
         else
-            setlocal colorcolumn=+1
+            let &l:colorcolumn=textWidth
         endif
     endfunction
 
