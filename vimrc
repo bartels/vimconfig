@@ -277,7 +277,7 @@ if executable('ag')
 end
 
 " Configure to sort by length
-call unite#custom#source(
+silent! call unite#custom#source(
             \ 'buffer,file,file_mru,file_rec,file_rec/async',
             \ 'sorters', ['sorter_length'])
 
