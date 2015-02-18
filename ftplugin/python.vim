@@ -13,6 +13,7 @@ let g:jedi#use_tabs_not_buffers = 0
 " This code was borrowed from the python-mode plugin.
 if has('python')
 python << EOF
+import vim
 from imp import find_module
 try:
     find_module('ipdb')
