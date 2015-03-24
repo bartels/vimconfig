@@ -273,7 +273,9 @@ if executable('ag')
                 \ --ignore dist/
                 \ --ignore bower_components/
                 \ --ignore node_modules/
-                \ --ignore coverage/'
+                \ --ignore coverage/
+                \ --ignore .coverage/
+                \ --ignore htmlcov/'
     let g:unite_source_grep_recursive_opt = ''
 end
 
