@@ -339,7 +339,7 @@ let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
 noremap <leader>` :Goyo<CR>
 
 " Custom settings when in goyo mode
-function! s:goyo_before()
+function! s:goyo_enter()
     noremap     <buffer> <silent> <Up> g<Up>
     noremap     <buffer> <silent> <Down> g<Down>
     noremap     <buffer> <silent> k gk
@@ -348,10 +348,11 @@ function! s:goyo_before()
     inoremap    <buffer> <silent> <Down> <C-o>g<Down>
     set scrolloff=999
     set linebreak
+    echo "Goyo Enter"
 endfunction
 
 " Restore settings when leaving goyo mode
-function! s:goyo_after()
+function! s:goyo_leave()
     unmap     <buffer>  <Up>
     unmap     <buffer>  <Down>
     unmap     <buffer>  k
@@ -360,9 +361,11 @@ function! s:goyo_after()
     iunmap    <buffer>  <Down>
     set scrolloff=3
     set nolinebreak
+    echo "Goyo Leave"
 endfunction
 
-let g:goyo_callbacks = [function('s:goyo_before'), function('s:goyo_after')]
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 
 " instant-markdown
