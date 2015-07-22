@@ -307,7 +307,7 @@ nnoremap <silent><expr><leader>y UniteCmd('history/yank')
 nnoremap <silent><expr><leader>u UniteCmd('ultisnips')
 nnoremap <silent><expr><leader>o UniteCmd('outline')
 nnoremap <silent><expr><leader>h UniteCmd('help', '-start-insert')
-nnoremap <silent><expr><leader>r UniteCmd('file_mru', '-start-insert')
+nnoremap <silent><expr><leader>fr UniteCmd('file_mru', '-start-insert')
 
 " Custom mappings when inside Unite buffers
 au FileType unite call s:unite_buffer_maps()
