@@ -257,13 +257,23 @@ let g:undotree_SplitWidth = 44
 let g:undotree_TreeNodeShape  = 'o'
 
 " Unite.vim
-let g:unite_winheight = 25
-let g:unite_split_rule = 'botright'
 let g:unite_force_overwrite_statusline = 0
 let g:unite_source_history_yank_enable = 1
-let g:unite_enable_smart_case = 1
 let g:unite_source_rec_max_cache_files = 5000
 let g:unite_data_directory = '~/.cache/vim/unite'
+
+" Unite options
+call unite#custom#profile('default', 'context', {
+\  'winheight': 25,
+\  'direction': 'botright',
+\  'cursor_line_time': '0.0',
+\  'prompt_direction': 'below'
+\  })
+
+" unite buffer specific options
+call unite#custom#profile('file,file_rec,buffer,help', 'context', {
+\  'start_insert': 1
+\  })
 
 " Use 'ag' for unite grep if available
 if executable('ag')
@@ -279,10 +289,15 @@ if executable('ag')
     let g:unite_source_grep_recursive_opt = ''
 end
 
-" Configure to sort by length
+" Configure unite to sort by match length
 silent! call unite#custom#source(
-            \ 'buffer,file,file_mru,file_rec,file_rec/async',
+            \ 'buffer,file,file_rec,file_rec/async',
             \ 'sorters', ['sorter_length'])
+
+" ignore directories
+silent! call unite#custom#source(
+            \ 'file_rec,file_rec/async',
+            \ 'ignore_pattern', 'node_modules')
 
 " Shortcut for calling unite commands
 function! UniteCmd(action, ...)
@@ -292,24 +307,22 @@ function! UniteCmd(action, ...)
         let args = ''
     endif
 
-    let name = split(a:action)[0]
+    let name = split(a:action, ':')[0]
 
     return ":\<C-u>Unite ".a:action." -buffer-name=".name.' '.args."\<CR>"
 endfunction
 
-" Set up key mappings to start Unite actions
+" Unite command key mappings
 nnoremap <silent><expr><leader>f UniteCmd('file'             . (expand('%') == '' ? '' : ':%:h') .
-                                        \' file_rec/async:!' . (expand('%') == '' ? '' : ':%:h'),
-                                         \'-start-insert')
-nnoremap <silent><expr><leader>b UniteCmd('buffer', '-start-insert')
+                                        \' file_rec/async:!' . (expand('%') == '' ? '' : ':%:h'))
+nnoremap <silent><expr><leader>b UniteCmd('buffer')
 nnoremap <silent><expr><leader>a UniteCmd('grep:.')
 nnoremap <silent><expr><leader>y UniteCmd('history/yank')
 nnoremap <silent><expr><leader>u UniteCmd('ultisnips')
 nnoremap <silent><expr><leader>o UniteCmd('outline')
-nnoremap <silent><expr><leader>h UniteCmd('help', '-start-insert')
-nnoremap <silent><expr><leader>fr UniteCmd('file_mru', '-start-insert')
+nnoremap <silent><expr><leader>h UniteCmd('help')
 
-" Custom mappings when inside Unite buffers
+" Unite buffer mappings
 au FileType unite call s:unite_buffer_maps()
 function! s:unite_buffer_maps()
     " exiting
