@@ -246,7 +246,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 let g:UltiSnipsExpandTrigger = "<c-j>"
 "let g:UltiSnipsListSnippets = "<c-j>"
 let g:UltiSnipsUsePythonVersion = 2
-let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
+let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 let g:UltiSnipsEditSplit = "vertical"
 
 " undotree (only works with vim >= 7.3)
