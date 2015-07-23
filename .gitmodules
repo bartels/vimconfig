@@ -67,10 +67,6 @@
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.vim.git
         ignore = untracked
-[submodule "bundle/unite-outline"]
-	path = bundle/unite-outline
-	url = https://github.com/h1mesuke/unite-outline.git
-        ignore = untracked
 [submodule "bundle/unite-help"]
 	path = bundle/unite-help
 	url = https://github.com/tsukkee/unite-help.git
