@@ -177,7 +177,7 @@ nnoremap <leader>l :set list!<CR>
 " matchit is nice for extended matching using '%'
 runtime macros/matchit.vim
 
-" netrw
+" netrw (file explorer)
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_preview = 1
@@ -209,12 +209,14 @@ endfunction
 
 noremap <silent> <f12> :call ToggleVExplorer()<CR>
 
-let g:vim_json_syntax_conceal = 0
-
 
 """""""""""""""""
 " Plugin Settings
 """""""""""""""""
+
+" don't use conceal feature in json files
+let g:vim_json_syntax_conceal = 0
+
 
 " Syntastic
 let g:syntastic_mode_map = { 'mode': 'passive' }
@@ -229,14 +231,22 @@ nnoremap <leader>e :SyntasticToggleMode<CR>
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 0
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#data_directory = '~/.cache/vim/neocomplete'
 
+" So we can override input paterns that trigger completions
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+endif
 if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
 endif
+
+" customize when python omni completion is triggered
 let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|from \w\+\s\+import \w'
-let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+
+" So .less files use omni same as .css
+let g:neocomplete#sources#omni#input_patterns.less = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
 
 " Tab completion in menus
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -248,6 +258,7 @@ let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 let g:UltiSnipsEditSplit = "vertical"
+
 
 " undotree (only works with vim >= 7.3)
 if v:version >= 703
