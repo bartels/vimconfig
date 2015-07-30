@@ -267,6 +267,7 @@ endif
 let g:undotree_SplitWidth = 44
 let g:undotree_TreeNodeShape  = 'o'
 
+
 " Unite.vim
 let g:unite_force_overwrite_statusline = 0
 let g:unite_source_history_yank_enable = 1
@@ -282,13 +283,14 @@ call unite#custom#profile('default', 'context', {
 \  })
 
 " unite buffer specific options
-call unite#custom#profile('file,file_rec,buffer,help', 'context', {
+call unite#custom#profile('file,file_rec,file_rec/async,buffer,help', 'context', {
 \  'start_insert': 1
 \  })
 
 " Use 'ag' for unite grep if available
+" This is much faster, as ag will take into account the repo (git,hg, etc)
 if executable('ag')
-    let g:unite_source_rec_async_command = 'ag -l .'
+    let g:unite_source_rec_async_command = 'ag -l --nocolor --nogroup --hidden .'
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts = '--nogroup --nocolor --column
                 \ --ignore dist/
@@ -301,14 +303,9 @@ if executable('ag')
 end
 
 " Configure unite to sort by match length
-silent! call unite#custom#source(
+call unite#custom#source(
             \ 'buffer,file,file_rec,file_rec/async',
             \ 'sorters', ['sorter_length'])
-
-" ignore directories
-silent! call unite#custom#source(
-            \ 'file_rec,file_rec/async',
-            \ 'ignore_pattern', 'node_modules')
 
 " Shortcut for calling unite commands
 function! UniteCmd(action, ...)
@@ -324,8 +321,7 @@ function! UniteCmd(action, ...)
 endfunction
 
 " Unite command key mappings
-nnoremap <silent><expr><leader>f UniteCmd('file'             . (expand('%') == '' ? '' : ':%:h') .
-                                        \' file_rec/async:!' . (expand('%') == '' ? '' : ':%:h'))
+nnoremap <silent><expr><leader>f UniteCmd('file_rec/async:! file')
 nnoremap <silent><expr><leader>b UniteCmd('buffer')
 nnoremap <silent><expr><leader>a UniteCmd('grep:.')
 nnoremap <silent><expr><leader>y UniteCmd('history/yank')
