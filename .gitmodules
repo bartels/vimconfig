@@ -104,3 +104,6 @@
 [submodule "bundle/vim-snippets"]
 	path = bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
+[submodule "bundle/neomru"]
+	path = bundle/neomru
+	url = https://github.com/Shougo/neomru.vim.git

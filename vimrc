@@ -283,7 +283,7 @@ call unite#custom#profile('default', 'context', {
 \  })
 
 " unite buffer specific options
-call unite#custom#profile('file,file_rec,file_rec/async,buffer,help', 'context', {
+call unite#custom#profile('file,file_mru,file_rec,file_rec/async,buffer,help', 'context', {
 \  'start_insert': 1
 \  })
 
@@ -328,6 +328,7 @@ nnoremap <silent><expr><leader>y UniteCmd('history/yank')
 nnoremap <silent><expr><leader>u UniteCmd('ultisnips')
 nnoremap <silent><expr><leader>o UniteCmd('outline')
 nnoremap <silent><expr><leader>h UniteCmd('help')
+nnoremap <silent><expr><leader>rf UniteCmd('file_mru')
 
 " Unite buffer mappings
 au FileType unite call s:unite_buffer_maps()
