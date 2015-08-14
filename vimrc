@@ -491,6 +491,17 @@ endif
 nnoremap <silent> <leader>v :vsplit<CR>
 nnoremap <silent> <leader>s :split<CR>
 
+" toggle diff on visible windows
+function! g:ToggleWinDiff()
+    if &diff
+        exec ':diffoff!'
+    else
+        exec ':windo diffthis'
+    endif
+endfunction
+
+nnoremap <silent><leader>dd :call g:ToggleWinDiff()<CR>
+
 " Toggle colorcolumn on/off
 if exists('+colorcolumn')
     function! g:ToggleColorColumn()
