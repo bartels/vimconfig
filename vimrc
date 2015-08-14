@@ -346,6 +346,10 @@ function! s:unite_buffer_maps()
     imap <silent><buffer><expr> <C-x> unite#do_action('split')
     imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
 
+    nmap <silent><buffer><expr> v unite#do_action('vsplit')
+    nmap <silent><buffer><expr> s unite#do_action('split')
+    nmap <silent><buffer><expr> x unite#do_action('split')
+
     " navigation
     imap <buffer> <C-j>   <Plug>(unite_select_next_line)
     imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
