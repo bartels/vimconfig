@@ -171,7 +171,8 @@ au FileType text setlocal foldmethod=marker
 let mapleader=","
 
 " View for invisible chars when using set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,trail:·
+set list
 nnoremap <leader>l :set list!<CR>
 
 " matchit is nice for extended matching using '%'
