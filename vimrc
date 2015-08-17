@@ -28,7 +28,7 @@ set incsearch hlsearch          " highlight the current search term
 set scrolloff=3                 " number of context lines while scrolling
 set sidescrolloff=3             " number of context columns
 set laststatus=2                " always show the statusline
-set backspace=indent,eol,start	" more powerful backspacing
+set backspace=indent,eol,start  " more powerful backspacing
 set fileformats+=mac            " add 'mac' style EOLs
 set display+=lastline           " always show as much of last line as possible
 set history=1000                " command history entries
