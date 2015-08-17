@@ -225,6 +225,7 @@ let g:syntastic_auto_jump = 0
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_python_flake8_args='--ignore=E12'
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_yaml_checkers=['jsyaml']
 let g:syntastic_json_checkers = ['jsonlint']
 nnoremap <leader>e :SyntasticToggleMode<CR>
 
