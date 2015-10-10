@@ -1,105 +1,49 @@
+" Initialization --------------------------------------------------------- {{{1
+
 " Use pathogen for plugins
 " Plugins are installed using 'git submodule', under ~/.vim/bundle/
 
-" By default, pathogen will try to load all plugins, so selectively disable
-" some if features are not available, makes this vimrc more useful on systems
-" that lack features such as python or lua support.
+" Disable plugins if feature support is missing
 let g:pathogen_disabled = []
 
-" These plugins require python support
+" Plugins that require python
 if !has('python')
     call add(g:pathogen_disabled, 'ultisnips')
     call add(g:pathogen_disabled, 'jedi')
 endif
 
-" These plugins require lua support
+" Plugins that require lua
 if !has('lua')
     call add(g:pathogen_disabled, 'neocomplete')
 endif
 
-" init pathogen
 execute pathogen#infect()
 
-" Some nice defaults
-set number                      " show line numbers
-set title                       " title in terminal window
-set hidden                      " allow hiding buffers without a disk write
-set incsearch hlsearch          " highlight the current search term
-set scrolloff=3                 " number of context lines while scrolling
-set sidescrolloff=3             " number of context columns
-set laststatus=2                " always show the statusline
-set backspace=indent,eol,start  " more powerful backspacing
-set fileformats+=mac            " add 'mac' style EOLs
-set display+=lastline           " always show as much of last line as possible
-set history=1000                " command history entries
-set tabpagemax=50               " increase max tabpages
 
-" key sequence timeouts
-set timeout timeoutlen=500 ttimeoutlen=50
+" Misc ------------------------------------------------------------------- {{{1
 
-" Enhanced command line completion options
-set wildmenu
-set wildmode=longest,list
-set wildignore=*~,*.bak,*.o,*.pyc,*.pyo
+set hidden                        " switch buffers without needing to save
+set backspace=indent,eol,start    " more powerful backspacing
+set fileformats+=mac              " handle 'mac' style EOLs
+set history=1000                  " command history entries
+set modeline                      " alow modlines in files
 
-" Insert mode completion
-set completeopt=menuone,longest,preview
+" Folding
+set foldmethod=manual
+au FileType text setlocal foldmethod=marker
 
-let loaded_matchparen = 1   " Turns off matchparen which I find annoying
-
-" spaces, not tabs
-set tabstop=4
-set shiftwidth=4
-set shiftround
-set softtabstop=4
-set expandtab
-set smarttab
-
-" clipboard integration
-if has("unnamedplus") || has("nvim")
-    set clipboard=unnamedplus
-endif
-
-" Turn on syntax and filetype detection
-syntax on
-filetype plugin indent on
-set autoindent
-
-" Special filetypes
-" These are filetypes which should be recognized as another type.
-augroup filetypedetect
-  au BufNewFile,BufRead *.thtml,*.ctp set filetype=php
-  au BufNewFile,BufRead *.wsgi set filetype=python
-  au BufNewFile,BufRead  Vagrantfile set filetype=ruby
-  au BufNewFile,BufRead *.conf set filetype=conf
-  au BufNewFile,BufRead requirements.txt,requirements_*.txt set filetype=conf
-  au BufNewFile,BufRead *.ejs set filetype=html
-
-  " removes current htmldjango detection located at $VIMRUNTIME/filetype.vim
-  au! BufNewFile,BufRead *.html,*.htm
-  au  BufNewFile,BufRead,BufWrite *.html,*.htm  call FThtml()
-
-  " Better htmldjango detection
-  func! FThtml()
-    let n = 1
-    while n < 10 && n <= line("$")
-      if getline(n) =~ '\<DTD\s\+XHTML\s'
-        setf xhtml
-        return
-      endif
-      if getline(n) =~ '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>'
-        setf htmldjango
-        return
-      endif
-      let n = n + 1
-    endwhile
-    setf html
-  endfunc
-augroup END
-
-" This will update the buffer when file changes outside of vim
+" Update buffer when a file changes outside of vim
 set autoread
 au CursorHold,CursorHoldI * checktime
+
+" Use comma for mapleader
+" NOTE: set before defining mappings that use <leader>
+let mapleader=","
+
+let loaded_matchparen = 1  " prevent loading matchparen
+
+" Load matchit:  extended matching with '%' key
+runtime macros/matchit.vim
 
 " Use ~/.cache/vim/ for swap & backup files
 silent! call mkdir(expand('~/.cache/vim/swap', 'p'))
@@ -108,7 +52,106 @@ set directory^=~/.cache/vim/swap//
 set backupdir^=~/.cache/vim/backup//
 set viminfo+=n~/.cache/vim/viminfo
 
-" Color Theme
+
+" Spaces & Tabs ---------------------------------------------------------- {{{1
+
+set tabstop=4           " number of visual spaces per tab
+set softtabstop=4       " number of spaces per tab when editing
+set shiftwidth=4        " spaces to use for each step of indent
+set shiftround          " rounds indents to multiple of 'shiftwidth'
+set expandtab           " Insert spaces instead of tabs
+set smarttab
+
+
+" Filetypes -------------------------------------------------------------- {{{1
+
+syntax enable               " Enable syntax feature
+filetype plugin indent on   " Enable filetype plugins & indent
+set autoindent              " Copy indent from previous line
+
+" Filetype handling
+augroup filetypedetect
+
+    " These filetypes map to other types
+    au BufNewFile,BufRead *.thtml,*.ctp set filetype=php
+    au BufNewFile,BufRead *.wsgi set filetype=python
+    au BufNewFile,BufRead  Vagrantfile set filetype=ruby
+    au BufNewFile,BufRead *.conf set filetype=conf
+    au BufNewFile,BufRead requirements.txt,requirements_*.txt set filetype=conf
+    au BufNewFile,BufRead *.ejs set filetype=html
+
+    " Removes default django template detection in $VIMRUNTIME/filetype.vim
+    au! BufNewFile,BufRead *.html,*.htm
+
+    " Better django template detection
+    " - looks for a few additional Django tag types.
+    au BufNewFile,BufRead,BufWrite *.html,*.htm  call FThtml()
+    func! FThtml()
+        let n = 1
+        while n < 10 && n <= line("$")
+        if getline(n) =~ '\<DTD\s\+XHTML\s'
+            setf xhtml
+            return
+        endif
+        if getline(n) =~ '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>\|{#\s\+'
+            setf htmldjango
+            return
+        endif
+        let n = n + 1
+        endwhile
+        setf html
+    endfunc
+
+augroup END
+
+" Disable conceal feature in json files
+let g:vim_json_syntax_conceal = 0
+
+
+" Keyboard --------------------------------------------------------------- {{{1
+
+" key sequence timeouts
+set timeout timeoutlen=500 ttimeoutlen=50
+
+" Allow terminal vim to recognize Alt key combos
+" see: https://stackoverflow.com/questions/6778961/
+if ! has("gui_running")
+    let c='a'
+    while c <= 'z'
+        exec "set <A-".c.">=\e".c
+        exec "imap \e".c." <A-".c.">"
+        let c = nr2char(1+char2nr(c))
+    endw
+endif
+
+" Allow terminal vim to recognize XTerm escape sequences for Page and Arrow
+" keys combined with modifiers such as Shift, Control, and Alt.
+if &term =~ "^screen"
+    " Page keys: http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
+    execute "set t_kP=\e[5;*~"
+    execute "set t_kN=\e[6;*~"
+
+    " Arrow keys: http://unix.stackexchange.com/a/34723
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
+
+
+" Colors & UI------------------------------------------------------------- {{{1
+
+set title                         " title in terminal window
+set number                        " show line numbers
+set cursorline                    " highlight current line
+set display+=lastline             " always show as much of last line of file
+set laststatus=2                  " always show the statusline
+set tabpagemax=50                 " increase max tabpages
+set incsearch hlsearch            " highlight search terms as you type
+set scrolloff=3                   " number of context lines while scrolling
+set sidescrolloff=3               " number of context columns
+
+" Colors
 if has('gui_running')
     let g:solarized_menu=0
     call togglebg#map("<F6>")
@@ -122,15 +165,43 @@ else
     LuciusDark
 endif
 
-" Highlights current line
-" but only the line number (default highlights entire line)
-set cursorline
+" Highlight cursorline number only (not entire line)
 hi clear CursorLine
 augroup CLClear
     autocmd! ColorScheme * hi clear CursorLine
 augroup END
 
-" airline - enhanced status line plugin
+" Invisible chars to use with :set list
+set listchars=tab:▸\ ,trail:·
+set list
+
+" Command line completion options
+set wildmenu
+set wildmode=longest,list
+set wildignore=*~,*.bak,*.o,*.pyc,*.pyo
+
+" Insert mode completion options
+set completeopt=menuone,longest,preview
+
+" Enable mouse support
+if has("mouse")
+    set mouse=a
+
+    " Force sgr style mouse handling when in tmux.
+    " This works fine with gnome-terminal & tmux combo. It should be
+    " compatible with xterm too, but not sure what other terminals support it.
+    if &term =~ "^screen-256color"
+        set ttymouse=sgr
+    endif
+endif
+
+" Use system clipboard for yank/paste
+if has("unnamedplus") || has("nvim")
+    set clipboard=unnamedplus
+endif
+
+
+" Airline ---------------------------------------------------------------- {{{1
 if ! has("gui_running")
     let g:airline_powerline_fonts=1
     let g:airline_right_sep=''
@@ -142,7 +213,7 @@ if ! has("gui_running")
     let g:airline#extensions#tabline#show_buffers = 0
     let g:airline#extensions#tabline#fnamemod = ':t'
 
-    " customize some theme colors
+    " override some theme colors
     let g:airline_theme_patch_func = 'AirlineThemePatch'
     function! AirlineThemePatch(palette)
         if g:airline_theme == 'lucius'
@@ -159,42 +230,14 @@ else
     let g:airline_right_sep=''
 endif
 
-" Mouse support
-if has("mouse")
-    set mouse=a
 
-    " Force sgr style mouse handling when in tmux.
-    " Setting this works fine with gnome-terminal/tmux combo. It should be
-    " compatible with xterm too, but not sure what other terminals support it.
-    if &term =~ "^screen-256color"
-        set ttymouse=sgr
-    endif
-endif
-
-" Folding
-set foldmethod=manual
-au FileType text setlocal foldmethod=marker
-
-" Change the mapleader from \ to ,
-let mapleader=","
-
-" View for invisible chars when using set list
-set listchars=tab:▸\ ,trail:·
-set list
-nnoremap <leader>l :set list!<CR>
-
-" matchit is nice for extended matching using '%'
-runtime macros/matchit.vim
-
-" netrw (file explorer)
+" Netrw ------------------------------------------------------------------ {{{1
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_preview = 1
 let g:netrw_winsize = 25
 let g:netrw_banner = 0
-
-" tree mode
-let g:netrw_liststyle = 3
+let g:netrw_liststyle = 3  " tree mode
 
 " Toggle Vexplore
 function! ToggleVExplorer()
@@ -219,15 +262,7 @@ endfunction
 noremap <silent> <f12> :call ToggleVExplorer()<CR>
 
 
-"""""""""""""""""
-" Plugin Settings
-"""""""""""""""""
-
-" don't use conceal feature in json files
-let g:vim_json_syntax_conceal = 0
-
-
-" Syntastic
+" Syntastic -------------------------------------------------------------- {{{1
 let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_auto_jump = 0
 let g:syntastic_auto_loc_list = 2
@@ -236,10 +271,11 @@ let g:syntastic_python_flake8_args='--ignore=E12'
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_yaml_checkers=['jsyaml']
 let g:syntastic_json_checkers = ['jsonlint']
+
 nnoremap <leader>e :SyntasticToggleMode<CR>
 
 
-" neocomplete
+" NeoComplete ------------------------------------------------------------ {{{1
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
@@ -263,29 +299,29 @@ let g:neocomplete#sources#omni#input_patterns.less = '^\s\+\w\+\|\w\+[):;]\?\s\+
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
-" UltiSnips
+" UltiSnips -------------------------------------------------------------- {{{1
 let g:UltiSnipsExpandTrigger = "<c-j>"
-"let g:UltiSnipsListSnippets = "<c-j>"
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 let g:UltiSnipsEditSplit = "vertical"
 
 
-" undotree (only works with vim >= 7.3)
+" UndoTree --------------------------------------------------------------- {{{1
+" requires vim >= 7.3
 if v:version >= 703
     nnoremap <F5> :UndotreeToggle<CR>
+    let g:undotree_SplitWidth = 44
+    let g:undotree_TreeNodeShape  = 'o'
 endif
-let g:undotree_SplitWidth = 44
-let g:undotree_TreeNodeShape  = 'o'
 
 
-" Unite.vim
+" Unite ------------------------------------------------------------------ {{{1
 let g:unite_force_overwrite_statusline = 0
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_rec_max_cache_files = 5000
 let g:unite_data_directory = '~/.cache/vim/unite'
 
-" Unite options
+" options controlling unite window
 call unite#custom#profile('default', 'context', {
 \  'winheight': 25,
 \  'direction': 'botright',
@@ -293,7 +329,7 @@ call unite#custom#profile('default', 'context', {
 \  'prompt_direction': 'below'
 \  })
 
-" unite buffer specific options
+" buffer specific options
 call unite#custom#profile('file,file_mru,file_rec,file_rec/async,buffer,help', 'context', {
 \  'start_insert': 1
 \  })
@@ -313,12 +349,12 @@ if executable('ag')
     let g:unite_source_grep_recursive_opt = ''
 end
 
-" Configure unite to sort by match length
+" Use length sorter for file searches
 call unite#custom#source(
             \ 'buffer,file,file_rec,file_rec/async',
             \ 'sorters', ['sorter_length'])
 
-" Shortcut for calling unite commands
+" Shortcut function for calling unite commands
 function! UniteCmd(action, ...)
     if a:0 > 0
         let args = a:1
@@ -331,7 +367,7 @@ function! UniteCmd(action, ...)
     return ":\<C-u>Unite ".a:action." -buffer-name=".name.' '.args."\<CR>"
 endfunction
 
-" Unite command key mappings
+" Unite mappings
 nnoremap <silent><expr><leader>f UniteCmd('file_rec/async:! file')
 nnoremap <silent><expr><leader>b UniteCmd('buffer')
 nnoremap <silent><expr><leader>a UniteCmd('grep:.')
@@ -367,11 +403,11 @@ function! s:unite_buffer_maps()
 endfunction
 
 
-" Surround
+" Surround --------------------------------------------------------------- {{{1
 let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
 
 
-" goyo (for distraction free writing)
+" Goyo ------------------------------------------------------------------- {{{1
 noremap <leader>` :Goyo<CR>
 
 " Custom settings when in goyo mode
@@ -404,83 +440,54 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 
-" instant-markdown
-" Don't autostart, run :InstantMarkdownPreview to start it
+" Instant Markdown ------------------------------------------------------- {{{1
+" Don't autostart, run :InstantMarkdownPreview to open preview
 let g:instant_markdown_autostart = 0
 
 
-"""""""""""""""""
-" Custom Mappings
-"""""""""""""""""
-
-" Make vim recognize Alt key in terminals that send an escape sequence
-" see: https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
-if ! has("gui_running")
-    let c='a'
-    while c <= 'z'
-        exec "set <A-".c.">=\e".c
-        exec "imap \e".c." <A-".c.">"
-        let c = nr2char(1+char2nr(c))
-    endw
-endif
-
-" Make Vim recognize XTerm escape sequences for Page and Arrow
-" keys combined with modifiers such as Shift, Control, and Alt.
-if &term =~ "^screen"
-    " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
-    execute "set t_kP=\e[5;*~"
-    execute "set t_kN=\e[6;*~"
-
-    " Arrow keys http://unix.stackexchange.com/a/34723
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-endif
+" Key Mappings ----------------------------------------------------------- {{{1
 
 " Prevent jumping back one char when leaving insert mode
 inoremap <Esc> <Esc>`^
 
-" Escape insert mode with kj
+" Use kj for escape
 imap kj <Esc>
 
-" C-g => C-c (I've been playing with emacs evil-mode)
+" Use c-g same as C-c
 noremap <C-g> <C-c>
 inoremap <C-g> <C-c>
 cnoremap <C-g> <C-c>
 
-
-" Some familiar editing bindings
-" These do not work in terminal vim
+" Some familiar editing bindings (only work in GUI)
 if has("gui_running")
     inoremap <C-DEL> <C-O>dw
     inoremap <C-BACKSPACE> <C-W>
-    inoremap <C-Enter> <C-o>o
-    inoremap <C-S-Enter> <C-o>O
 endif
 
-" Easier way to jump to the beginning/end of the line
+" Easier shortcut for beginning/end of the line
 nnoremap <S-H> ^
 nnoremap <S-L> $
 
-" Save file with sudo
-" This is for when you accidentally open a file and realize you need to sudo
-" in order to save your changes.  Just run :w!!
-cnoremap w!! w !sudo tee % > /dev/null
+" Toggle :set list
+nnoremap <leader>l :set list!<CR>
 
-" Clear last search (to clear our current highlighted search terms)
+" Clear last search highlight
 nnoremap <leader><space> :noh<CR>
 
-" Keyboard navaigation between windows
+" Navigate between vim windows
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 
-" Use C-Space as omnicomplete shortcut
+" creating window splits
+nnoremap <silent> <leader>v :vsplit<CR>
+nnoremap <silent> <leader>s :split<CR>
+
+" C-Space as omnicomplete shortcut
 inoremap <C-Space> <C-x><C-o>
 
-" Custom mappings for dealing with tabpages
+" Tabpage mappings
 nnoremap <silent> <leader>t :tabnew<CR>
 nnoremap <silent> <leader>w :close<CR>
 noremap <A-j> gt
@@ -488,7 +495,7 @@ noremap <A-k> gT
 inoremap <A-j> <ESC>gt
 inoremap <A-k> <ESC>gT
 
-" Familiar bindings - these ones do not work in terminal
+" Tabpage mappings (GUI only)
 if has("gui_running")
     noremap <C-TAB> gt
     noremap <C-S-TAB> gT
@@ -498,11 +505,20 @@ if has("gui_running")
     inoremap <S-A-k> <ESC>gT
 endif
 
-" Mappings for creating window splits
-nnoremap <silent> <leader>v :vsplit<CR>
-nnoremap <silent> <leader>s :split<CR>
+" Save buffer using 'sudo'
+" If you accidentally edit a file without permissions, use :w!!
+cnoremap w!! w !sudo tee % > /dev/null
 
-" toggle diff on visible windows
+" Edit vimrc file
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+
+" Source the vimrc file
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+
+
+" Custom Functions ------------------------------------------------------- {{{1
+
+" Toggle diff mode on visible windows
 function! g:ToggleWinDiff()
     if &diff
         exec ':diffoff!'
@@ -510,7 +526,6 @@ function! g:ToggleWinDiff()
         exec ':windo diffthis'
     endif
 endfunction
-
 nnoremap <silent><leader>dd :call g:ToggleWinDiff()<CR>
 
 " Toggle colorcolumn on/off
@@ -528,18 +543,13 @@ if exists('+colorcolumn')
     nnoremap <silent> <leader>cc :call g:ToggleColorColumn()<CR>
 endif
 
-" Shows the syntax highlighting group for word under cursor
-" This is useful if you're interested in figuring out how the current word is
-" being highlighted by color themes.
-nnoremap <leader>sy :call <SID>SynStack()<CR>
+" Displays the syntax highlighting group for word under cursor
 function! <SID>SynStack()
   if !exists("*synstack")
     return
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+nnoremap <leader>sy :call <SID>SynStack()<CR>
 
-" Open up vimrc file
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-" Source the vimrc file
-nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+" vim:foldmethod=marker:foldlevel=0
