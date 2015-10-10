@@ -122,6 +122,14 @@ else
     LuciusDark
 endif
 
+" Highlights current line
+" but only the line number (default highlights entire line)
+set cursorline
+hi clear CursorLine
+augroup CLClear
+    autocmd! ColorScheme * hi clear CursorLine
+augroup END
+
 " airline - enhanced status line plugin
 if ! has("gui_running")
     let g:airline_powerline_fonts=1
