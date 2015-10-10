@@ -48,7 +48,7 @@ set completeopt=menuone,longest,preview
 let loaded_matchparen = 1   " Turns off matchparen which I find annoying
 
 " spaces, not tabs
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set shiftround
 set softtabstop=4
