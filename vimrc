@@ -341,6 +341,7 @@ if executable('ag')
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts = '--nogroup --nocolor --column
                 \ --ignore dist/
+                \ --ignore bundles/
                 \ --ignore bower_components/
                 \ --ignore node_modules/
                 \ --ignore coverage/
