@@ -13,7 +13,7 @@ if !has('python')
 endif
 
 " Plugins that require lua
-if !has('lua')
+if !has('lua') || has('nvim')
     call add(g:pathogen_disabled, 'neocomplete')
 endif
 
@@ -50,7 +50,9 @@ silent! call mkdir(expand('~/.cache/vim/swap', 'p'))
 silent! call mkdir(expand('~/.cache/vim/backup', 'p'))
 set directory^=~/.cache/vim/swap//
 set backupdir^=~/.cache/vim/backup//
-set viminfo+=n~/.cache/vim/viminfo
+if ! has("nvim")
+    set viminfo+=n~/.cache/vim/viminfo
+endif
 
 
 " Spaces & Tabs ---------------------------------------------------------- {{{1
@@ -115,7 +117,7 @@ set timeout timeoutlen=500 ttimeoutlen=50
 
 " Allow terminal vim to recognize Alt key combos
 " see: https://stackoverflow.com/questions/6778961/
-if ! has("gui_running")
+if ! has("gui_running") && ! has("nvim")
     let c='a'
     while c <= 'z'
         exec "set <A-".c.">=\e".c
@@ -190,7 +192,7 @@ if has("mouse")
     " Force sgr style mouse handling when in tmux.
     " This works fine with gnome-terminal & tmux combo. It should be
     " compatible with xterm too, but not sure what other terminals support it.
-    if &term =~ "^screen-256color"
+    if ! has("nvim") && &term =~ "^screen-256color"
         set ttymouse=sgr
     endif
 endif
