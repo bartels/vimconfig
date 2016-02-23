@@ -13,8 +13,19 @@ if !has('python')
 endif
 
 " Plugins that require lua
-if !has('lua') || has('nvim')
+if !has('lua')
     call add(g:pathogen_disabled, 'neocomplete')
+endif
+
+" Plugins to ignore for nvim
+if has('nvim')
+    call add(g:pathogen_disabled, 'neocomplete')
+    call add(g:pathogen_disabled, 'syntastic')
+endif
+
+" Plugins to ignore for regular vim
+if !has('nvim')
+    call add(g:pathogen_disabled, 'neomake')
 endif
 
 execute pathogen#infect()
@@ -265,16 +276,51 @@ noremap <silent> <f12> :call ToggleVExplorer()<CR>
 
 
 " Syntastic -------------------------------------------------------------- {{{1
-let g:syntastic_mode_map = { 'mode': 'passive' }
-let g:syntastic_auto_jump = 0
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args='--ignore=E12'
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_yaml_checkers=['jsyaml']
-let g:syntastic_json_checkers = ['jsonlint']
+if ! has("nvim")
+    let g:syntastic_mode_map = { 'mode': 'passive' }
+    let g:syntastic_auto_jump = 0
+    let g:syntastic_auto_loc_list = 2
+    let g:syntastic_python_checkers=['flake8']
+    let g:syntastic_python_flake8_args='--ignore=E12'
+    let g:syntastic_javascript_checkers = ['eslint']
+    let g:syntastic_yaml_checkers=['jsyaml']
+    let g:syntastic_json_checkers = ['jsonlint']
 
-nnoremap <leader>e :SyntasticToggleMode<CR>
+    nnoremap <leader>e :SyntasticToggleMode<CR>
+endif
+
+
+" Neomake -------------------------------------------------------------- {{{1
+
+if has("nvim")
+    " check on save
+    autocmd! BufWritePost * Neomake
+    let g:neomake_verbose = 1
+
+    " makers
+    let g:neomake_javascript_enabled_makers = ['eslint']
+    let g:neomake_python_enabled_makers = ['flake8']
+    let g:neomake_python_flake8_args = ["--ignore=E12"]
+
+
+    " This is currently not working, no idea why
+    " It will populate the location list but now signs and no way to jump to
+    " the correct line
+    let g:neomake_yaml_jsyaml_maker = {
+                \ 'exe': 'js-yaml',
+                \ 'errorformat':
+                    \ 'Error on line %l\, col %c:%m,' .
+                    \ 'JS-YAML: %m at line %l\, column %c:,' .
+                    \ 'YAMLException: %m at line %l\, column %c:,' .
+                    \ '%-G%.%#',
+                \ }
+    let g:neomake_yaml_enabled_makers = ['jsyaml']
+
+    " customize error sign color
+    let g:neomake_error_sign = {
+        \ 'texthl': 'ErrorMsg',
+        \ }
+endif
 
 
 " NeoComplete ------------------------------------------------------------ {{{1

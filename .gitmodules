@@ -111,3 +111,7 @@
 	path = bundle/neomru
 	url = https://github.com/Shougo/neomru.vim.git
 	ignore = untracked
+[submodule "bundle/neomake"]
+	path = bundle/neomake
+	url = https://github.com/benekastah/neomake.git
+	ignore = untracked
