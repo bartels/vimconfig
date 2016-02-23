@@ -200,7 +200,7 @@ set wildmode=longest,list
 set wildignore=*~,*.bak,*.o,*.pyc,*.pyo
 
 " Insert mode completion options
-set completeopt=menuone,longest,preview
+set completeopt=menuone,longest
 
 " Enable mouse support
 if has("mouse")
