@@ -34,6 +34,9 @@ if !has('nvim')
     call add(g:pathogen_disabled, 'neomake')
 endif
 
+" Define alternate Helptags (since fzf shadows it)
+command! HelpTags  call pathogen#helptags()
+
 execute pathogen#infect()
 
 
@@ -395,93 +398,159 @@ if v:version >= 703
 endif
 
 
-" Unite ------------------------------------------------------------------ {{{1
-let g:unite_force_overwrite_statusline = 0
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_rec_max_cache_files = 5000
-let g:unite_data_directory = '~/.cache/vim/unite'
+" FZF -------------------------------------------------------------------- {{{1
+" If fzf is installed (.fzf  directory exists)
+if isdirectory(expand('~/.fzf'))
+    let g:fzf_is_installed = 1
+    set rtp+=~/.fzf
 
-" options controlling unite window
-call unite#custom#profile('default', 'context', {
-\  'winheight': 25,
-\  'direction': 'botright',
-\  'cursor_line_time': '0.0',
-\  'prompt_direction': 'below'
-\  })
-
-" buffer specific options
-call unite#custom#profile('file,file_mru,file_rec,file_rec/async,buffer,help', 'context', {
-\  'start_insert': 1
-\  })
-
-" Use 'ag' for unite grep if available
-" This is much faster, as ag will take into account the repo (git,hg, etc)
-if executable('ag')
-    let g:unite_source_rec_async_command = 'ag -l --nocolor --nogroup --hidden .'
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column
-                \ --ignore dist/
-                \ --ignore bundles/
-                \ --ignore bower_components/
-                \ --ignore node_modules/
-                \ --ignore coverage/
-                \ --ignore .coverage/
-                \ --ignore htmlcov/'
-    let g:unite_source_grep_recursive_opt = ''
-end
-
-" Use length sorter for file searches
-call unite#custom#source(
-            \ 'buffer,file,file_rec,file_rec/async',
-            \ 'sorters', ['sorter_length'])
-
-" Shortcut function for calling unite commands
-function! UniteCmd(action, ...)
-    if a:0 > 0
-        let args = a:1
-    else
-        let args = ''
+    " Use ag if available (much nicer knows about gitignore)
+    if executable('ag')
+        let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup --hidden .'
     endif
 
-    let name = split(a:action, ':')[0]
+    " Customize fzf default arguments
+    let $FZF_DEFAULT_OPTS="
+                \ --exact
+                \ --inline-info
+                \ --tiebreak=length
+                \ --bind=tab:toggle-up,btab:toggle-down,alt-a:toggle-all
+                \ --toggle-sort=ctrl-r"
 
-    return ":\<C-u>Unite ".a:action." -buffer-name=".name.' '.args."\<CR>"
-endfunction
 
-" Unite mappings
-nnoremap <silent><expr><leader>f UniteCmd('file_rec/async:! file')
-nnoremap <silent><expr><leader>b UniteCmd('buffer')
-nnoremap <silent><expr><leader>a UniteCmd('grep:.')
-nnoremap <silent><expr><leader>y UniteCmd('history/yank')
-nnoremap <silent><expr><leader>u UniteCmd('ultisnips')
-nnoremap <silent><expr><leader>o UniteCmd('outline')
-nnoremap <silent><expr><leader>h UniteCmd('help')
-nnoremap <silent><expr><leader>rf UniteCmd('file_mru')
+    " Finds the git project root if git is installed
+    function! s:find_git_root()
+        if executable('git')
+            return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+        else
+            return ''
+        endif
+    endfunction
 
-" Unite buffer mappings
-au FileType unite call s:unite_buffer_maps()
-function! s:unite_buffer_maps()
-    " exiting
-    nmap <buffer> <ESC> <Plug>(unite_exit)
-    nmap <buffer> <C-c> <Plug>(unite_all_exit)
-    imap <buffer> <C-c> <ESC><Plug>(unite_all_exit)
-    nmap <buffer> <C-g> <C-c>
-    imap <buffer> <C-g> <C-c>
+    command! ProjectFiles execute 'Files' s:find_git_root()
 
-    " actions
-    imap <silent><buffer><expr> <C-Enter> unite#do_action('tabopen')
-    imap <silent><buffer><expr> <C-s> unite#do_action('split')
-    imap <silent><buffer><expr> <C-x> unite#do_action('split')
-    imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+    " Ag command with prompt for search pattern
+    command! AgPrompt exec ":Ag " . input('Pattern: ')
 
-    nmap <silent><buffer><expr> v unite#do_action('vsplit')
-    nmap <silent><buffer><expr> s unite#do_action('split')
-    nmap <silent><buffer><expr> x unite#do_action('split')
+    " Fix for fzf.vim issue:
+    " https://github.com/junegunn/fzf.vim/issues/91
+    command! FZFMru call fzf#run({
+                \ 'source':  reverse(s:all_files()),
+                \ 'sink':    'edit',
+                \ 'options': '-m -x +s',
+                \ 'down':    '40%' })
 
-    " navigation
-    imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-    imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
+    function! s:all_files()
+        return extend(
+                    \ filter(copy(v:oldfiles),
+                    \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|\\.git/'"),
+                    \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+    endfunction
+
+    " Bindings
+    nnoremap <silent><leader>f :ProjectFiles<CR>
+    nnoremap <silent><leader>b :Buffers<CR>
+    nnoremap <silent><leader>a :AgPrompt<CR>
+    nnoremap <silent><leader>rf :FZFMru<CR>
+    nnoremap <silent><leader>u :Snippets<CR>
+    nnoremap <silent><leader>h :Helptags<CR>
+    nnoremap <silent><leader>: :History:<CR>
+    nnoremap <silent><leader>/ :History/<CR>
+    nmap <leader><tab> <plug>(fzf-maps-n)
+    xmap <leader><tab> <plug>(fzf-maps-x)
+    omap <leader><tab> <plug>(fzf-maps-o)
+endif
+
+
+" Unite ------------------------------------------------------------------ {{{1
+if ! g:fzf_is_installed
+    let g:unite_force_overwrite_statusline = 0
+    let g:unite_source_history_yank_enable = 1
+    let g:unite_source_rec_max_cache_files = 5000
+    let g:unite_data_directory = '~/.cache/vim/unite'
+
+    " options controlling unite window
+    call unite#custom#profile('default', 'context', {
+    \  'winheight': 25,
+    \  'direction': 'botright',
+    \  'cursor_line_time': '0.0',
+    \  'prompt_direction': 'below'
+    \  })
+
+    " buffer specific options
+    call unite#custom#profile('file,file_mru,file_rec,file_rec/async,buffer,help', 'context', {
+    \  'start_insert': 1
+    \  })
+
+    " Use 'ag' for unite grep if available
+    " This is much faster, as ag will take into account the repo (git,hg, etc)
+    if executable('ag')
+        let g:unite_source_rec_async_command = 'ag -l --nocolor --nogroup --hidden .'
+        let g:unite_source_grep_command = 'ag'
+        let g:unite_source_grep_default_opts = '--nogroup --nocolor --column
+                    \ --ignore dist/
+                    \ --ignore bundles/
+                    \ --ignore bower_components/
+                    \ --ignore node_modules/
+                    \ --ignore coverage/
+                    \ --ignore .coverage/
+                    \ --ignore htmlcov/'
+        let g:unite_source_grep_recursive_opt = ''
+    end
+
+    " Use length sorter for file searches
+    call unite#custom#source(
+                \ 'buffer,file,file_rec,file_rec/async',
+                \ 'sorters', ['sorter_length'])
+
+    " Shortcut function for calling unite commands
+    function! UniteCmd(action, ...)
+        if a:0 > 0
+            let args = a:1
+        else
+            let args = ''
+        endif
+
+        let name = split(a:action, ':')[0]
+
+        return ":\<C-u>Unite ".a:action." -buffer-name=".name.' '.args."\<CR>"
+    endfunction
+
+    " Unite mappings
+    nnoremap <silent><expr><leader>f UniteCmd('file_rec/async:! file')
+    nnoremap <silent><expr><leader>b UniteCmd('buffer')
+    nnoremap <silent><expr><leader>a UniteCmd('grep:.')
+    nnoremap <silent><expr><leader>y UniteCmd('history/yank')
+    nnoremap <silent><expr><leader>u UniteCmd('ultisnips')
+    nnoremap <silent><expr><leader>o UniteCmd('outline')
+    nnoremap <silent><expr><leader>h UniteCmd('help')
+    nnoremap <silent><expr><leader>rf UniteCmd('file_mru')
+
+    " Unite buffer mappings
+    au FileType unite call s:unite_buffer_maps()
+    function! s:unite_buffer_maps()
+        " exiting
+        nmap <buffer> <ESC> <Plug>(unite_exit)
+        nmap <buffer> <C-c> <Plug>(unite_all_exit)
+        imap <buffer> <C-c> <ESC><Plug>(unite_all_exit)
+        nmap <buffer> <C-g> <C-c>
+        imap <buffer> <C-g> <C-c>
+
+        " actions
+        imap <silent><buffer><expr> <C-Enter> unite#do_action('tabopen')
+        imap <silent><buffer><expr> <C-s> unite#do_action('split')
+        imap <silent><buffer><expr> <C-x> unite#do_action('split')
+        imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+
+        nmap <silent><buffer><expr> v unite#do_action('vsplit')
+        nmap <silent><buffer><expr> s unite#do_action('split')
+        nmap <silent><buffer><expr> x unite#do_action('split')
+
+        " navigation
+        imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+        imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+    endfunction
+endif
 
 
 " Surround --------------------------------------------------------------- {{{1

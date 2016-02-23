@@ -126,3 +126,8 @@
 [submodule "bundle/deoplete-jedi"]
 	path = bundle/deoplete-jedi
 	url = https://github.com/zchee/deoplete-jedi.git
+	ignore = untracked
+[submodule "bundle/fzf"]
+	path = bundle/fzf
+	url = https://github.com/junegunn/fzf.vim.git
+	ignore = untracked
