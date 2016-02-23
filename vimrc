@@ -302,6 +302,7 @@ if has("nvim")
     let g:neomake_javascript_enabled_makers = ['eslint']
     let g:neomake_python_enabled_makers = ['flake8']
     let g:neomake_python_flake8_args = ["--ignore=E12"]
+    let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
 
 
     " This is currently not working, no idea why
