@@ -6,25 +6,31 @@
 " Disable plugins if feature support is missing
 let g:pathogen_disabled = []
 
+" Plugins that require lua
+if !has('lua')
+    call add(g:pathogen_disabled, 'neocomplete')
+endif
+
 " Plugins that require python
 if !has('python')
     call add(g:pathogen_disabled, 'ultisnips')
     call add(g:pathogen_disabled, 'jedi')
 endif
 
-" Plugins that require lua
-if !has('lua')
-    call add(g:pathogen_disabled, 'neocomplete')
+" Plugins that require python3
+if !has('python3')
+    call add(g:pathogen_disabled, 'deoplete')
 endif
 
-" Plugins to ignore for nvim
+" Plugins to disable for nvim
 if has('nvim')
     call add(g:pathogen_disabled, 'neocomplete')
     call add(g:pathogen_disabled, 'syntastic')
 endif
 
-" Plugins to ignore for regular vim
+" Plugins to disable for regular vim
 if !has('nvim')
+    call add(g:pathogen_disabled, 'deoplete')
     call add(g:pathogen_disabled, 'neomake')
 endif
 
@@ -326,28 +332,46 @@ endif
 
 
 " NeoComplete ------------------------------------------------------------ {{{1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#data_directory = '~/.cache/vim/neocomplete'
+if ! has('nvim')
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#data_directory = '~/.cache/vim/neocomplete'
 
-" So we can override input paterns that trigger completions
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
+    " So we can override input paterns that trigger completions
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+    endif
+
+    " customize when python omni completion is triggered
+    let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|from \w\+\s\+import \w'
+
+    " So .less files use omni same as .css
+    let g:neocomplete#sources#omni#input_patterns.less = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+
+    " Tab completion in menus
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
-if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
+
+
+" Deoplete ------------------------------------------------------------ {{{1
+if has('nvim')
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_ignore_case = 1
+    let g:deoplete#enable_smart_case = 1
+    let g:deoplete#enable_camel_case = 1
+
+    let g:deoplete#omni_patterns = {}
+    let g:deoplete#omni_patterns.python = '[^. \t]\.\w*\|from \w\+\s\+import \w'
+    let g:deoplete#omni_patterns.less = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+
+    inoremap <silent><expr> <Tab>
+                \ pumvisible() ? "\<C-n>" :
+                \ deoplete#mappings#manual_complete()
 endif
-
-" customize when python omni completion is triggered
-let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|from \w\+\s\+import \w'
-
-" So .less files use omni same as .css
-let g:neocomplete#sources#omni#input_patterns.less = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-
-" Tab completion in menus
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 
 " UltiSnips -------------------------------------------------------------- {{{1
 let g:UltiSnipsExpandTrigger = "<c-j>"
