@@ -115,3 +115,7 @@
 	path = bundle/neomake
 	url = https://github.com/benekastah/neomake.git
 	ignore = untracked
+[submodule "bundle/airline-themes"]
+	path = bundle/airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+	ignore = untracked
