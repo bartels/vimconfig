@@ -364,9 +364,15 @@ if has('nvim')
     let g:deoplete#enable_smart_case = 1
     let g:deoplete#enable_camel_case = 1
 
-    let g:deoplete#omni_patterns = {}
-    let g:deoplete#omni_patterns.python = '[^. \t]\.\w*\|from \w\+\s\+import \w'
-    let g:deoplete#omni_patterns.less = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+    let g:deoplete#omni#input_patterns = {}
+    let g:deoplete#omni#input_patterns.less = ['\w+', '\w+[):;]?\s+\w*', '[@!]']
+    let g:deoplete#omni#input_patterns.python = [
+            \ '[^. \t0-9]\.\w*',
+            \ '^\s*@\w*',
+            \ '^\s*from\s.+import \w*',
+            \ '^\s*from \w*',
+            \ '^\s*import \w*'
+            \]
 
     inoremap <silent><expr> <Tab>
                 \ pumvisible() ? "\<C-n>" :
