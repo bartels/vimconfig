@@ -591,7 +591,7 @@ endif
 cnoremap w!! w !sudo tee % > /dev/null
 
 " Edit vimrc file
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :exec ':e' . resolve($MYVIMRC)<CR>
 
 " Source the vimrc file
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
