@@ -412,6 +412,7 @@ if isdirectory(expand('~/.fzf'))
     " Use ag if available (much nicer knows about gitignore)
     if executable('ag')
         let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup --hidden .
+                    \ --ignore .git/
                     \ --ignore node_modules/
                     \ --ignore bower_components/
                     \ --ignore coverage/
@@ -422,8 +423,9 @@ if isdirectory(expand('~/.fzf'))
     " Customize fzf default arguments
     let $FZF_DEFAULT_OPTS="
                 \ --exact
-                \ --inline-info
                 \ --tiebreak=length
+                \ --inline-info
+                \ --cycle
                 \ --bind=tab:toggle-up,btab:toggle-down,alt-a:toggle-all
                 \ --toggle-sort=ctrl-r"
 
