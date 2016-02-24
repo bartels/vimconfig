@@ -407,11 +407,13 @@ endif
 " If fzf is installed (.fzf  directory exists)
 if isdirectory(expand('~/.fzf'))
     let g:fzf_is_installed = 1
+
+    " loads fzf prograam as vim plugin
     set rtp+=~/.fzf
 
-    " Use ag if available (much nicer knows about gitignore)
+    " Use ag if available as default fzf command
     if executable('ag')
-        let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup --hidden .
+        let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup .
                     \ --ignore .git/
                     \ --ignore node_modules/
                     \ --ignore bower_components/
@@ -420,7 +422,7 @@ if isdirectory(expand('~/.fzf'))
                     \ --ignore htmlcov/'
     endif
 
-    " Customize fzf default arguments
+    " Customize fzf defaults
     let $FZF_DEFAULT_OPTS="
                 \ --exact
                 \ --tiebreak=length
@@ -430,7 +432,7 @@ if isdirectory(expand('~/.fzf'))
                 \ --toggle-sort=ctrl-r"
 
 
-    " Finds the git project root if git is installed
+    " Finds the git project root
     function! s:find_git_root()
         if executable('git')
             return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
@@ -439,7 +441,17 @@ if isdirectory(expand('~/.fzf'))
         endif
     endfunction
 
-    command! ProjectFiles execute 'Files' s:find_git_root()
+    " Same as :Files command but use project root when inside git repo
+    function! s:fzf_projectfiles()
+        let s:extra_opts = ''
+        let s:search_root = s:find_git_root()
+        if s:search_root != ''
+            let s:extra_opts = ' --hidden'
+        endif
+        return fzf#vim#files(s:search_root, {'source': $FZF_DEFAULT_COMMAND . s:extra_opts})
+    endfunction
+
+    autocmd VimEnter * command! -bang -nargs=? -complete=dir ProjectFiles call s:fzf_projectfiles()
 
     " Ag command with prompt for search pattern
     command! AgPrompt exec ":Ag " . input('Pattern: ')
