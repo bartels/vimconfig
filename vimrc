@@ -45,8 +45,13 @@ execute pathogen#infect()
 set hidden                        " switch buffers without needing to save
 set backspace=indent,eol,start    " more powerful backspacing
 set fileformats+=mac              " handle 'mac' style EOLs
-set history=1000                  " command history entries
 set modeline                      " alow modlines in files
+set history=1000                  " command history entries
+
+if has('shada')
+    " how much info to store in shada (previously viminfo)
+    set shada=!,'1000,<50,s10,h
+endif
 
 " Folding
 set foldmethod=manual
