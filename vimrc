@@ -454,7 +454,7 @@ if isdirectory(expand('~/.fzf'))
                     \ })
     endfunction
 
-    autocmd VimEnter * command! -bang -nargs=? -complete=dir ProjectFiles call s:fzf_projectfiles()
+    command! -bang -nargs=? -complete=dir ProjectFiles call s:fzf_projectfiles()
 
     " Ag command with prompt for search pattern
     command! AgPrompt exec ":Ag " . input('Pattern: ')
