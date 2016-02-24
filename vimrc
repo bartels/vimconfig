@@ -406,7 +406,12 @@ if isdirectory(expand('~/.fzf'))
 
     " Use ag if available (much nicer knows about gitignore)
     if executable('ag')
-        let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup --hidden .'
+        let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup --hidden .
+                    \ --ignore node_modules/
+                    \ --ignore bower_components/
+                    \ --ignore coverage/
+                    \ --ignore .coverage/
+                    \ --ignore htmlcov/'
     endif
 
     " Customize fzf default arguments
