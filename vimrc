@@ -448,7 +448,10 @@ if isdirectory(expand('~/.fzf'))
         if s:search_root != ''
             let s:extra_opts = ' --hidden'
         endif
-        return fzf#vim#files(s:search_root, {'source': $FZF_DEFAULT_COMMAND . s:extra_opts})
+        return fzf#vim#files(s:search_root, {
+                    \ 'source': $FZF_DEFAULT_COMMAND . s:extra_opts,
+                    \ 'down': '~40%'
+                    \ })
     endfunction
 
     autocmd VimEnter * command! -bang -nargs=? -complete=dir ProjectFiles call s:fzf_projectfiles()
