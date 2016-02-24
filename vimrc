@@ -444,26 +444,11 @@ if isdirectory(expand('~/.fzf'))
     " Ag command with prompt for search pattern
     command! AgPrompt exec ":Ag " . input('Pattern: ')
 
-    " Fix for fzf.vim issue:
-    " https://github.com/junegunn/fzf.vim/issues/91
-    command! FZFMru call fzf#run({
-                \ 'source':  reverse(s:all_files()),
-                \ 'sink':    'edit',
-                \ 'options': '-m -x +s',
-                \ 'down':    '40%' })
-
-    function! s:all_files()
-        return extend(
-                    \ filter(copy(v:oldfiles),
-                    \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|\\.git/'"),
-                    \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
-    endfunction
-
     " Bindings
     nnoremap <silent><leader>f :ProjectFiles<CR>
     nnoremap <silent><leader>b :Buffers<CR>
     nnoremap <silent><leader>a :AgPrompt<CR>
-    nnoremap <silent><leader>rf :FZFMru<CR>
+    nnoremap <silent><leader>rf :History<CR>
     nnoremap <silent><leader>u :Snippets<CR>
     nnoremap <silent><leader>h :Helptags<CR>
     nnoremap <silent><leader>: :History:<CR>
