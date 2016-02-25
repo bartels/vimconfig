@@ -198,6 +198,12 @@ augroup CLClear
     autocmd! ColorScheme * hi clear CursorLine
 augroup END
 
+" Colorizer mappings
+" <leader>cC <Plug>Colorizer
+" <leader>cT <Plug>ColorContrast
+" <leader>cF <Plug>ColorFgBg
+let g:colorizer_auto_map = 1
+
 " Invisible chars to use with :set list
 set listchars=tab:▸\ ,trail:·
 set list
