@@ -420,12 +420,7 @@ if isdirectory(expand('~/.fzf'))
     " Use ag if available as default fzf command
     if executable('ag')
         let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup .
-                    \ --ignore .git/
-                    \ --ignore node_modules/
-                    \ --ignore bower_components/
-                    \ --ignore coverage/
-                    \ --ignore .coverage/
-                    \ --ignore htmlcov/'
+                    \ --ignore .git/'
     endif
 
     " Customize fzf defaults
