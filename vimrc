@@ -617,6 +617,9 @@ inoremap <Esc> <Esc>`^
 " Use kj for escape
 imap kj <Esc>
 
+" So we can now use <space> for what , does
+noremap <space> ,
+
 " Use c-g same as C-c
 noremap <C-g> <C-c>
 inoremap <C-g> <C-c>
