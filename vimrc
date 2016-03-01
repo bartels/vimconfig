@@ -420,6 +420,7 @@ if isdirectory(expand('~/.fzf'))
     " Use ag if available as default fzf command
     if executable('ag')
         let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup .
+                    \ --depth 50
                     \ --ignore .git/'
     endif
 
