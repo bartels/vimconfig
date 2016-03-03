@@ -388,9 +388,7 @@ if has('nvim')
             \ '^\s*import \w*'
             \]
 
-    inoremap <silent><expr> <Tab>
-                \ pumvisible() ? "\<C-n>" :
-                \ deoplete#mappings#manual_complete()
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
 
 " UltiSnips -------------------------------------------------------------- {{{1
