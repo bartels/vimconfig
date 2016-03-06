@@ -417,7 +417,9 @@ if isdirectory(expand('~/.fzf'))
 
     " Use ag if available as default fzf command
     if executable('ag')
-        let $FZF_DEFAULT_COMMAND = 'ag -l --nogroup .
+        let $FZF_DEFAULT_COMMAND = 'ag -g ""
+                    \ --nogroup
+                    \ --follow
                     \ --depth 50
                     \ --ignore .git/'
     endif
