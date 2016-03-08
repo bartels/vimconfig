@@ -387,6 +387,7 @@ if has('nvim')
             \ '^\s*from \w*',
             \ '^\s*import \w*'
             \]
+    let g:deoplete#omni#input_patterns.javascript = ['[^. \t0-9]\.([a-zA-Z_]\w*)?']
 
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
