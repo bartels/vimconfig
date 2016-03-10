@@ -131,8 +131,11 @@ augroup filetypedetect
 
 augroup END
 
-" Disable conceal feature in json files
+" Disable conceal feature in json files (vim-json)
 let g:vim_json_syntax_conceal = 0
+
+" Support jsx syntax in .js files (vim-jsx)
+let g:jsx_ext_required = 0
 
 
 " Keyboard --------------------------------------------------------------- {{{1
