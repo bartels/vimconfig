@@ -608,11 +608,6 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 
-" Instant Markdown ------------------------------------------------------- {{{1
-" Don't autostart, run :InstantMarkdownPreview to open preview
-let g:instant_markdown_autostart = 0
-
-
 " Key Mappings ----------------------------------------------------------- {{{1
 
 " Prevent jumping back one char when leaving insert mode

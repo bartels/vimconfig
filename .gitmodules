@@ -87,10 +87,6 @@
 	path = bundle/vim-json
 	url = https://github.com/elzr/vim-json.git
 	ignore = untracked
-[submodule "bundle/instant-markdown"]
-	path = bundle/instant-markdown
-	url = https://github.com/suan/vim-instant-markdown.git
-	ignore = untracked
 [submodule "bundle/tmux-navigator"]
 	path = bundle/tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
