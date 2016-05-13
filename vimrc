@@ -469,6 +469,7 @@ if isdirectory(expand('~/.fzf'))
     nnoremap <silent><leader>f :ProjectFiles<CR>
     nnoremap <silent><leader>b :Buffers<CR>
     nnoremap <silent><leader>a :AgPrompt<CR>
+    nnoremap <silent><leader>g :GitFiles?<CR>
     nnoremap <silent><leader>rf :History<CR>
     nnoremap <silent><leader>u :Snippets<CR>
     nnoremap <silent><leader>h :Helptags<CR>
