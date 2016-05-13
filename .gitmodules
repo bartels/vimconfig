@@ -127,3 +127,6 @@
 	path = bundle/Colorizer
 	url = https://github.com/chrisbra/Colorizer.git
 	ignore = untracked
+[submodule "bundle/vim-markdown-preview"]
+	path = bundle/vim-markdown-preview
+	url = https://github.com/JamshedVesuna/vim-markdown-preview.git

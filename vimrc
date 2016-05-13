@@ -608,6 +608,13 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 
+" Markdown Preview ------------------------------------------------------- {{{1
+let g:vim_markdown_preview_toggle = 3
+let g:vim_markdown_preview_hotkey = ',p'
+let g:vim_markdown_preview_browser = 'Google Chrome'
+let g:vim_markdown_preview_github = 1
+
+
 " Key Mappings ----------------------------------------------------------- {{{1
 
 " Prevent jumping back one char when leaving insert mode
