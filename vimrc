@@ -616,6 +616,20 @@ let g:vim_markdown_preview_browser = 'Google Chrome'
 let g:vim_markdown_preview_github = 1
 
 
+" tmux-navigator --------------------------------------------------------- {{{1
+
+if exists(':tnoremap')
+    " Fix: tmux-navigator maps break fzf pane maps
+    function! s:unset_tmux_maps_for_fzf()
+        tnoremap <buffer> <c-h> <Nop>
+        tnoremap <buffer> <c-j> <c-n>
+        tnoremap <buffer> <c-k> <c-p>
+        tnoremap <buffer> <c-l> <Nop>
+    endfunction
+    autocmd! FileTYpe fzf call <SID>unset_tmux_maps_for_fzf()
+endif
+
+
 " Key Mappings ----------------------------------------------------------- {{{1
 
 " Prevent jumping back one char when leaving insert mode
