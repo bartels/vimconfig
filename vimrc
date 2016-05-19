@@ -318,7 +318,7 @@ endif
 if has("nvim")
     " check on save
     autocmd! BufWritePost * Neomake
-    autocmd! QuitPre * let g:neomake_verbose = 0
+    autocmd! VimLeave * let g:neomake_verbose = 0
     let g:neomake_verbose = 1
 
     " makers
