@@ -648,12 +648,6 @@ nnoremap <leader>l :set list!<CR>
 " Clear last search highlight
 nnoremap <leader><space> :noh<CR>
 
-" Navigate between vim windows
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-
 " creating window splits
 nnoremap <silent> <leader>v :vsplit<CR>
 nnoremap <silent> <leader>s :split<CR>
