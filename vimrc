@@ -173,6 +173,7 @@ endif
 
 set title                         " title in terminal window
 set number                        " show line numbers
+set relativenumber
 set cursorline                    " highlight current line
 set display+=lastline             " always show as much of last line of file
 set laststatus=2                  " always show the statusline
