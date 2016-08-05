@@ -83,7 +83,7 @@ endif
 " Spaces & Tabs ---------------------------------------------------------- {{{1
 
 set tabstop=4           " number of visual spaces per tab
-set softtabstop=4       " number of spaces per tab when editing
+set softtabstop=4       " number of spaces per tab for editing commands
 set shiftwidth=4        " spaces to use for each step of indent
 set shiftround          " rounds indents to multiple of 'shiftwidth'
 set expandtab           " Insert spaces instead of tabs
