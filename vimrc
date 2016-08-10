@@ -111,23 +111,26 @@ augroup filetypedetect
     " Better django template detection
     " - looks for a few additional Django tag types.
     au BufNewFile,BufRead,BufWrite *.html,*.htm  call FThtml()
-    func! FThtml()
-        let n = 1
-        while n < 10 && n <= line("$")
-        if getline(n) =~ '\<DTD\s\+XHTML\s'
-            setf xhtml
-            return
-        endif
-        if getline(n) =~ '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>\|{#\s\+'
-            setf htmldjango
-            return
-        endif
-        let n = n + 1
-        endwhile
-        setf html
-    endfunc
-
 augroup END
+
+" Distinguish between HTML, XHTML and Django
+" custom/improved version than in runtime/filetype.vim
+func! FThtml()
+    let n = 1
+    while n < 10 && n <= line("$")
+      if getline(n) =~ '\<DTD\s\+XHTML\s'
+        setf xhtml
+        return
+      endif
+      if getline(n) =~ '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>\|{#\s\+'
+        setf htmldjango
+        return
+      endif
+      let n = n + 1
+    endwhile
+    setf html
+endfunc
+
 
 " Disable conceal feature in json files (vim-json)
 let g:vim_json_syntax_conceal = 0
