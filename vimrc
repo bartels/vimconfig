@@ -482,97 +482,6 @@ if isdirectory(expand('~/.fzf'))
 endif
 
 
-" Unite ------------------------------------------------------------------ {{{1
-if ! g:fzf_is_installed
-    let g:unite_force_overwrite_statusline = 0
-    let g:unite_source_history_yank_enable = 1
-    let g:unite_source_rec_max_cache_files = 5000
-    let g:unite_data_directory = '~/.cache/vim/unite'
-
-    " options controlling unite window
-    call unite#custom#profile('default', 'context', {
-    \  'winheight': 25,
-    \  'direction': 'botright',
-    \  'cursor_line_time': '0.0',
-    \  'prompt_direction': 'below'
-    \  })
-
-    " buffer specific options
-    call unite#custom#profile('file,file_mru,file_rec,file_rec/async,buffer,help', 'context', {
-    \  'start_insert': 1
-    \  })
-
-    " Use 'ag' for unite grep if available
-    " This is much faster, as ag will take into account the repo (git,hg, etc)
-    if executable('ag')
-        let g:unite_source_rec_async_command = 'ag -l --nocolor --nogroup --hidden .'
-        let g:unite_source_grep_command = 'ag'
-        let g:unite_source_grep_default_opts = '--nogroup --nocolor --column
-                    \ --ignore dist/
-                    \ --ignore bundles/
-                    \ --ignore bower_components/
-                    \ --ignore node_modules/
-                    \ --ignore coverage/
-                    \ --ignore .coverage/
-                    \ --ignore htmlcov/'
-        let g:unite_source_grep_recursive_opt = ''
-    end
-
-    " Use length sorter for file searches
-    call unite#custom#source(
-                \ 'buffer,file,file_rec,file_rec/async',
-                \ 'sorters', ['sorter_length'])
-
-    " Shortcut function for calling unite commands
-    function! UniteCmd(action, ...)
-        if a:0 > 0
-            let args = a:1
-        else
-            let args = ''
-        endif
-
-        let name = split(a:action, ':')[0]
-
-        return ":\<C-u>Unite ".a:action." -buffer-name=".name.' '.args."\<CR>"
-    endfunction
-
-    " Unite mappings
-    nnoremap <silent><expr><leader>f UniteCmd('file_rec/async:! file')
-    nnoremap <silent><expr><leader>b UniteCmd('buffer')
-    nnoremap <silent><expr><leader>a UniteCmd('grep:.')
-    nnoremap <silent><expr><leader>y UniteCmd('history/yank')
-    nnoremap <silent><expr><leader>u UniteCmd('ultisnips')
-    nnoremap <silent><expr><leader>o UniteCmd('outline')
-    nnoremap <silent><expr><leader>h UniteCmd('help')
-    nnoremap <silent><expr><leader>rf UniteCmd('file_mru')
-
-    " Unite buffer mappings
-    au FileType unite call s:unite_buffer_maps()
-    function! s:unite_buffer_maps()
-        " exiting
-        nmap <buffer> <ESC> <Plug>(unite_exit)
-        nmap <buffer> <C-c> <Plug>(unite_all_exit)
-        imap <buffer> <C-c> <ESC><Plug>(unite_all_exit)
-        nmap <buffer> <C-g> <C-c>
-        imap <buffer> <C-g> <C-c>
-
-        " actions
-        imap <silent><buffer><expr> <C-Enter> unite#do_action('tabopen')
-        imap <silent><buffer><expr> <C-s> unite#do_action('split')
-        imap <silent><buffer><expr> <C-x> unite#do_action('split')
-        imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-
-        nmap <silent><buffer><expr> v unite#do_action('vsplit')
-        nmap <silent><buffer><expr> s unite#do_action('split')
-        nmap <silent><buffer><expr> x unite#do_action('split')
-
-        " navigation
-        imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-        imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-    endfunction
-endif
-
-
 " Surround --------------------------------------------------------------- {{{1
 let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
 
@@ -622,7 +531,7 @@ let g:vim_markdown_preview_github = 1
 if exists(':tnoremap')
     " Fix: tmux-navigator maps break fzf pane maps
     function! s:unset_tmux_maps_for_fzf()
-        tnoremap <buffer> <c-h> <Nop>
+        noremap <buffer> <c-h> <Nop>
         tnoremap <buffer> <c-j> <c-n>
         tnoremap <buffer> <c-k> <c-p>
         tnoremap <buffer> <c-l> <Nop>

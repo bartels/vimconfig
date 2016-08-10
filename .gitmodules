@@ -59,17 +59,9 @@
 	path = bundle/neocomplete
 	url = https://github.com/Shougo/neocomplete.vim.git
 	ignore = untracked
-[submodule "bundle/unite"]
-	path = bundle/unite
-	url = https://github.com/Shougo/unite.vim.git
-	ignore = untracked
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.vim.git
-	ignore = untracked
-[submodule "bundle/unite-help"]
-	path = bundle/unite-help
-	url = https://github.com/tsukkee/unite-help.git
 	ignore = untracked
 [submodule "bundle/goyo"]
 	path = bundle/goyo
@@ -98,10 +90,6 @@
 [submodule "bundle/vim-snippets"]
 	path = bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
-	ignore = untracked
-[submodule "bundle/neomru"]
-	path = bundle/neomru
-	url = https://github.com/Shougo/neomru.vim.git
 	ignore = untracked
 [submodule "bundle/neomake"]
 	path = bundle/neomake
