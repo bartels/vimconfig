@@ -1,41 +1,53 @@
 " Initialization --------------------------------------------------------- {{{1
 
-" Use pathogen for plugins
-" Plugins are installed using 'git submodule', under ~/.vim/bundle/
+" Plugins (vim-plug)
+call plug#begin('~/.vim/plugged')
 
-" Disable plugins if feature support is missing
-let g:pathogen_disabled = []
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'chrisbra/Colorizer'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'benekastah/neomake', { 'commit': '645c433b' }
+Plug 'kana/vim-smartinput'
+Plug 'altercation/vim-colors-solarized'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'mbbill/undotree'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'elzr/vim-json'
+Plug 'mxw/vim-jsx'
+Plug 'groenewege/vim-less'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'honza/vim-snippets'
+Plug 'jmcantrell/vim-virtualenv'
+Plug 'sukima/xmledit'
 
-" Plugins that require lua
-if !has('lua')
-    call add(g:pathogen_disabled, 'neocomplete')
+" Plugins conditioned on installed features
+if has('python')
+    Plug 'SirVer/ultisnips'
+    Plug 'davidhalter/jedi-vim'
 endif
 
-" Plugins that require python
-if !has('python')
-    call add(g:pathogen_disabled, 'ultisnips')
-    call add(g:pathogen_disabled, 'jedi')
+if ! has('nvim') && has('lua')
+    Plug 'Shougo/neocomplete'
+    Plug 'Shougo/vimproc', { 'do': 'make' }
 endif
 
-" Plugins that require python3
-if !has('python3')
-    call add(g:pathogen_disabled, 'deoplete')
+if has('nvim') && has('python3')
+    function! DoRemote(arg)
+      UpdateRemotePlugins
+    endfunction
+    Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+    Plug 'zchee/deoplete-jedi'
 endif
 
-" Plugins to disable for nvim
-if has('nvim')
-    call add(g:pathogen_disabled, 'neocomplete')
-endif
-
-" Plugins to disable for regular vim
-if !has('nvim')
-    call add(g:pathogen_disabled, 'deoplete')
-endif
-
-" Define alternate Helptags (since fzf shadows it)
-command! HelpTags  call pathogen#helptags()
-
-execute pathogen#infect()
+call plug#end()
 
 
 " Misc ------------------------------------------------------------------- {{{1
@@ -244,25 +256,12 @@ if ! has("gui_running")
     let g:airline_powerline_fonts=1
     let g:airline_right_sep=''
 
-    " tabline
+    "" tabline
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_min_count = 2
     let g:airline#extensions#tabline#show_tab_type = 0
     let g:airline#extensions#tabline#show_buffers = 0
     let g:airline#extensions#tabline#fnamemod = ':t'
-
-    " override some theme colors
-    let g:airline_theme_patch_func = 'AirlineThemePatch'
-    function! AirlineThemePatch(palette)
-        if g:airline_theme == 'lucius'
-            " make inactive split colors darker
-            for colors in values(a:palette.inactive)
-                let colors[2] = 242
-                let colors[3] = 237
-            endfor
-            let a:palette.inactive['airline_c'][2] = 244
-        endif
-    endfunction
 else
     let g:airline_left_sep=''
     let g:airline_right_sep=''
