@@ -39,10 +39,6 @@
 	path = bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
 	ignore = untracked
-[submodule "bundle/syntastic"]
-	path = bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
-	ignore = untracked
 [submodule "bundle/smartinput"]
 	path = bundle/smartinput
 	url = https://github.com/kana/vim-smartinput.git
@@ -59,21 +55,9 @@
 	path = bundle/neocomplete
 	url = https://github.com/Shougo/neocomplete.vim.git
 	ignore = untracked
-[submodule "bundle/unite"]
-	path = bundle/unite
-	url = https://github.com/Shougo/unite.vim.git
-	ignore = untracked
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.vim.git
-	ignore = untracked
-[submodule "bundle/unite-help"]
-	path = bundle/unite-help
-	url = https://github.com/tsukkee/unite-help.git
-	ignore = untracked
-[submodule "bundle/color_highlight"]
-	path = bundle/color_highlight
-	url = https://github.com/chrisbra/color_highlight.git
 	ignore = untracked
 [submodule "bundle/goyo"]
 	path = bundle/goyo
@@ -91,10 +75,6 @@
 	path = bundle/vim-json
 	url = https://github.com/elzr/vim-json.git
 	ignore = untracked
-[submodule "bundle/instant-markdown"]
-	path = bundle/instant-markdown
-	url = https://github.com/suan/vim-instant-markdown.git
-	ignore = untracked
 [submodule "bundle/tmux-navigator"]
 	path = bundle/tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
@@ -107,7 +87,30 @@
 	path = bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
 	ignore = untracked
-[submodule "bundle/neomru"]
-	path = bundle/neomru
-	url = https://github.com/Shougo/neomru.vim.git
+[submodule "bundle/neomake"]
+	path = bundle/neomake
+	url = https://github.com/benekastah/neomake.git
 	ignore = untracked
+[submodule "bundle/airline-themes"]
+	path = bundle/airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+	ignore = untracked
+[submodule "bundle/deoplete"]
+	path = bundle/deoplete
+	url = https://github.com/Shougo/deoplete.nvim.git
+	ignore = untracked
+[submodule "bundle/deoplete-jedi"]
+	path = bundle/deoplete-jedi
+	url = https://github.com/zchee/deoplete-jedi.git
+	ignore = untracked
+[submodule "bundle/fzf.vim"]
+	path = bundle/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+	ignore = untracked
+[submodule "bundle/Colorizer"]
+	path = bundle/Colorizer
+	url = https://github.com/chrisbra/Colorizer.git
+	ignore = untracked
+[submodule "bundle/vim-markdown-preview"]
+	path = bundle/vim-markdown-preview
+	url = https://github.com/JamshedVesuna/vim-markdown-preview.git
