@@ -14,7 +14,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'benekastah/neomake', { 'commit': '645c433b' }
+Plug 'benekastah/neomake'
 Plug 'kana/vim-smartinput'
 Plug 'altercation/vim-colors-solarized'
 Plug 'christoomey/vim-tmux-navigator'
