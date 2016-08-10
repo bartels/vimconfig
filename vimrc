@@ -342,19 +342,6 @@ let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_python_flake8_args = ["--ignore=E12"]
 let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
 
-" This is currently not working, no idea why
-" It will populate the location list but now signs and no way to jump to
-" the correct line
-let g:neomake_yaml_jsyaml_maker = {
-            \ 'exe': 'js-yaml',
-            \ 'errorformat':
-                \ 'Error on line %l\, col %c:%m,' .
-                \ 'JS-YAML: %m at line %l\, column %c:,' .
-                \ 'YAMLException: %m at line %l\, column %c:,' .
-                \ '%-G%.%#',
-            \ }
-let g:neomake_yaml_enabled_makers = ['jsyaml']
-
 " customize error sign color
 let g:neomake_error_sign = {
     \ 'texthl': 'ErrorMsg',
