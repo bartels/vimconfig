@@ -36,14 +36,14 @@ Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'benekastah/neomake'
 
 " Completion plugins
-let use_deoplete = 0
-let use_neocomplete = 0
+let use_deoplete = has('nvim') && has('python3')
+let use_neocomplete = !use_deoplete && has('lua')
 
-if has('nvim') && has('python3')
+if use_deoplete
     let use_deoplete = 1
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-jedi'
-elseif has('lua')
+elseif use_neocomplete
     let g:use_neocomplete = 1
     Plug 'Shougo/neocomplete'
     Plug 'Shougo/vimproc', { 'do': 'make' }
