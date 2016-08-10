@@ -259,9 +259,30 @@ if ! has("gui_running")
     "" tabline
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_min_count = 2
-    let g:airline#extensions#tabline#show_tab_type = 0
-    let g:airline#extensions#tabline#show_buffers = 0
     let g:airline#extensions#tabline#fnamemod = ':t'
+    let g:airline#extensions#tabline#show_tab_type = 0
+    let g:airline#extensions#tabline#show_splits = 0
+    let g:airline#extensions#tabline#show_buffers = 0
+
+    " override some theme colors
+    let g:airline_theme_patch_func = 'AirlineThemePatch'
+    function! AirlineThemePatch(palette)
+        if g:airline_theme == 'lucius'
+            " darker inactive split statusline
+            for colors in values(a:palette.inactive)
+                let colors[2] = 242
+                let colors[3] = 236
+            endfor
+            let a:palette.inactive['airline_c'][2] = 244
+
+            " darker normal mode statusline bg
+            let a:palette.normal.airline_c[3] = 236
+
+            " darker active tab
+            let a:palette.tabline.airline_tabsel[2] = 236
+            let a:palette.tabline.airline_tabsel[3] = 249
+        endif
+    endfunction
 else
     let g:airline_left_sep=''
     let g:airline_right_sep=''
