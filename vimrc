@@ -40,10 +40,7 @@ if ! has('nvim') && has('lua')
 endif
 
 if has('nvim') && has('python3')
-    function! DoRemote(arg)
-      UpdateRemotePlugins
-    endfunction
-    Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-jedi'
 endif
 
