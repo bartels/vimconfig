@@ -1,47 +1,63 @@
-" Initialization --------------------------------------------------------- {{{1
+" Plugins ---------------------------------------------------------------- {{{1
 
-" Plugins (vim-plug)
+" Init plugins (vim-plug)
 call plug#begin('~/.vim/plugged')
 
+" Editing plugins
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'kana/vim-smartinput'
+Plug 'mbbill/undotree'
+Plug 'junegunn/goyo.vim'
+
+" Theme plugins
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'chrisbra/Colorizer'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'benekastah/neomake'
-Plug 'kana/vim-smartinput'
 Plug 'altercation/vim-colors-solarized'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'mbbill/undotree'
+
+" Filetype/Syntax plugins
+Plug 'othree/html5.vim'
+Plug 'sukima/xmledit'
+Plug 'pangloss/vim-javascript'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'groenewege/vim-less'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
-Plug 'groenewege/vim-less'
+
+" Utilities / Helpers
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/fzf.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'chrisbra/Colorizer'
 Plug 'JamshedVesuna/vim-markdown-preview'
-Plug 'honza/vim-snippets'
-Plug 'jmcantrell/vim-virtualenv'
-Plug 'sukima/xmledit'
 
-" Plugins conditioned on installed features
+" Syntax Checking
+Plug 'benekastah/neomake'
+
+" Completion plugins
+let use_deoplete = 0
+let use_neocomplete = 0
+
+if has('nvim')
+    if has('python3')
+        let use_deoplete = 1
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'zchee/deoplete-jedi'
+    endif
+else
+    if has('lua')
+        let g:use_neocomplete = 1
+        Plug 'Shougo/neocomplete'
+        Plug 'Shougo/vimproc', { 'do': 'make' }
+    endif
+endif
+
 if has('python')
-    Plug 'SirVer/ultisnips'
     Plug 'davidhalter/jedi-vim'
-endif
-
-if ! has('nvim') && has('lua')
-    Plug 'Shougo/neocomplete'
-    Plug 'Shougo/vimproc', { 'do': 'make' }
-endif
-
-if has('nvim') && has('python3')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'zchee/deoplete-jedi'
+    Plug 'jmcantrell/vim-virtualenv'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 endif
 
 call plug#end()
@@ -350,7 +366,7 @@ let g:neomake_error_sign = {
 
 
 " NeoComplete ------------------------------------------------------------ {{{1
-if ! has('nvim')
+if use_neocomplete
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#sources#syntax#min_keyword_length = 3
@@ -376,7 +392,7 @@ endif
 
 
 " Deoplete --------------------------------------------------------------- {{{1
-if has('nvim')
+if use_deoplete
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_ignore_case = 1
     let g:deoplete#enable_smart_case = 1
