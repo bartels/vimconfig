@@ -39,18 +39,14 @@ Plug 'benekastah/neomake'
 let use_deoplete = 0
 let use_neocomplete = 0
 
-if has('nvim')
-    if has('python3')
-        let use_deoplete = 1
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        Plug 'zchee/deoplete-jedi'
-    endif
-else
-    if has('lua')
-        let g:use_neocomplete = 1
-        Plug 'Shougo/neocomplete'
-        Plug 'Shougo/vimproc', { 'do': 'make' }
-    endif
+if has('nvim') && has('python3')
+    let use_deoplete = 1
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-jedi'
+elseif has('lua')
+    let g:use_neocomplete = 1
+    Plug 'Shougo/neocomplete'
+    Plug 'Shougo/vimproc', { 'do': 'make' }
 endif
 
 if has('python')
