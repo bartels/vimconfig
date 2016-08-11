@@ -41,14 +41,14 @@ let use_neocomplete = !use_deoplete && has('lua')
 
 if use_deoplete
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'zchee/deoplete-jedi'
+    Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 elseif use_neocomplete
     Plug 'Shougo/neocomplete'
     Plug 'Shougo/vimproc', { 'do': 'make' }
 endif
 
 if has('python')
-    Plug 'davidhalter/jedi-vim'
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     Plug 'jmcantrell/vim-virtualenv'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
