@@ -40,11 +40,9 @@ let use_deoplete = has('nvim') && has('python3')
 let use_neocomplete = !use_deoplete && has('lua')
 
 if use_deoplete
-    let use_deoplete = 1
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-jedi'
 elseif use_neocomplete
-    let g:use_neocomplete = 1
     Plug 'Shougo/neocomplete'
     Plug 'Shougo/vimproc', { 'do': 'make' }
 endif
