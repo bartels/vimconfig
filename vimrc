@@ -382,13 +382,6 @@ if use_deoplete
 
     let g:deoplete#omni#input_patterns = {}
     let g:deoplete#omni#input_patterns.less = ['\w+', '\w+[):;]?\s+\w*', '[@!]']
-    let g:deoplete#omni#input_patterns.python = [
-            \ '[^. \t0-9]\.\w*',
-            \ '^\s*@\w*',
-            \ '^\s*from\s.+import \w*',
-            \ '^\s*from \w*',
-            \ '^\s*import \w*'
-            \]
     let g:deoplete#omni#input_patterns.javascript = ['[^. \t0-9]\.([a-zA-Z_]\w*)?']
 
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
