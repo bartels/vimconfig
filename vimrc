@@ -1,41 +1,62 @@
-" Initialization --------------------------------------------------------- {{{1
+" Plugins ---------------------------------------------------------------- {{{1
 
-" Use pathogen for plugins
-" Plugins are installed using 'git submodule', under ~/.vim/bundle/
+" Init plugins (vim-plug)
+call plug#begin('~/.vim/plugged')
 
-" Disable plugins if feature support is missing
-let g:pathogen_disabled = []
+" Editing plugins
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'kana/vim-smartinput'
+Plug 'mbbill/undotree'
+Plug 'junegunn/goyo.vim'
 
-" Plugins that require lua
-if !has('lua')
-    call add(g:pathogen_disabled, 'neocomplete')
+" Theme plugins
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'altercation/vim-colors-solarized'
+
+" Filetype/Syntax plugins
+Plug 'othree/html5.vim'
+Plug 'sukima/xmledit'
+Plug 'pangloss/vim-javascript'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'groenewege/vim-less'
+Plug 'elzr/vim-json'
+Plug 'mxw/vim-jsx'
+
+" Utilities / Helpers
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/fzf.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'chrisbra/Colorizer'
+Plug 'JamshedVesuna/vim-markdown-preview'
+
+" Syntax Checking
+Plug 'benekastah/neomake'
+
+" Completion plugins
+let use_deoplete = has('nvim') && has('python3')
+let use_neocomplete = !use_deoplete && has('lua')
+
+if use_deoplete
+    let use_deoplete = 1
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-jedi'
+elseif use_neocomplete
+    let g:use_neocomplete = 1
+    Plug 'Shougo/neocomplete'
+    Plug 'Shougo/vimproc', { 'do': 'make' }
 endif
 
-" Plugins that require python
-if !has('python')
-    call add(g:pathogen_disabled, 'ultisnips')
-    call add(g:pathogen_disabled, 'jedi')
+if has('python')
+    Plug 'davidhalter/jedi-vim'
+    Plug 'jmcantrell/vim-virtualenv'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 endif
 
-" Plugins that require python3
-if !has('python3')
-    call add(g:pathogen_disabled, 'deoplete')
-endif
-
-" Plugins to disable for nvim
-if has('nvim')
-    call add(g:pathogen_disabled, 'neocomplete')
-endif
-
-" Plugins to disable for regular vim
-if !has('nvim')
-    call add(g:pathogen_disabled, 'deoplete')
-endif
-
-" Define alternate Helptags (since fzf shadows it)
-command! HelpTags  call pathogen#helptags()
-
-execute pathogen#infect()
+call plug#end()
 
 
 " Misc ------------------------------------------------------------------- {{{1
@@ -244,23 +265,31 @@ if ! has("gui_running")
     let g:airline_powerline_fonts=1
     let g:airline_right_sep=''
 
-    " tabline
+    "" tabline
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_min_count = 2
-    let g:airline#extensions#tabline#show_tab_type = 0
-    let g:airline#extensions#tabline#show_buffers = 0
     let g:airline#extensions#tabline#fnamemod = ':t'
+    let g:airline#extensions#tabline#show_tab_type = 0
+    let g:airline#extensions#tabline#show_splits = 0
+    let g:airline#extensions#tabline#show_buffers = 0
 
     " override some theme colors
     let g:airline_theme_patch_func = 'AirlineThemePatch'
     function! AirlineThemePatch(palette)
         if g:airline_theme == 'lucius'
-            " make inactive split colors darker
+            " darker inactive split statusline
             for colors in values(a:palette.inactive)
                 let colors[2] = 242
-                let colors[3] = 237
+                let colors[3] = 236
             endfor
             let a:palette.inactive['airline_c'][2] = 244
+
+            " darker normal mode statusline bg
+            let a:palette.normal.airline_c[3] = 236
+
+            " darker active tab
+            let a:palette.tabline.airline_tabsel[2] = 236
+            let a:palette.tabline.airline_tabsel[3] = 249
         endif
     endfunction
 else
@@ -333,7 +362,7 @@ let g:neomake_error_sign = {
 
 
 " NeoComplete ------------------------------------------------------------ {{{1
-if ! has('nvim')
+if use_neocomplete
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#sources#syntax#min_keyword_length = 3
@@ -359,7 +388,7 @@ endif
 
 
 " Deoplete --------------------------------------------------------------- {{{1
-if has('nvim')
+if use_deoplete
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_ignore_case = 1
     let g:deoplete#enable_smart_case = 1
