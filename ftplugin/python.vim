@@ -1,5 +1,5 @@
 " Set python omnicomplete function
-setlocal omnifunc=jedi#complete
+setlocal omnifunc=jedi#completions
 "setlocal omnifunc=pythoncomplete#Complete
 
 " jedi-vim settings
