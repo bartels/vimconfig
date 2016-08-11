@@ -210,8 +210,6 @@ if has('gui_running')
     colorscheme solarized
     set guifont=DejaVu\ Sans\ Mono\ 9
 else
-    let g:solarized_termcolors=256
-    set background=dark
     colorscheme lucius
     LuciusDark
 endif
