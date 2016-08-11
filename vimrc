@@ -377,6 +377,9 @@ if use_deoplete
     let g:deoplete#enable_smart_case = 1
     let g:deoplete#enable_camel_case = 1
 
+    " disable jedi completions since deoplete is used
+    let g:jedi#completions_enabled = 0
+
     let g:deoplete#omni#input_patterns = {}
     let g:deoplete#omni#input_patterns.less = ['\w+', '\w+[):;]?\s+\w*', '[@!]']
     let g:deoplete#omni#input_patterns.python = [
