@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
 " Editing plugins
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'wellle/targets.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 Plug 'junegunn/goyo.vim'
