@@ -19,7 +19,7 @@ Plug 'altercation/vim-colors-solarized'
 
 " Filetype/Syntax plugins
 Plug 'othree/html5.vim'
-Plug 'sukima/xmledit'
+Plug 'alvan/vim-closetag'
 Plug 'pangloss/vim-javascript'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less'
@@ -152,6 +152,8 @@ func! FThtml()
     setf html
 endfunc
 
+" Files to use closetag plugin
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.js,*.jsx"
 
 " Disable conceal feature in json files (vim-json)
 let g:vim_json_syntax_conceal = 0
