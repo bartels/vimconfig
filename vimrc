@@ -28,6 +28,7 @@ Plug 'mxw/vim-jsx'
 
 " Utilities / Helpers
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
