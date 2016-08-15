@@ -386,7 +386,6 @@ if use_deoplete
     let g:jedi#completions_enabled = 0
 
     let g:deoplete#omni#input_patterns = {}
-    let g:deoplete#omni#input_patterns.less = ['\w+', '\w+[):;]?\s+\w*', '[@!]']
     let g:deoplete#omni#input_patterns.javascript = ['[^. \t0-9]\.([a-zA-Z_]\w*)?']
 
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
