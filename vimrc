@@ -344,9 +344,8 @@ let g:neomake_python_flake8_args = ["--ignore=E12"]
 let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
 
 " customize error sign color
-let g:neomake_error_sign = {
-    \ 'texthl': 'ErrorMsg',
-    \ }
+let g:neomake_error_sign = {'texthl': 'ErrorMsg'}
+let g:neomake_warning_sign = {'texthl': 'WarningMsg'}
 
 
 " NeoComplete ------------------------------------------------------------ {{{1
