@@ -126,6 +126,7 @@ augroup filetypedetect
     au BufNewFile,BufRead *.conf set filetype=conf
     au BufNewFile,BufRead requirements.txt,requirements_*.txt set filetype=conf
     au BufNewFile,BufRead *.ejs set filetype=html
+    au BufNewFile,BufRead .eslintrc,.babelrc set filetype=javascript
 
     " Removes default django template detection in $VIMRUNTIME/filetype.vim
     au! BufNewFile,BufRead *.html,*.htm
