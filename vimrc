@@ -208,6 +208,11 @@ set incsearch hlsearch            " highlight search terms as you type
 set scrolloff=3                   " number of context lines while scrolling
 set sidescrolloff=3               " number of context columns
 
+if has('nvim')
+    " So cursor is a pipe in insert-mode, and a block in normal-mode
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+endif
+
 " Colors
 if has('gui_running')
     let g:solarized_menu=0
