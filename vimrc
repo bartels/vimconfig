@@ -211,6 +211,9 @@ set sidescrolloff=3               " number of context columns
 if has('nvim')
     " So cursor is a pipe in insert-mode, and a block in normal-mode
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+    " Enable true color (this will only work well with certain colorschemes)
+    " set termguicolors
 endif
 
 " Colors
