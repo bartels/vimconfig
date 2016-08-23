@@ -245,10 +245,27 @@ endif
 
 " Enable true color (not working currently with lucius & airline)
 if has('termguicolors')
-    "set t_8f=[38;2;%lu;%lu;%lum
-    "set t_8b=[48;2;%lu;%lu;%lum
-    "set termguicolors
+    set t_8f=[38;2;%lu;%lu;%lum
+    set t_8b=[48;2;%lu;%lu;%lum
+    set termguicolors
 endif
+
+" lucius dark colorscheme overrides
+function! PatchLucius()
+    if &background == 'dark'
+        hi Cursor       guifg=#303030
+        hi IncSearch    guifg=#303030
+        hi Search       guifg=#303030
+        hi Pmenu        guifg=#303030
+        hi StatusLine   guifg=#303030
+        hi StatusLineNC guifg=#767676 guibg=#303030 ctermfg=242 ctermbg=236
+        hi TabLineSel   guifg=#303030 guibg=#bcbcbc ctermfg=236 ctermbg=249
+        hi Ignore       guifg=#303030
+        hi DiffAdd      guifg=#d7d7d7
+        hi DiffChange   guifg=#d7d7d7
+        hi DiffDelete   guifg=#d7d7d7
+    endif
+endfunc
 
 " gui colorscheme
 if has('gui_running')
@@ -258,6 +275,7 @@ if has('gui_running')
 " terminal colorscheme
 else
     set background=dark
+    autocmd ColorScheme lucius call PatchLucius()
     colorscheme lucius
 endif
 
@@ -284,20 +302,10 @@ if ! has("gui_running")
     " override some theme colors
     let g:airline_theme_patch_func = 'AirlineThemePatch'
     function! AirlineThemePatch(palette)
-        if g:airline_theme == 'lucius'
-            " darker inactive split statusline
-            for colors in values(a:palette.inactive)
-                let colors[2] = 242
-                let colors[3] = 236
-            endfor
-            let a:palette.inactive['airline_c'][2] = 244
-
-            " darker normal mode statusline bg
+        if g:airline_theme == 'lucius' && &background == 'dark'
+            " darker normal/visual mode statusline bg
+            let a:palette.normal.airline_c[1] = '#303030'
             let a:palette.normal.airline_c[3] = 236
-
-            " darker active tab
-            let a:palette.tabline.airline_tabsel[2] = 236
-            let a:palette.tabline.airline_tabsel[3] = 249
         endif
     endfunction
 else
