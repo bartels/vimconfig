@@ -195,7 +195,7 @@ if &term =~ "^screen"
 endif
 
 
-" Colors & UI------------------------------------------------------------- {{{1
+" UI --------------------------------------------------------------------- {{{1
 
 set title                         " title in terminal window
 set number relativenumber         " show line numbers
@@ -205,32 +205,6 @@ set tabpagemax=50                 " increase max tabpages
 set incsearch hlsearch            " highlight search terms as you type
 set scrolloff=3                   " number of context lines while scrolling
 set sidescrolloff=3               " number of context columns
-
-if has('nvim')
-    " So cursor is a pipe in insert-mode, and a block in normal-mode
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
-    " Enable true color (this will only work well with certain colorschemes)
-    " set termguicolors
-endif
-
-" Colors
-if has('gui_running')
-    let g:solarized_menu=0
-    call togglebg#map("<F6>")
-    set background=light
-    colorscheme solarized
-    set guifont=DejaVu\ Sans\ Mono\ 9
-else
-    colorscheme lucius
-    LuciusDark
-endif
-
-" Colorizer mappings
-" <leader>cC <Plug>Colorizer
-" <leader>cT <Plug>ColorContrast
-" <leader>cF <Plug>ColorFgBg
-let g:colorizer_auto_map = 1
 
 " Invisible chars to use with :set list
 set listchars=tab:▸\ ,trail:·
@@ -260,6 +234,40 @@ endif
 if has("unnamedplus") || has("nvim")
     set clipboard=unnamedplus
 endif
+
+" pipe cursor in insert-mode, block in normal-mode
+if has('nvim')
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+endif
+
+
+" Colors ----------------------------------------------------------------- {{{1
+
+" Enable true color (not working currently with lucius & airline)
+if has('termguicolors')
+    "set t_8f=[38;2;%lu;%lu;%lum
+    "set t_8b=[48;2;%lu;%lu;%lum
+    "set termguicolors
+endif
+
+" gui colorscheme
+if has('gui_running')
+    let g:solarized_menu=0
+    call togglebg#map("<F6>")
+    set background=light
+    colorscheme solarized
+    set guifont=DejaVu\ Sans\ Mono\ 9
+" terminal colorscheme
+else
+    colorscheme lucius
+    LuciusDark
+endif
+
+" Colorizer mappings
+" <leader>cC <Plug>Colorizer
+" <leader>cT <Plug>ColorContrast
+" <leader>cF <Plug>ColorFgBg
+let g:colorizer_auto_map = 1
 
 
 " Airline ---------------------------------------------------------------- {{{1
