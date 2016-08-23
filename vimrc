@@ -52,7 +52,7 @@ endif
 
 if has('python')
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    Plug 'jmcantrell/vim-virtualenv'
+    Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 endif
