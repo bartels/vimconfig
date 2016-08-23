@@ -253,14 +253,12 @@ endif
 " gui colorscheme
 if has('gui_running')
     let g:solarized_menu=0
-    call togglebg#map("<F6>")
     set background=light
     colorscheme solarized
-    set guifont=DejaVu\ Sans\ Mono\ 9
 " terminal colorscheme
 else
+    set background=dark
     colorscheme lucius
-    LuciusDark
 endif
 
 " Colorizer mappings
