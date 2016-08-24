@@ -629,6 +629,17 @@ function! g:ToggleWinDiff()
 endfunction
 nnoremap <silent><leader>dd :call g:ToggleWinDiff()<CR>
 
+" Automatically update diff when making changes
+augroup AutoDiffUpdate
+    au!
+    autocmd InsertLeave * if &diff | diffupdate | let b:old_changedtick = b:changedtick | endif
+    autocmd CursorHold *
+                \ if &diff &&
+                \    (!exists('b:old_changedtick') || b:old_changedtick != b:changedtick) |
+                \   let b:old_changedtick = b:changedtick | diffupdate |
+                \ endif
+augroup END
+
 " Toggle colorcolumn on/off
 if exists('+colorcolumn')
     function! g:ToggleColorColumn()
