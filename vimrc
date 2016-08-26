@@ -15,7 +15,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 
 " Filetype/Syntax plugins
 Plug 'othree/html5.vim'
@@ -269,9 +269,7 @@ endfunc
 
 " gui colorscheme
 if has('gui_running')
-    let g:solarized_menu=0
-    set background=light
-    colorscheme solarized
+    colorscheme solarized8_light
 " terminal colorscheme
 else
     set background=dark
