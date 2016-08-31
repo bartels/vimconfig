@@ -1,4 +1,6 @@
 setlocal so=999
+setlocal laststatus=0
+setlocal incsearch hlsearch
 nnoremap <silent> <buffer> <nowait> Q :qa<CR>
 nnoremap <silent> <buffer> d <c-d>
 nnoremap <silent> <buffer> u <c-u>
