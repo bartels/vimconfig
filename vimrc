@@ -506,6 +506,7 @@ function! s:goyo_enter()
     inoremap    <buffer> <silent> <Down> <C-o>g<Down>
     set scrolloff=999
     set linebreak
+    set breakindent
     echo "Goyo Enter"
 endfunction
 
@@ -519,6 +520,7 @@ function! s:goyo_leave()
     iunmap    <buffer>  <Down>
     set scrolloff=3
     set nolinebreak
+    set nobreakindent
     echo "Goyo Leave"
 endfunction
 
