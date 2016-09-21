@@ -243,11 +243,13 @@ endif
 
 " Colors ----------------------------------------------------------------- {{{1
 
-" Enable true color (not working currently with lucius & airline)
+" Enable true color
 if has('termguicolors')
+    set termguicolors
+
+    " The following is needed inside tmux (vim only)
     set t_8f=[38;2;%lu;%lu;%lum
     set t_8b=[48;2;%lu;%lu;%lum
-    set termguicolors
 endif
 
 " lucius dark colorscheme overrides
