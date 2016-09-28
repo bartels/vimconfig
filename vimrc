@@ -100,6 +100,11 @@ if ! has("nvim")
     set viminfo+=n~/.cache/vim/viminfo
 endif
 
+" grep
+if executable('ag')
+    set grepprg=ag\ --vimgrep
+endif
+
 
 " Spaces & Tabs ---------------------------------------------------------- {{{1
 
