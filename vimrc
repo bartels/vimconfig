@@ -25,6 +25,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
+Plug 'moll/vim-node'
 
 " Utilities / Helpers
 Plug 'tpope/vim-fugitive'
