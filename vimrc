@@ -528,7 +528,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 
 " Markdown Preview ------------------------------------------------------- {{{1
-let g:vim_markdown_preview_toggle = 3
+let g:vim_markdown_preview_toggle = 0
 let g:vim_markdown_preview_hotkey = ',p'
 let g:vim_markdown_preview_browser = 'Google Chrome'
 let g:vim_markdown_preview_github = 1
