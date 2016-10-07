@@ -71,7 +71,7 @@ set history=1000                  " command history entries
 
 if has('shada')
     " how much info to store in shada (previously viminfo)
-    set shada=!,'1000,<50,s10,h
+    set shada=!,'10000,<100,s100,h
 endif
 
 " Folding
