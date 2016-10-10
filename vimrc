@@ -26,6 +26,7 @@ Plug 'groenewege/vim-less'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'moll/vim-node'
+Plug 'hynek/vim-python-pep8-indent'
 
 " Utilities / Helpers
 Plug 'tpope/vim-fugitive'
