@@ -173,6 +173,22 @@ let g:jsx_ext_required = 0
 " pangloss vim-javascript
 let g:javascript_plugin_flow = 1
 
+" skeleton files
+func! ReadSkel(skel_file)
+    execute '0read' '~/.vim/skeletons/' . a:skel_file
+    normal Gddgg  " Removes empty line at bottom
+endfunc
+
+augroup skeletons
+    " Django
+    au BufNewFile models.py call ReadSkel('models.py')
+    au BufNewFile urls.py call ReadSkel('urls.py')
+    au BufNewFile tests.py call ReadSkel('tests.py')
+
+    " React
+    au BufNewFile **/components/*.js call ReadSkel('component.js')
+augroup END
+
 " Keyboard --------------------------------------------------------------- {{{1
 
 " key sequence timeouts
