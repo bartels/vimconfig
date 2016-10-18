@@ -384,7 +384,22 @@ let g:neomake_python_enabled_makers = filter(['flake8'], 'executable(v:val)')
 let g:neomake_python_flake8_args = ["--ignore=E12"]
 
 " javascript
-let g:neomake_javascript_enabled_makers = [executable('eslint_d') ? 'eslint_d' : 'eslint', 'flow']
+let g:neomake_javascript_enabled_makers = [executable('eslint_d') ? 'eslint_d' : 'eslint']
+
+if findfile('.flowconfig', '.;') !=# ''
+    if executable('flow-vim-quickfix')
+        " custom flow maker using flow-vim-quickfix
+        let g:neomake_javascript_flow_maker = {
+            \ 'exe': 'sh',
+            \ 'args': ['-c', 'output=`flow --json 2> /dev/null`; [ -z "$output" ] || echo $output | flow-vim-quickfix'],
+            \ 'errorformat': '%E%f:%l:%c\,%n: %m',
+            \ 'cwd': '%:p:h'
+            \ }
+    endif
+
+    call add(g:neomake_javascript_enabled_makers, 'flow')
+endif
+
 let g:neomake_javascript_enabled_makers = filter(g:neomake_javascript_enabled_makers, 'executable(v:val)')
 let g:neomake_javascript_eslint_args = ['-f', 'compact', '--cache']
 let g:neomake_jsx_enabled_makers = g:neomake_javascript_enabled_makers
