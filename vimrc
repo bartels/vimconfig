@@ -369,10 +369,13 @@ autocmd! VimLeave * let g:neomake_verbose = 0
 let g:neomake_verbose = 1
 
 " makers
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_python_flake8_args = ["--ignore=E12"]
-let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
+let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+let g:neomake_javascript_eslint_args = ['-f', 'compact', '--cache']
+let g:neomake_jsx_enabled_makers = g:neomake_javascript_enabled_makers
+let g:neomake_jsx_eslint_args = g:neomake_javascript_eslint_args
 
 " customize error sign color
 let g:neomake_error_sign = {'texthl': 'ErrorMsg'}
