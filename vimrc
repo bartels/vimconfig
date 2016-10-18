@@ -364,22 +364,31 @@ noremap <silent> <f12> :call ToggleVExplorer()<CR>
 " Neomake ---------------------------------------------------------------- {{{1
 
 " check on save
-autocmd! BufWritePost * :Neomake
+autocmd! BufWritePost * Neomake
 autocmd! VimLeave * let g:neomake_verbose = 0
-let g:neomake_verbose = 1
 
-" makers
-let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
-let g:neomake_python_enabled_makers = ['flake8']
-let g:neomake_python_flake8_args = ["--ignore=E12"]
-let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-let g:neomake_javascript_eslint_args = ['-f', 'compact', '--cache']
-let g:neomake_jsx_enabled_makers = g:neomake_javascript_enabled_makers
-let g:neomake_jsx_eslint_args = g:neomake_javascript_eslint_args
+" settings
+let g:neomake_verbose = 1
+let g:neomake_serialize = 1
+let g:neomake_serialize_abort_on_error = 1
 
 " customize error sign color
 let g:neomake_error_sign = {'texthl': 'ErrorMsg'}
 let g:neomake_warning_sign = {'texthl': 'WarningMsg'}
+
+" vimscript
+let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
+
+" python
+let g:neomake_python_enabled_makers = filter(['flake8'], 'executable(v:val)')
+let g:neomake_python_flake8_args = ["--ignore=E12"]
+
+" javascript
+let g:neomake_javascript_enabled_makers = [executable('eslint_d') ? 'eslint_d' : 'eslint', 'flow']
+let g:neomake_javascript_enabled_makers = filter(g:neomake_javascript_enabled_makers, 'executable(v:val)')
+let g:neomake_javascript_eslint_args = ['-f', 'compact', '--cache']
+let g:neomake_jsx_enabled_makers = g:neomake_javascript_enabled_makers
+let g:neomake_jsx_eslint_args = g:neomake_javascript_eslint_args
 
 
 " NeoComplete ------------------------------------------------------------ {{{1
