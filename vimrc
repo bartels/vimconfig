@@ -26,6 +26,7 @@ Plug 'groenewege/vim-less'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'moll/vim-node'
+Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
 Plug 'hynek/vim-python-pep8-indent'
 
 " Utilities / Helpers
@@ -172,6 +173,9 @@ let g:jsx_ext_required = 0
 
 " pangloss vim-javascript
 let g:javascript_plugin_flow = 1
+
+" flowtype
+let g:flow#enable = 0
 
 " skeleton files
 func! ReadSkel(skel_file)
