@@ -442,6 +442,10 @@ if use_deoplete
     let g:deoplete#enable_ignore_case = 1
     let g:deoplete#enable_smart_case = 1
     let g:deoplete#enable_camel_case = 1
+    let g:deoplete#auto_complete_delay = 20
+
+    " Use head matcher
+    call deoplete#custom#set('_', 'matchers', ['matcher_head'])
 
     " disable jedi completions since deoplete is used
     let g:jedi#completions_enabled = 0
