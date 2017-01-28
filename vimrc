@@ -235,6 +235,11 @@ set incsearch hlsearch            " highlight search terms as you type
 set scrolloff=3                   " number of context lines while scrolling
 set sidescrolloff=3               " number of context columns
 
+" nvim only
+if has('nvim')
+    set inccommand=nosplit        " shows incremental results of command
+endif
+
 " Invisible chars to use with :set list
 set listchars=tab:▸\ ,trail:·
 set list
