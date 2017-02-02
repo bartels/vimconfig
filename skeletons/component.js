@@ -1,12 +1,11 @@
-import React, { PropTypes } from 'react'
+/* @flow */
+import React from 'react'
 
-export const COMPONENT = props => (
-  <div>
-    ...
-  </div>
-)
-
-COMPONENT.propTypes = {
+type Props = {
 }
+
+export const COMPONENT = (props: Props) => (
+  <div>...</div>
+)
 
 export default COMPONENT
