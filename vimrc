@@ -2,7 +2,6 @@ scriptencoding utf-8
 
 " Plugins ---------------------------------------------------------------- {{{1
 
-" Init plugins (vim-plug)
 call plug#begin('~/.vim/plugged')
 
 " Editing plugins
@@ -67,6 +66,11 @@ call plug#end()
 
 " Misc ------------------------------------------------------------------- {{{1
 
+" set up vimrc group for autocmd
+augroup vimrc
+    autocmd!
+augroup END
+
 set hidden                        " switch buffers without needing to save
 set backspace=indent,eol,start    " more powerful backspacing
 set fileformats+=mac              " handle 'mac' style EOLs
@@ -80,15 +84,11 @@ endif
 
 " Folding
 set foldmethod=manual
-augroup folding
-    au FileType text setlocal foldmethod=marker
-augroup END
+autocmd vimrc FileType text setlocal foldmethod=marker
 
 " Update buffer when a file changes outside of vim
 set autoread
-augroup filechange
-    au CursorHold,CursorHoldI * checktime
-augroup END
+autocmd vimrc CursorHold,CursorHoldI * checktime
 
 " Use comma for mapleader
 " NOTE: set before defining mappings that use <leader>
@@ -132,22 +132,23 @@ set autoindent              " Copy indent from previous line
 
 " Filetype handling
 augroup FileTypeDetect
+    autocmd!
 
     " These filetypes map to other types
-    au BufNewFile,BufRead *.thtml,*.ctp set filetype=php
-    au BufNewFile,BufRead *.wsgi set filetype=python
-    au BufNewFile,BufRead  Vagrantfile set filetype=ruby
-    au BufNewFile,BufRead *.conf set filetype=conf
-    au BufNewFile,BufRead requirements.txt,requirements_*.txt set filetype=conf
-    au BufNewFile,BufRead *.ejs set filetype=html
-    au BufNewFile,BufRead .eslintrc,.babelrc set filetype=javascript
+    autocmd BufNewFile,BufRead *.thtml,*.ctp set filetype=php
+    autocmd BufNewFile,BufRead *.wsgi set filetype=python
+    autocmd BufNewFile,BufRead  Vagrantfile set filetype=ruby
+    autocmd BufNewFile,BufRead *.conf set filetype=conf
+    autocmd BufNewFile,BufRead requirements.txt,requirements_*.txt set filetype=conf
+    autocmd BufNewFile,BufRead *.ejs set filetype=html
+    autocmd BufNewFile,BufRead .eslintrc,.babelrc set filetype=javascript
 
     " Removes default django template detection in $VIMRUNTIME/filetype.vim
-    au! BufNewFile,BufRead *.html,*.htm
+    autocmd! BufNewFile,BufRead *.html,*.htm
 
     " Better django template detection
     " - looks for a few additional Django tag types.
-    au BufNewFile,BufRead,BufWrite *.html,*.htm  call FThtml()
+    autocmd BufNewFile,BufRead,BufWrite *.html,*.htm  call FThtml()
 augroup END
 
 " Distinguish between HTML, XHTML and Django
@@ -191,13 +192,15 @@ func! ReadSkel(skel_file)
 endfunc
 
 augroup skeletons
+    autocmd!
+
     " Django
-    au BufNewFile models.py call ReadSkel('models.py')
-    au BufNewFile urls.py call ReadSkel('urls.py')
-    au BufNewFile tests.py call ReadSkel('tests.py')
+    autocmd BufNewFile models.py call ReadSkel('models.py')
+    autocmd BufNewFile urls.py call ReadSkel('urls.py')
+    autocmd BufNewFile tests.py call ReadSkel('tests.py')
 
     " React
-    au BufNewFile **/components/*.js call ReadSkel('component.js')
+    autocmd BufNewFile **/components/*.js call ReadSkel('component.js')
 augroup END
 
 " Keyboard --------------------------------------------------------------- {{{1
@@ -307,9 +310,7 @@ if has('gui_running')
 " terminal colorscheme
 else
     set background=dark
-    augroup PatchLucius
-        autocmd ColorScheme lucius call PatchLucius()
-    augroup END
+    autocmd vimrc ColorScheme lucius call PatchLucius()
     colorscheme lucius
 endif
 
@@ -392,9 +393,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " there is no option. ALE will run when text is changed in normal mode or
 " leaving insert mode.
 let g:ale_lint_on_text_changed = 0
-augroup ALERunOnChanges
-    autocmd TextChanged,InsertLeave * call ale#Queue(g:ale_lint_delay)
-augroup END
+autocmd vimrc TextChanged,InsertLeave * call ale#Queue(g:ale_lint_delay)
 
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
@@ -541,10 +540,8 @@ if isdirectory(expand('~/.fzf'))
                 \ AgPrompt call s:fzf_ag_prompt(<q-args>, <bang>0)
 
     " :Ag but with customized options
-    augroup fzag
-        au VimEnter * command! -bang -nargs=* -complete=dir
-                    \ Ag call s:fzf_ag(<q-args>, '', <bang>0)
-    augroup END
+    autocmd vimrc VimEnter * command! -bang -nargs=* -complete=dir
+                \ Ag call s:fzf_ag(<q-args>, '', <bang>0)
 
     " Bindings
     nnoremap <silent><leader>f :ProjectFiles<CR>
@@ -597,10 +594,8 @@ function! s:goyo_leave()
     echo 'Goyo Leave'
 endfunction
 
-augroup goyo
-    autocmd! User GoyoEnter nested call <SID>goyo_enter()
-    autocmd! User GoyoLeave nested call <SID>goyo_leave()
-augroup END
+autocmd! vimrc User GoyoEnter nested call <SID>goyo_enter()
+autocmd! vimrc User GoyoLeave nested call <SID>goyo_leave()
 
 
 " Markdown Preview ------------------------------------------------------- {{{1
@@ -620,7 +615,7 @@ if exists(':tnoremap')
         tnoremap <buffer> <c-k> <c-p>
         tnoremap <buffer> <c-l> <Nop>
     endfunction
-    autocmd! FileTYpe fzf call <SID>unset_tmux_maps_for_fzf()
+    autocmd! vimrc FileType fzf call <SID>unset_tmux_maps_for_fzf()
 endif
 
 
@@ -706,7 +701,7 @@ nnoremap <silent><leader>dd :call g:ToggleWinDiff()<CR>
 
 " Automatically update diff when making changes
 augroup AutoDiffUpdate
-    au!
+    autocmd!
     autocmd InsertLeave * if &diff | diffupdate | let b:old_changedtick = b:changedtick | endif
     autocmd CursorHold *
                 \ if &diff &&
