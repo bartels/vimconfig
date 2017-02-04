@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " Plugins ---------------------------------------------------------------- {{{1
 
 " Init plugins (vim-plug)
@@ -42,13 +44,13 @@ Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'benekastah/neomake'
 
 " Completion plugins
-let use_deoplete = has('nvim') && has('python3')
-let use_neocomplete = !use_deoplete && has('lua')
+let s:use_deoplete = has('nvim') && has('python3')
+let s:use_neocomplete = !s:use_deoplete && has('lua')
 
-if use_deoplete
+if s:use_deoplete
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-elseif use_neocomplete
+elseif s:use_neocomplete
     Plug 'Shougo/neocomplete'
     Plug 'Shougo/vimproc', { 'do': 'make' }
 endif
@@ -78,17 +80,21 @@ endif
 
 " Folding
 set foldmethod=manual
-au FileType text setlocal foldmethod=marker
+augroup folding
+    au FileType text setlocal foldmethod=marker
+augroup END
 
 " Update buffer when a file changes outside of vim
 set autoread
-au CursorHold,CursorHoldI * checktime
+augroup filechange
+    au CursorHold,CursorHoldI * checktime
+augroup END
 
 " Use comma for mapleader
 " NOTE: set before defining mappings that use <leader>
-let mapleader=","
+let g:mapleader=','
 
-let loaded_matchparen = 1  " prevent loading matchparen
+let g:loaded_matchparen = 1  " prevent loading matchparen
 
 " Load matchit:  extended matching with '%' key
 runtime macros/matchit.vim
@@ -98,7 +104,7 @@ silent! call mkdir(expand('~/.cache/vim/swap', 'p'))
 silent! call mkdir(expand('~/.cache/vim/backup', 'p'))
 set directory^=~/.cache/vim/swap//
 set backupdir^=~/.cache/vim/backup//
-if ! has("nvim")
+if ! has('nvim')
     set viminfo+=n~/.cache/vim/viminfo
 endif
 
@@ -125,7 +131,7 @@ filetype plugin indent on   " Enable filetype plugins & indent
 set autoindent              " Copy indent from previous line
 
 " Filetype handling
-augroup filetypedetect
+augroup FileTypeDetect
 
     " These filetypes map to other types
     au BufNewFile,BufRead *.thtml,*.ctp set filetype=php
@@ -147,23 +153,23 @@ augroup END
 " Distinguish between HTML, XHTML and Django
 " custom/improved version than in runtime/filetype.vim
 func! FThtml()
-    let n = 1
-    while n < 10 && n <= line("$")
-      if getline(n) =~ '\<DTD\s\+XHTML\s'
+    let l:n = 1
+    while l:n < 10 && l:n <= line('$')
+      if getline(l:n) =~# '\<DTD\s\+XHTML\s'
         setf xhtml
         return
       endif
-      if getline(n) =~ '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>\|{#\s\+'
+      if getline(l:n) =~# '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>\|{#\s\+'
         setf htmldjango
         return
       endif
-      let n = n + 1
+      let l:n = l:n + 1
     endwhile
     setf html
 endfunc
 
 " Files to use closetag plugin
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.js,*.jsx"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
 
 " Disable conceal feature in json files (vim-json)
 let g:vim_json_syntax_conceal = 0
@@ -180,7 +186,8 @@ let g:flow#enable = 0
 " skeleton files
 func! ReadSkel(skel_file)
     execute '0read' '~/.vim/skeletons/' . a:skel_file
-    normal Gddgg  " Removes empty line at bottom
+    " Removes empty line at bottom
+    normal! Gddgg
 endfunc
 
 augroup skeletons
@@ -200,18 +207,18 @@ set timeout timeoutlen=500 ttimeoutlen=50
 
 " Allow terminal vim to recognize Alt key combos
 " see: https://stackoverflow.com/questions/6778961/
-if ! has("gui_running") && ! has("nvim")
-    let c='a'
-    while c <= 'z'
-        exec "set <A-".c.">=\e".c
-        exec "imap \e".c." <A-".c.">"
-        let c = nr2char(1+char2nr(c))
+if ! has('gui_running') && ! has('nvim')
+    let l:c='a'
+    while l:c <=# 'z'
+        exec 'set <A-'.l:c.">=\e".l:c
+        exec "imap \e".l:c.' <A-".l:c.">'
+        let l:c = nr2char(1+char2nr(l:c))
     endw
 endif
 
 " Allow terminal vim to recognize XTerm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.
-if &term =~ "^screen"
+if &term =~# '^screen'
     " Page keys: http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
     execute "set t_kP=\e[5;*~"
     execute "set t_kN=\e[6;*~"
@@ -253,19 +260,19 @@ set wildignore=*~,*.bak,*.o,*.pyc,*.pyo
 set completeopt=menuone,longest
 
 " Enable mouse support
-if has("mouse")
+if has('mouse')
     set mouse=a
 
     " Force sgr style mouse handling when in tmux.
     " This works fine with gnome-terminal & tmux combo. It should be
     " compatible with xterm too, but not sure what other terminals support it.
-    if ! has("nvim") && &term =~ "^screen-256color"
+    if ! has('nvim') && &term =~# '^screen-256color'
         set ttymouse=sgr
     endif
 endif
 
 " Use system clipboard for yank/paste
-if has("unnamedplus") || has("nvim")
+if has('unnamedplus') || has('nvim')
     set clipboard=unnamedplus
 endif
 
@@ -288,7 +295,7 @@ endif
 
 " lucius dark colorscheme overrides
 function! PatchLucius()
-    if &background == 'dark'
+    if &background ==# 'dark'
         hi StatusLineNC guifg=#767676 guibg=#303030 ctermfg=242 ctermbg=236
         hi TabLineSel   guifg=#303030 guibg=#bcbcbc ctermfg=236 ctermbg=249
     endif
@@ -300,7 +307,9 @@ if has('gui_running')
 " terminal colorscheme
 else
     set background=dark
-    autocmd ColorScheme lucius call PatchLucius()
+    augroup PatchLucius
+        autocmd ColorScheme lucius call PatchLucius()
+    augroup END
     colorscheme lucius
 endif
 
@@ -312,7 +321,7 @@ let g:colorizer_auto_map = 1
 
 
 " Airline ---------------------------------------------------------------- {{{1
-if ! has("gui_running")
+if ! has('gui_running')
     let g:airline_powerline_fonts=1
     let g:airline_right_sep=''
 
@@ -327,7 +336,7 @@ if ! has("gui_running")
     " override some theme colors
     let g:airline_theme_patch_func = 'AirlineThemePatch'
     function! AirlineThemePatch(palette)
-        if g:airline_theme == 'lucius' && &background == 'dark'
+        if g:airline_theme ==# 'lucius' && &background ==# 'dark'
             " darker normal/visual mode statusline bg
             let a:palette.normal.airline_c[1] = '#303030'
             let a:palette.normal.airline_c[3] = 236
@@ -349,13 +358,13 @@ let g:netrw_liststyle = 3  " tree mode
 
 " Toggle Vexplore
 function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-      let expl_win_num = bufwinnr(t:expl_buf_num)
-      if expl_win_num != -1
-          let cur_win_nr = winnr()
-          exec expl_win_num . 'wincmd w'
+  if exists('t:expl_buf_num')
+      let l:expl_win_num = bufwinnr(t:expl_buf_num)
+      if l:expl_win_num != -1
+          let l:cur_win_nr = winnr()
+          exec l:expl_win_num . 'wincmd w'
           close
-          exec cur_win_nr . 'wincmd w'
+          exec l:cur_win_nr . 'wincmd w'
           unlet t:expl_buf_num
       else
           unlet t:expl_buf_num
@@ -363,7 +372,7 @@ function! ToggleVExplorer()
   else
       exec '1wincmd w'
       exec 'Vexplore ' . getcwd()
-      let t:expl_buf_num = bufnr("%")
+      let t:expl_buf_num = bufnr('%')
   endif
 endfunction
 
@@ -390,7 +399,7 @@ let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
 
 " python
 let g:neomake_python_enabled_makers = filter(['flake8'], 'executable(v:val)')
-let g:neomake_python_flake8_args = ["--ignore=E12"]
+let g:neomake_python_flake8_args = ['--ignore=E12']
 
 " javascript
 let g:neomake_javascript_enabled_makers = [executable('eslint_d') ? 'eslint_d' : 'eslint']
@@ -400,7 +409,7 @@ if findfile('.flowconfig', '.;') !=# ''
         " custom flow maker using flow-vim-quickfix
         let g:neomake_javascript_flow_maker = {
             \ 'exe': 'sh',
-            \ 'args': ['-c', 'output=`flow --json 2> /dev/null`; [ -z "$output" ] || echo $output | flow-vim-quickfix'],
+            \ 'args': ['-c', 'output=`flow --json 2> /dev/null`; [ -z '$output' ] || echo $output | flow-vim-quickfix'],
             \ 'errorformat': '%E%f:%l:%c\,%n: %m',
             \ 'cwd': '%:p:h'
             \ }
@@ -416,7 +425,7 @@ let g:neomake_jsx_eslint_args = g:neomake_javascript_eslint_args
 
 
 " NeoComplete ------------------------------------------------------------ {{{1
-if use_neocomplete
+if s:use_neocomplete
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#sources#syntax#min_keyword_length = 3
@@ -442,7 +451,7 @@ endif
 
 
 " Deoplete --------------------------------------------------------------- {{{1
-if use_deoplete
+if s:use_deoplete
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_ignore_case = 1
     let g:deoplete#enable_smart_case = 1
@@ -462,10 +471,10 @@ if use_deoplete
 endif
 
 " UltiSnips -------------------------------------------------------------- {{{1
-let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsExpandTrigger = '<c-j>'
 let g:UltiSnipsUsePythonVersion = 2
-let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
-let g:UltiSnipsEditSplit = "vertical"
+let g:UltiSnipsSnippetDirectories = ['UltiSnips']
+let g:UltiSnipsEditSplit = 'vertical'
 
 
 " UndoTree --------------------------------------------------------------- {{{1
@@ -483,7 +492,7 @@ if isdirectory(expand('~/.fzf'))
     let g:fzf_is_installed = 1
 
     " loads fzf as vim plugin
-    set rtp+=~/.fzf
+    set runtimepath+=~/.fzf
 
     " Use ag if available as default fzf command
     if executable('ag')
@@ -496,26 +505,26 @@ if isdirectory(expand('~/.fzf'))
     endif
 
     " fzf defaults
-    let $FZF_DEFAULT_OPTS="
+    let $FZF_DEFAULT_OPTS='
                 \ --exact
                 \ --tiebreak=length
                 \ --inline-info
                 \ --cycle
                 \ --bind=tab:toggle-up,btab:toggle-down,alt-a:toggle-all
-                \ --toggle-sort=ctrl-r"
+                \ --toggle-sort=ctrl-r'
 
 
     " Finds the git project root
     function! s:find_git_root(...)
         if executable('git')
-            let dir = empty(a:1) ? '.' : a:1
-            let cmd = 'cd ' . shellescape(dir) . ' && ' .
+            let l:dir = empty(a:1) ? '.' : a:1
+            let l:cmd = 'cd ' . shellescape(l:dir) . ' && ' .
                         \ 'git rev-parse --show-toplevel 2> /dev/null'
-            let git_root = system(cmd)[:-2]
-            if getcwd() == git_root
-                let git_root = '.'
+            let l:git_root = system(l:cmd)[:-2]
+            if getcwd() == l:git_root
+                let l:git_root = '.'
             endif
-            return git_root
+            return l:git_root
         else
             return '.'
         endif
@@ -523,15 +532,15 @@ if isdirectory(expand('~/.fzf'))
 
     " fzf search files from git project root
     function! s:fzf_projectfiles(dir, bang)
-        let s:search_root = s:find_git_root(a:dir)
-        return fzf#vim#files(s:search_root, {'source': $FZF_DEFAULT_COMMAND}, a:bang)
+        let l:search_root = s:find_git_root(a:dir)
+        return fzf#vim#files(l:search_root, {'source': $FZF_DEFAULT_COMMAND}, a:bang)
     endfunction
 
     " fzf ag command with with custom options
     function! s:fzf_ag(query, dir, bang)
-        let s:search_root = s:find_git_root(a:dir)
-        let opts = '--hidden --ignore .git'
-        return fzf#vim#ag(a:query, opts, {'dir': s:search_root}, a:bang)
+        let l:search_root = s:find_git_root(a:dir)
+        let l:opts = '--hidden --ignore .git'
+        return fzf#vim#ag(a:query, l:opts, {'dir': l:search_root}, a:bang)
     endfunction
 
     " fzf ag command with prompt for search pattern
@@ -549,8 +558,10 @@ if isdirectory(expand('~/.fzf'))
                 \ AgPrompt call s:fzf_ag_prompt(<q-args>, <bang>0)
 
     " :Ag but with customized options
-    au VimEnter * command! -bang -nargs=* -complete=dir
-                \ Ag call s:fzf_ag(<q-args>, '', <bang>0)
+    augroup fzag
+        au VimEnter * command! -bang -nargs=* -complete=dir
+                    \ Ag call s:fzf_ag(<q-args>, '', <bang>0)
+    augroup END
 
     " Bindings
     nnoremap <silent><leader>f :ProjectFiles<CR>
@@ -586,7 +597,7 @@ function! s:goyo_enter()
     set scrolloff=999
     set linebreak
     set breakindent
-    echo "Goyo Enter"
+    echo 'Goyo Enter'
 endfunction
 
 " Restore settings when leaving goyo mode
@@ -600,11 +611,13 @@ function! s:goyo_leave()
     set scrolloff=3
     set nolinebreak
     set nobreakindent
-    echo "Goyo Leave"
+    echo 'Goyo Leave'
 endfunction
 
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
+augroup goyo
+    autocmd! User GoyoEnter nested call <SID>goyo_enter()
+    autocmd! User GoyoLeave nested call <SID>goyo_leave()
+augroup END
 
 
 " Markdown Preview ------------------------------------------------------- {{{1
@@ -645,7 +658,7 @@ inoremap <C-g> <C-c>
 cnoremap <C-g> <C-c>
 
 " Some familiar editing bindings (only work in GUI)
-if has("gui_running")
+if has('gui_running')
     inoremap <C-DEL> <C-O>dw
     inoremap <C-BACKSPACE> <C-W>
 endif
@@ -676,7 +689,7 @@ inoremap <A-j> <ESC>gt
 inoremap <A-k> <ESC>gT
 
 " Tabpage mappings (GUI only)
-if has("gui_running")
+if has('gui_running')
     noremap <C-TAB> gt
     noremap <C-S-TAB> gT
     noremap <S-A-j> gt
@@ -723,11 +736,11 @@ augroup END
 if exists('+colorcolumn')
     function! g:ToggleColorColumn()
         " Use textwidth but default to 80
-        let textWidth = (&textwidth ? &textwidth : 79) + 1
-        if &colorcolumn != ''
+        let l:textWidth = (&textwidth ? &textwidth : 79) + 1
+        if &colorcolumn
             setlocal colorcolumn&
         else
-            let &l:colorcolumn=textWidth
+            let &l:colorcolumn=l:textWidth
         endif
     endfunction
 
@@ -736,10 +749,10 @@ endif
 
 " Displays the syntax highlighting group for word under cursor
 function! <SID>SynStack()
-  if !exists("*synstack")
+  if !exists('*synstack')
     return
   endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
 endfunc
 nnoremap <leader>sy :call <SID>SynStack()<CR>
 
