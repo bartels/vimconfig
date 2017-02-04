@@ -379,15 +379,22 @@ endfunction
 noremap <silent> <f12> :call ToggleVExplorer()<CR>
 
 
-" ale -------------------------------------------------------------------- {{{1
-let g:ale_lint_delay = 250
+" ALE -------------------------------------------------------------------- {{{1
 let g:ale_lint_on_save = 1
+let g:ale_lint_delay = 250
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_vim_vint_show_style_issues = 0
+
+" This is to prevent ALE from  running during insert mode changes, for which
+" there is no option. ALE will run when text is changed in normal mode or
+" leaving insert mode.
+let g:ale_lint_on_text_changed = 0
+augroup ALERunOnChanges
+    autocmd TextChanged,InsertLeave * call ale#Queue(g:ale_lint_delay)
+augroup END
 
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
@@ -395,6 +402,9 @@ nmap <silent> <leader>j <Plug>(ale_next_wrap)
 " javascript
 let g:ale_javascript_eslint_executable = executable('eslint_d') ? 'eslint_d' : 'eslint'
 let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
+
+" vim
+let g:ale_vim_vint_show_style_issues = 1
 
 
 " NeoComplete ------------------------------------------------------------ {{{1
