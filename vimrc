@@ -41,9 +41,9 @@ Plug 'chrisbra/Colorizer'
 Plug 'JamshedVesuna/vim-markdown-preview'
 
 " Syntax Checking
-Plug 'benekastah/neomake'
+Plug 'w0rp/ale'
 
-" Completion plugins
+" Code Completion
 let s:use_deoplete = has('nvim') && has('python3')
 let s:use_neocomplete = !s:use_deoplete && has('lua')
 
@@ -379,49 +379,22 @@ endfunction
 noremap <silent> <f12> :call ToggleVExplorer()<CR>
 
 
-" Neomake ---------------------------------------------------------------- {{{1
+" ale -------------------------------------------------------------------- {{{1
+let g:ale_lint_delay = 250
+let g:ale_lint_on_save = 1
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_vim_vint_show_style_issues = 0
 
-" check on save
-autocmd! BufWritePost * Neomake
-autocmd! VimLeave * let g:neomake_verbose = 0
-
-" settings
-let g:neomake_verbose = 1
-let g:neomake_serialize = 1
-let g:neomake_serialize_abort_on_error = 1
-
-" customize error sign color
-let g:neomake_error_sign = {'texthl': 'ErrorMsg'}
-let g:neomake_warning_sign = {'texthl': 'WarningMsg'}
-
-" vimscript
-let g:neomake_vim_vint_args = ['-e', '--enable-neovim']
-
-" python
-let g:neomake_python_enabled_makers = filter(['flake8'], 'executable(v:val)')
-let g:neomake_python_flake8_args = ['--ignore=E12']
+nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 " javascript
-let g:neomake_javascript_enabled_makers = [executable('eslint_d') ? 'eslint_d' : 'eslint']
-
-if findfile('.flowconfig', '.;') !=# ''
-    if executable('flow-vim-quickfix')
-        " custom flow maker using flow-vim-quickfix
-        let g:neomake_javascript_flow_maker = {
-            \ 'exe': 'sh',
-            \ 'args': ['-c', 'output=`flow --json 2> /dev/null`; [ -z '$output' ] || echo $output | flow-vim-quickfix'],
-            \ 'errorformat': '%E%f:%l:%c\,%n: %m',
-            \ 'cwd': '%:p:h'
-            \ }
-    endif
-
-    call add(g:neomake_javascript_enabled_makers, 'flow')
-endif
-
-let g:neomake_javascript_enabled_makers = filter(g:neomake_javascript_enabled_makers, 'executable(v:val)')
-let g:neomake_javascript_eslint_args = ['-f', 'compact', '--cache']
-let g:neomake_jsx_enabled_makers = g:neomake_javascript_enabled_makers
-let g:neomake_jsx_eslint_args = g:neomake_javascript_eslint_args
+let g:ale_javascript_eslint_executable = executable('eslint_d') ? 'eslint_d' : 'eslint'
+let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
 
 
 " NeoComplete ------------------------------------------------------------ {{{1
