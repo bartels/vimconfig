@@ -279,11 +279,6 @@ if has('unnamedplus') || has('nvim')
     set clipboard=unnamedplus
 endif
 
-" pipe cursor in insert-mode, block in normal-mode
-if has('nvim')
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-endif
-
 
 " Colors ----------------------------------------------------------------- {{{1
 
