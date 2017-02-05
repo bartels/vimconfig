@@ -211,11 +211,11 @@ set timeout timeoutlen=500 ttimeoutlen=50
 " Allow terminal vim to recognize Alt key combos
 " see: https://stackoverflow.com/questions/6778961/
 if ! has('gui_running') && ! has('nvim')
-    let l:c='a'
-    while l:c <=# 'z'
-        exec 'set <A-'.l:c.">=\e".l:c
-        exec "imap \e".l:c.' <A-".l:c.">'
-        let l:c = nr2char(1+char2nr(l:c))
+    let s:c='a'
+    while s:c <=# 'z'
+        exec 'set <A-'.s:c.">=\e".s:c
+        exec "imap \e".s:c.' <A-".s:c.">'
+        let s:c = nr2char(1+char2nr(s:c))
     endw
 endif
 
