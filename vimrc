@@ -137,7 +137,7 @@ augroup FileTypeDetect
     " These filetypes map to other types
     autocmd BufNewFile,BufRead *.thtml,*.ctp set filetype=php
     autocmd BufNewFile,BufRead *.wsgi set filetype=python
-    autocmd BufNewFile,BufRead  Vagrantfile set filetype=ruby
+    autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
     autocmd BufNewFile,BufRead *.conf set filetype=conf
     autocmd BufNewFile,BufRead requirements.txt,requirements_*.txt set filetype=conf
     autocmd BufNewFile,BufRead *.ejs set filetype=html
@@ -148,7 +148,7 @@ augroup FileTypeDetect
 
     " Better django template detection
     " - looks for a few additional Django tag types.
-    autocmd BufNewFile,BufRead,BufWrite *.html,*.htm  call FThtml()
+    autocmd BufNewFile,BufRead,BufWrite *.html,*.htm call FThtml()
 augroup END
 
 " Distinguish between HTML, XHTML and Django
@@ -388,7 +388,7 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-" This is to prevent ALE from  running during insert mode changes, for which
+" This is to prevent ALE from running during insert mode changes, for which
 " there is no option. ALE will run when text is changed in normal mode or
 " leaving insert mode.
 let g:ale_lint_on_text_changed = 0
@@ -468,7 +468,7 @@ endif
 
 
 " FZF -------------------------------------------------------------------- {{{1
-" If fzf is installed (.fzf  directory exists)
+" If fzf is installed (.fzf directory exists)
 if isdirectory(expand('~/.fzf'))
     let g:fzf_is_installed = 1
 
