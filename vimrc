@@ -315,10 +315,9 @@ else
 endif
 
 " Colorizer mappings
-" <leader>cC <Plug>Colorizer
-" <leader>cT <Plug>ColorContrast
-" <leader>cF <Plug>ColorFgBg
-let g:colorizer_auto_map = 1
+nmap <silent> <leader>cC <Plug>Colorizer
+nmap <silent> <leader>cT <Plug>ColorContrast
+nmap <silent> <leader>cF <Plug>ColorFgBg
 
 
 " Airline ---------------------------------------------------------------- {{{1
