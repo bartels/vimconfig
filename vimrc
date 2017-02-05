@@ -266,9 +266,9 @@ set completeopt=menuone,longest
 if has('mouse')
     set mouse=a
 
-    " Force sgr style mouse handling when in tmux.
-    " This works fine with gnome-terminal & tmux combo. It should be
-    " compatible with xterm too, but not sure what other terminals support it.
+    " Fixes scrolling when in insert mode for regular vim when using tmux.
+    " Otherwise, randome characters get inserted into the buffer. works with
+    " gnome-terminal & tmux, not sure about other terminals.
     if ! has('nvim') && &term =~# '^screen-256color'
         set ttymouse=sgr
     endif
