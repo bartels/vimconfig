@@ -641,7 +641,7 @@ nnoremap <S-L> $
 nnoremap <leader>l :set list!<CR>
 
 " Clear last search highlight
-nnoremap <leader><space> :noh<CR>
+nnoremap <silent> <leader><space> :noh<CR>
 
 " creating window splits
 nnoremap <silent> <leader>v :vsplit<CR>
