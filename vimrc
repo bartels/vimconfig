@@ -28,6 +28,7 @@ Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'moll/vim-node'
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
+Plug 'leafgarland/typescript-vim'
 Plug 'hynek/vim-python-pep8-indent'
 
 " Utilities / Helpers
