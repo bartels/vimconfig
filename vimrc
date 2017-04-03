@@ -430,7 +430,7 @@ endif
 " Deoplete --------------------------------------------------------------- {{{1
 if s:use_deoplete
     let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_ignore_case = 1
+    let g:deoplete#enable_ignore_case = 0
     let g:deoplete#enable_smart_case = 1
     let g:deoplete#enable_camel_case = 1
     let g:deoplete#auto_complete_delay = 20
@@ -441,6 +441,7 @@ if s:use_deoplete
     " disable jedi completions since deoplete is used
     let g:jedi#completions_enabled = 0
 
+    " enables omni completion when these patterns are encountered
     let g:deoplete#omni#input_patterns = {}
     let g:deoplete#omni#input_patterns.javascript = ['[^. \t0-9]\.([a-zA-Z_]\w*)?']
 
