@@ -534,7 +534,7 @@ if isdirectory(expand('~/.fzf'))
                 \ AgPrompt call s:fzf_ag_prompt(<q-args>, <bang>0)
 
     " :Ag but with customized options
-    autocmd vimrc VimEnter * command! -bang -nargs=* -complete=dir
+    command! -bang -nargs=* -complete=dir
                 \ Ag call s:fzf_ag(<q-args>, '', <bang>0)
 
     " Bindings
