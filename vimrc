@@ -390,6 +390,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 0
 autocmd vimrc TextChanged,InsertLeave * call ale#Queue(g:ale_lint_delay)
 
+" bindings
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
