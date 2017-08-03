@@ -209,29 +209,32 @@ augroup END
 " key sequence timeouts
 set timeout timeoutlen=500 ttimeoutlen=50
 
-" Allow terminal vim to recognize Alt key combos
-" see: https://stackoverflow.com/questions/6778961/
-if ! has('gui_running') && ! has('nvim')
-    let s:c='a'
-    while s:c <=# 'z'
-        exec 'set <A-'.s:c.">=\e".s:c
-        exec "imap \e".s:c.' <A-".s:c.">'
-        let s:c = nr2char(1+char2nr(s:c))
-    endw
-endif
+" Fixes for regular vim keyboard/terminal issues (not nvim)
+if ! has('nvim')
+    " Allow terminal vim to recognize Alt key combos
+    " see: https://stackoverflow.com/questions/6778961/
+    if ! has('gui_running')
+        let s:c='a'
+        while s:c <=# 'z'
+            exec 'set <A-'.s:c.">=\e".s:c
+            exec "imap \e".s:c.' <A-".s:c.">'
+            let s:c = nr2char(1+char2nr(s:c))
+        endw
+    endif
 
-" Allow terminal vim to recognize XTerm escape sequences for Page and Arrow
-" keys combined with modifiers such as Shift, Control, and Alt.
-if &term =~# '^screen'
-    " Page keys: http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
-    execute "set t_kP=\e[5;*~"
-    execute "set t_kN=\e[6;*~"
+    " Allow terminal vim to recognize XTerm escape sequences for Page and Arrow
+    " keys combined with modifiers such as Shift, Control, and Alt.
+    if &term =~# '^screen' || &term =~# '^tmux'
+        " Page keys: https://github.com/ddollar/tmux/blob/master/FAQ
+        execute "set t_kP=\e[5;*~"
+        execute "set t_kN=\e[6;*~"
 
-    " Arrow keys: http://unix.stackexchange.com/a/34723
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
+        " Arrow keys: http://unix.stackexchange.com/a/34723
+        execute "set <xUp>=\e[1;*A"
+        execute "set <xDown>=\e[1;*B"
+        execute "set <xRight>=\e[1;*C"
+        execute "set <xLeft>=\e[1;*D"
+    endif
 endif
 
 
@@ -270,7 +273,7 @@ if has('mouse')
     " Fixes scrolling when in insert mode for regular vim when using tmux.
     " Otherwise, randome characters get inserted into the buffer. works with
     " gnome-terminal & tmux, not sure about other terminals.
-    if ! has('nvim') && &term =~# '^screen-256color'
+    if ! has('nvim') && (&term =~# '^screen' || &term =~# '^tmux')
         set ttymouse=sgr
     endif
 endif
