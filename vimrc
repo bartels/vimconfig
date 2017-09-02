@@ -38,7 +38,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'chrisbra/Colorizer'
-Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'shime/vim-livedown'
 
 " Syntax Checking
 Plug 'w0rp/ale'
@@ -596,11 +596,13 @@ autocmd! vimrc User GoyoEnter nested call <SID>goyo_enter()
 autocmd! vimrc User GoyoLeave nested call <SID>goyo_leave()
 
 
-" Markdown Preview ------------------------------------------------------- {{{1
-let g:vim_markdown_preview_toggle = 0
-let g:vim_markdown_preview_hotkey = ',p'
-let g:vim_markdown_preview_browser = 'Google Chrome'
-let g:vim_markdown_preview_github = 1
+" Livedown Preview ------------------------------------------------------- {{{1
+
+let g:livedown_autorun = 0
+let g:livedown_open = 1
+let g:livedown_port = 1337
+let g:livedown_browser = 'google-chrome'
+nmap <leader>p :LivedownToggle<CR>
 
 
 " tmux-navigator --------------------------------------------------------- {{{1
