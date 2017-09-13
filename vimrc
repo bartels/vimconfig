@@ -44,7 +44,8 @@ Plug 'shime/vim-livedown'
 Plug 'w0rp/ale'
 
 " Code Completion
-if has('nvim') && has('python3')
+let s:use_ncm = has('nvim') && has('python3')
+if s:use_ncm
     Plug 'roxma/nvim-completion-manager'
     Plug 'roxma/ncm-flow'
     Plug 'calebeby/ncm-css'
@@ -411,11 +412,11 @@ let g:ale_vim_vint_show_style_issues = 1
 
 
 " nvim-completion-manager  ----------------------------------------------- {{{1
-set shortmess+=c
-if has('nvim') && has('python3')
+if s:use_ncm
+    set shortmess+=c
+
     let g:cm_refresh_length = [[1,3],[7,2]]  " [[1,4],[7,3]]
     let g:cm_matcher = {'module': 'cm_matchers.abbrev_matcher', 'case': 'smartcase'}
-
     let g:cm_sources_override = {
                 \ 'cm-bufkeyword': {'priority':6},
                 \ 'flow': {'scopes': ['javascript', 'jsx', 'javascript.jsx']},
@@ -424,10 +425,10 @@ if has('nvim') && has('python3')
     inoremap <expr><CR> (pumvisible() ? "\<c-y>" : "\<CR>")
     inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-endif
 
-" disable jedi completions
-let g:jedi#completions_enabled = 0
+    " disable jedi completions
+    let g:jedi#completions_enabled = 0
+endif
 
 
 " UltiSnips -------------------------------------------------------------- {{{1
