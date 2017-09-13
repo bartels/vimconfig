@@ -414,11 +414,11 @@ let g:ale_vim_vint_show_style_issues = 1
 set shortmess+=c
 if has('nvim') && has('python3')
     let g:cm_refresh_length = [[1,3],[7,2]]  " [[1,4],[7,3]]
-    " let g:cm_matcher = {'module': 'cm_matchers.prefix_matcher', 'case': 'smartcase'}
     let g:cm_matcher = {'module': 'cm_matchers.abbrev_matcher', 'case': 'smartcase'}
 
     let g:cm_sources_override = {
-                \ 'cm-bufkeyword': {'priority':6}
+                \ 'cm-bufkeyword': {'priority':6},
+                \ 'flow': {'scopes': ['javascript', 'jsx', 'javascript.jsx']},
                 \ }
 
     inoremap <expr><CR> (pumvisible() ? "\<c-y>" : "\<CR>")
