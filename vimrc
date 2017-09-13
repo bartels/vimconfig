@@ -45,14 +45,10 @@ Plug 'w0rp/ale'
 
 " Code Completion
 let s:use_deoplete = has('nvim') && has('python3')
-let s:use_neocomplete = !s:use_deoplete && has('lua')
 
 if s:use_deoplete
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'commit': '7a70f27' }
     Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-elseif s:use_neocomplete
-    Plug 'Shougo/neocomplete'
-    Plug 'Shougo/vimproc', { 'do': 'make' }
 endif
 
 if has('python')
@@ -403,32 +399,6 @@ let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
 
 " vim
 let g:ale_vim_vint_show_style_issues = 1
-
-
-" NeoComplete ------------------------------------------------------------ {{{1
-if s:use_neocomplete
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#data_directory = '~/.cache/vim/neocomplete'
-
-    " So we can override input paterns that trigger completions
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
-    endif
-
-    " customize when python omni completion is triggered
-    let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*\|from \w\+\s\+import \w'
-
-    " So .less files use omni same as .css
-    let g:neocomplete#sources#omni#input_patterns.less = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-
-    " Tab completion in menus
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-endif
 
 
 " Deoplete --------------------------------------------------------------- {{{1
