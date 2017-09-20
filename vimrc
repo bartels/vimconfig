@@ -664,7 +664,9 @@ function! g:ToggleWinDiff()
     if &diff
         exec ':diffoff!'
     else
-        exec ':windo diffthis'
+        " exec ':windo diffthis'
+        " diffthis, but filter out some buftypes
+        exec ':windo if &buftype !~ ''quickfix\|locationlist\|help'' | diffthis | endif'
     endif
 endfunction
 nnoremap <silent><leader>dd :call g:ToggleWinDiff()<CR>
