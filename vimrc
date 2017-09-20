@@ -415,9 +415,6 @@ let g:ale_vim_vint_show_style_issues = 1
 if s:use_ncm
     set shortmess+=c
 
-    let g:cm_complete_start_delay = 0
-    let g:cm_complete_popup_delay = 20
-    let g:cm_completed_snippet_enable = 0
     let g:cm_refresh_length = [[1,3],[7,2]]  " [[1,4],[7,3]]
     let g:cm_matcher = {'module': 'cm_matchers.abbrev_matcher', 'case': 'case'}
     let g:cm_sources_override = {
