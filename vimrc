@@ -181,6 +181,15 @@ let g:javascript_plugin_flow = 1
 " flowtype
 let g:flow#enable = 0
 
+" Use locally installed flow for vim-flow
+let s:local_flow = finddir('node_modules', '.;') . '/.bin/flow'
+if matchstr(s:local_flow, "^\/\\w") ==# ''
+    let s:local_flow= getcwd() . '/' . s:local_flow
+endif
+if executable(s:local_flow)
+  let g:flow#flowpath = s:local_flow
+endif
+
 " skeleton files
 func! ReadSkel(skel_file)
     execute '0read' '~/.vim/skeletons/' . a:skel_file
