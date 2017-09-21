@@ -18,27 +18,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'lifepillar/vim-solarized8'
 
-" Filetype/Syntax plugins
-Plug 'othree/html5.vim'
-Plug 'alvan/vim-closetag'
-Plug 'pangloss/vim-javascript'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'groenewege/vim-less'
-Plug 'elzr/vim-json'
-Plug 'mxw/vim-jsx'
-Plug 'moll/vim-node'
-Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
-Plug 'leafgarland/typescript-vim'
-Plug 'hynek/vim-python-pep8-indent'
-
 " Utilities / Helpers
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'chrisbra/Colorizer'
-Plug 'shime/vim-livedown'
 
 " Syntax Checking
 Plug 'w0rp/ale'
@@ -51,13 +37,39 @@ if s:use_ncm
     Plug 'calebeby/ncm-css'
 endif
 
-" Requires python
+" Snippets
 if has('python')
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 endif
+
+" Python
+Plug 'hynek/vim-python-pep8-indent'
+
+if has('python')
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+endif
+
+" Markup/HTML
+Plug 'othree/html5.vim'
+Plug 'alvan/vim-closetag'
+
+" CSS
+Plug 'hail2u/vim-css3-syntax'
+Plug 'groenewege/vim-less'
+
+" Javascript
+Plug 'pangloss/vim-javascript'
+Plug 'elzr/vim-json'
+Plug 'mxw/vim-jsx'
+Plug 'moll/vim-node'
+Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
+Plug 'leafgarland/typescript-vim'
+
+" Markdown
+Plug 'shime/vim-livedown'
+
 
 call plug#end()
 
