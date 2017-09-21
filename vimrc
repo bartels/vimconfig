@@ -203,24 +203,6 @@ if executable(s:local_flow)
   let g:flow#flowpath = s:local_flow
 endif
 
-" skeleton files
-func! ReadSkel(skel_file)
-    execute '0read' '~/.vim/skeletons/' . a:skel_file
-    " Removes empty line at bottom
-    normal! Gddgg
-endfunc
-
-augroup skeletons
-    autocmd!
-
-    " Django
-    autocmd BufNewFile models.py call ReadSkel('models.py')
-    autocmd BufNewFile urls.py call ReadSkel('urls.py')
-    autocmd BufNewFile tests.py call ReadSkel('tests.py')
-
-    " React
-    autocmd BufNewFile **/components/*.js call ReadSkel('component.js')
-augroup END
 
 " Keyboard --------------------------------------------------------------- {{{1
 
