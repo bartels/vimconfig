@@ -30,7 +30,8 @@ Plug 'chrisbra/Colorizer'
 Plug 'w0rp/ale'
 
 " Code Completion
-let s:use_ncm = has('nvim') && has('python3')
+let s:has_python = has('python') || has('python3')
+let s:use_ncm = has('nvim') && s:has_python
 if s:use_ncm
     Plug 'roxma/nvim-completion-manager'
     Plug 'roxma/ncm-flow'
@@ -38,7 +39,7 @@ if s:use_ncm
 endif
 
 " Snippets
-if has('python')
+if s:has_python
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 endif
@@ -46,7 +47,7 @@ endif
 " Python
 Plug 'hynek/vim-python-pep8-indent'
 
-if has('python')
+if s:has_python
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 endif
