@@ -189,11 +189,12 @@ let g:vim_json_syntax_conceal = 0
 " Support jsx syntax in .js files (vim-jsx)
 let g:jsx_ext_required = 0
 
-" pangloss vim-javascript
-let g:javascript_plugin_flow = 1
+" vim-javascript
+let g:javascript_plugin_flow = 1 " flow syntax
 
-" flowtype
+" vim-flow
 let g:flow#enable = 0
+let g:flow#omnifunc = 0 " disable omnifunc
 
 " Use locally installed flow for vim-flow
 let s:local_flow = finddir('node_modules', '.;') . '/.bin/flow'
@@ -417,6 +418,7 @@ if s:use_ncm
                 \ 'flow': {'scopes': ['javascript', 'jsx', 'javascript.jsx']},
                 \ }
 
+    " tab completion
     inoremap <expr><CR>    pumvisible() ? "\<c-y>" : "\<CR>"
     inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
