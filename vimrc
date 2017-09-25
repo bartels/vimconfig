@@ -49,7 +49,6 @@ Plug 'hynek/vim-python-pep8-indent'
 
 if s:has_python
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 endif
 
 " Markup/HTML
