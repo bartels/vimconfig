@@ -32,6 +32,22 @@ console.log(${1})
 endsnippet
 
 # React & JSX
+snippet "rcl(ass)?" "React Class" br
+type Props = {
+	children: ReactNode,
+}
+
+export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
+	render() {
+		return (
+			<div className="$1">
+				$3
+			</div>
+		)
+	}
+}
+endsnippet
+
 snippet rcc "React Class Component" b
 /* @flow */
 import React from 'react'
