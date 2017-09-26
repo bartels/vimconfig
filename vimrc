@@ -44,13 +44,14 @@ Plug 'shime/vim-livedown'
 Plug 'w0rp/ale'
 
 " Code Completion
-let s:use_deoplete = has('nvim') && has('python3')
-
-if s:use_deoplete
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'commit': '7a70f27' }
-    Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+let s:use_ncm = has('nvim') && has('python3')
+if s:use_ncm
+    Plug 'roxma/nvim-completion-manager'
+    Plug 'roxma/ncm-flow'
+    Plug 'calebeby/ncm-css'
 endif
 
+" Requires python
 if has('python')
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
@@ -212,7 +213,7 @@ augroup END
 " Keyboard --------------------------------------------------------------- {{{1
 
 " key sequence timeouts
-set timeout timeoutlen=500 ttimeoutlen=50
+set timeout timeoutlen=300 ttimeoutlen=50
 
 " Fixes for regular vim keyboard/terminal issues (not nvim)
 if ! has('nvim')
@@ -410,26 +411,25 @@ let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
 let g:ale_vim_vint_show_style_issues = 1
 
 
-" Deoplete --------------------------------------------------------------- {{{1
-if s:use_deoplete
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_ignore_case = 0
-    let g:deoplete#enable_smart_case = 1
-    let g:deoplete#enable_camel_case = 1
-    let g:deoplete#auto_complete_delay = 20
+" nvim-completion-manager  ----------------------------------------------- {{{1
+if s:use_ncm
+    set shortmess+=c
 
-    " Use head matcher
-    call deoplete#custom#set('_', 'matchers', ['matcher_head'])
+    let g:cm_refresh_length = [[1,3],[7,2]]  " [[1,4],[7,3]]
+    let g:cm_matcher = {'module': 'cm_matchers.abbrev_matcher', 'case': 'case'}
+    let g:cm_sources_override = {
+                \ 'cm-bufkeyword': {'priority':6},
+                \ 'flow': {'scopes': ['javascript', 'jsx', 'javascript.jsx']},
+                \ }
 
-    " disable jedi completions since deoplete is used
+    inoremap <expr><CR>    pumvisible() ? "\<c-y>" : "\<CR>"
+    inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    " disable jedi completions
     let g:jedi#completions_enabled = 0
-
-    " enables omni completion when these patterns are encountered
-    let g:deoplete#omni#input_patterns = {}
-    let g:deoplete#omni#input_patterns.javascript = ['[^. \t0-9]\.([a-zA-Z_]\w*)?']
-
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
+
 
 " UltiSnips -------------------------------------------------------------- {{{1
 let g:UltiSnipsExpandTrigger = '<c-j>'
