@@ -11,6 +11,7 @@ Plug 'wellle/targets.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 Plug 'junegunn/goyo.vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " Theme plugins
 Plug 'bling/vim-airline'
@@ -377,6 +378,10 @@ function! ToggleVExplorer()
 endfunction
 
 noremap <silent> <f12> :call ToggleVExplorer()<CR>
+
+
+" Editorconfig ----------------------------------------------------------- {{{1
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 
 " ALE -------------------------------------------------------------------- {{{1
