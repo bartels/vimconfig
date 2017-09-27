@@ -209,7 +209,7 @@ endif
 " Keyboard --------------------------------------------------------------- {{{1
 
 " key sequence timeouts
-set timeout timeoutlen=300 ttimeoutlen=50
+set timeout timeoutlen=350 ttimeoutlen=50
 
 " Fixes for regular vim keyboard/terminal issues (not nvim)
 if ! has('nvim')
