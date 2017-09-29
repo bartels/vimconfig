@@ -26,6 +26,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'chrisbra/Colorizer'
+Plug 'jamessan/vim-gnupg'
 
 " Syntax Checking
 Plug 'w0rp/ale'
@@ -204,6 +205,9 @@ endif
 if executable(s:local_flow)
   let g:flow#flowpath = s:local_flow
 endif
+
+" vim-gnupg
+let g:GPGPreferSymmetric = 1
 
 
 " Keyboard --------------------------------------------------------------- {{{1
