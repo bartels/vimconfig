@@ -389,19 +389,16 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 
 " ALE -------------------------------------------------------------------- {{{1
-let g:ale_lint_on_save = 1
-let g:ale_lint_delay = 250
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-" This is to prevent ALE from running during insert mode changes, for which
-" there is no option. ALE will run when text is changed in normal mode or
-" leaving insert mode.
-let g:ale_lint_on_text_changed = 0
-autocmd vimrc TextChanged,InsertLeave * call ale#Queue(g:ale_lint_delay)
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'normal'  " only lint for normal mode hanges
+let g:ale_lint_on_insert_leave = 1         " lint when leaving insert mode
 
 " bindings
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
