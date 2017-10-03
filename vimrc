@@ -403,10 +403,17 @@ let g:ale_lint_on_insert_leave = 1         " lint when leaving insert mode
 " bindings
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
+nmap <F8> <Plug>(ale_fix)
 
 " javascript
 let g:ale_javascript_eslint_executable = executable('eslint_d') ? 'eslint_d' : 'eslint'
 let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
+
+" Fixers
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'python': ['autopep8']
+\}
 
 " vim
 let g:ale_vim_vint_show_style_issues = 1
