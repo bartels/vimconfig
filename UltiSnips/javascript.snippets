@@ -10,7 +10,7 @@ let ${1} = ${2}
 endsnippet
 
 snippet "i(mport|mp|m)?" "import" br
-import ${1} from '${2}'
+import ${1} from '${2:$1}'
 endsnippet
 
 snippet "e(xport|xp|x)?" "export" br
@@ -38,7 +38,7 @@ endsnippet
 # React & JSX
 snippet "rcl(ass)?" "React Class" br
 type Props = {
-	children: ReactNode,
+	children: React.Node,
 }
 
 export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
@@ -54,13 +54,12 @@ endsnippet
 
 snippet rcc "React Class Component" b
 /* @flow */
-import React from 'react'
-import type { Node as ReactNode } from 'react'
+import * as React from 'react'
 
 import './${2:$1}.scss'
 
 type Props = {
-	children: ReactNode,
+	children: React.Node,
 }
 
 export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
@@ -78,14 +77,13 @@ endsnippet
 
 snippet rccc "React Redux Class Component" b
 /* @flow */
-import React from 'react'
-import type { Node as ReactNode } from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 
 import './${2:$1}.scss'
 
 type Props = {
-	children: ReactNode,
+	children: React.Node,
 }
 
 export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
