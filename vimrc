@@ -88,6 +88,7 @@ set backspace=indent,eol,start    " more powerful backspacing
 set fileformats+=mac              " handle 'mac' style EOLs
 set modeline                      " alow modlines in files
 set history=1000                  " command history entries
+set updatetime=1000
 
 if has('shada')
     " how much info to store in shada (previously viminfo)
