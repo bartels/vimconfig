@@ -1,4 +1,4 @@
-setlocal so=999
+setlocal scrolloff=999
 setlocal laststatus=0
 setlocal incsearch hlsearch
 nnoremap <silent> <buffer> <nowait> Q :qa<CR>

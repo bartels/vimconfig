@@ -24,12 +24,12 @@ vim.command('let g:python_breakpoint_cmd = "import {0}; {0}.set_trace() ### XXX 
 EOF
 
     fun! BreakpointSet(lnum)
-        let line = getline(a:lnum)
-        if strridx(line, g:python_breakpoint_cmd) != -1
+        let l:line = getline(a:lnum)
+        if strridx(l:line, g:python_breakpoint_cmd) != -1
             normal! dd
         else
-            let plnum = prevnonblank(a:lnum)
-            call append(line('.')-1, repeat(' ', indent(plnum)).g:python_breakpoint_cmd)
+            let l:plnum = prevnonblank(a:lnum)
+            call append(line('.')-1, repeat(' ', indent(l:plnum)).g:python_breakpoint_cmd)
             normal! k
         endif
     endfunction
