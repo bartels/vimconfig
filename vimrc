@@ -652,6 +652,7 @@ inoremap <C-Space> <C-x><C-o>
 " Tabpage mappings
 nnoremap <silent> <leader>t :tabnew<CR>
 nnoremap <silent> <leader>w :close<CR>
+nnoremap <silent> <leader>x :bd<CR>
 noremap <A-j> gt
 noremap <A-k> gT
 inoremap <A-j> <ESC>gt
