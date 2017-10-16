@@ -72,6 +72,8 @@ Plug 'leafgarland/typescript-vim'
 " Markdown
 Plug 'shime/vim-livedown'
 
+" nginx
+Plug 'chr4/nginx.vim'
 
 call plug#end()
 
