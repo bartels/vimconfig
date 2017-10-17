@@ -65,7 +65,6 @@ Plug 'groenewege/vim-less'
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
-Plug 'moll/vim-node'
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
 Plug 'leafgarland/typescript-vim'
 
