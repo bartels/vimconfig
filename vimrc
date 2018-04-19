@@ -594,7 +594,7 @@ let g:livedown_autorun = 0
 let g:livedown_open = 1
 let g:livedown_port = 1337
 let g:livedown_browser = 'google-chrome'
-nmap <leader>p :LivedownToggle<CR>
+nmap <leader>m :LivedownToggle<CR>
 
 
 " tmux-navigator --------------------------------------------------------- {{{1
