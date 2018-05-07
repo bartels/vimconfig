@@ -75,6 +75,9 @@ Plug 'shime/vim-livedown'
 " nginx
 Plug 'chr4/nginx.vim'
 
+" Cypher (.cql)
+Plug 'neo4j-contrib/cypher-vim-syntax'
+
 call plug#end()
 
 
