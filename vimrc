@@ -78,6 +78,9 @@ Plug 'chr4/nginx.vim'
 " Cypher (.cql)
 Plug 'neo4j-contrib/cypher-vim-syntax'
 
+" graphql
+Plug 'jparise/vim-graphql'
+
 call plug#end()
 
 
