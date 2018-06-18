@@ -1,12 +1,5 @@
 scriptencoding utf-8
 
-" TODO: Check if this is still needed
-" The latest vim 8.1 update seems to have problems if this is not set.
-" vint: -ProhibitSetNoCompatible
-if ! has('nvim')
-    set nocompatible
-endif
-
 " Plugins ---------------------------------------------------------------- {{{1
 
 call plug#begin('~/.vim/plugged')
