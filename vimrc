@@ -95,12 +95,12 @@ set hidden                        " switch buffers without needing to save
 set backspace=indent,eol,start    " more powerful backspacing
 set fileformats+=mac              " handle 'mac' style EOLs
 set modeline                      " alow modlines in files
-set history=1000                  " command history entries
+set history=10000                 " command history entries
 set updatetime=1000
 
 if has('shada')
     " how much info to store in shada (previously viminfo)
-    set shada=!,'5000,<100,s100,h
+    set shada=!,'10000,<100,s100,h
 endif
 
 " Folding
