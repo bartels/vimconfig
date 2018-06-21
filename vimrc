@@ -264,6 +264,7 @@ set tabpagemax=50                 " increase max tabpages
 set incsearch hlsearch            " highlight search terms as you type
 set scrolloff=3                   " number of context lines while scrolling
 set sidescrolloff=3               " number of context columns
+set shortmess+=I                  " turn off intro text
 
 " nvim only
 if has('nvim')
