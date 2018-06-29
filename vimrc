@@ -109,7 +109,7 @@ autocmd vimrc FileType text setlocal foldmethod=marker
 
 " Update buffer when a file changes outside of vim
 set autoread
-autocmd vimrc CursorHold,CursorHoldI * silent! checktime
+autocmd vimrc FocusGained,BufEnter,CursorHold,CursorHoldI * silent! checktime
 
 " Use comma for mapleader
 " NOTE: set before defining mappings that use <leader>
