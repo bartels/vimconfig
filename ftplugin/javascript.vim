@@ -10,3 +10,6 @@ nnoremap <silent><leader>d :FlowJumpToDef<CR>
 " Fix problem with wrong highlighting in some js files. This will force vim to
 " sync highlighting from start of file
 syntax sync fromstart
+
+" There are errors indenting jsx code, so turning disabling re-indent
+let b:surround_indent = 0
