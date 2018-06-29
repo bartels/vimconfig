@@ -738,4 +738,4 @@ function! <SID>SynStack()
 endfunc
 nnoremap <leader>sy :call <SID>SynStack()<CR>
 
-" vim:foldmethod=marker:foldlevel=0
+" vim:foldmethod=marker:foldlevel=1
