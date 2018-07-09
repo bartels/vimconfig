@@ -608,8 +608,11 @@ nmap <leader>m :LivedownToggle<CR>
 
 " tmux-navigator --------------------------------------------------------- {{{1
 
+" disable mappings while tmux is zoomed
+let g:tmux_navigator_disable_when_zoomed = 1
+
+" Fix: tmux-navigator maps break fzf pane maps
 if exists(':tnoremap')
-    " Fix: tmux-navigator maps break fzf pane maps
     function! s:unset_tmux_maps_for_fzf()
         noremap <buffer> <c-h> <Nop>
         tnoremap <buffer> <c-j> <c-n>
