@@ -257,6 +257,7 @@ endif
 " UI --------------------------------------------------------------------- {{{1
 
 set title                         " title in terminal window
+let &titleold = hostname()        " reset title to hostname on exit
 set number relativenumber         " show line numbers
 set display+=lastline             " always show as much of last line of file
 set laststatus=2                  " always show the statusline
