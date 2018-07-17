@@ -327,7 +327,8 @@ endfunc
 
 " gui colorscheme
 if has('gui_running')
-    colorscheme solarized8_light
+    set background=light
+    colorscheme lucius
 " terminal colorscheme
 else
     set background=dark
