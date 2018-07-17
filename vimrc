@@ -194,7 +194,8 @@ func! FThtml()
 endfunc
 
 " Files to use closetag plugin
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
+let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx'
+let g:closetag_filetypes = 'xml,html,javascript'
 let g:closetag_close_shortcut = ',>'
 
 " Disable conceal feature in json files (vim-json)
