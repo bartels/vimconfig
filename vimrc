@@ -378,28 +378,6 @@ let g:netrw_winsize = 25
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3  " tree mode
 
-" Toggle Vexplore
-function! ToggleVExplorer()
-  if exists('t:expl_buf_num')
-      let l:expl_win_num = bufwinnr(t:expl_buf_num)
-      if l:expl_win_num != -1
-          let l:cur_win_nr = winnr()
-          exec l:expl_win_num . 'wincmd w'
-          close
-          exec l:cur_win_nr . 'wincmd w'
-          unlet t:expl_buf_num
-      else
-          unlet t:expl_buf_num
-      endif
-  else
-      exec '1wincmd w'
-      exec 'Vexplore ' . getcwd()
-      let t:expl_buf_num = bufnr('%')
-  endif
-endfunction
-
-noremap <silent> <f12> :call ToggleVExplorer()<CR>
-
 
 " Editorconfig ----------------------------------------------------------- {{{1
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
