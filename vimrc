@@ -426,6 +426,13 @@ nmap <F8> <Plug>(ale_fix)
 " javascript
 let g:ale_javascript_eslint_executable = executable('eslint_d') ? 'eslint_d' : 'eslint'
 let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
+let g:ale_pattern_options = {
+\ '.eslintrc$': {'ale_linters': [], 'ale_fixers': []},
+\ '.stylelintrc$': {'ale_linters': [], 'ale_fixers': []},
+\ '.babelrc$': {'ale_linters': [], 'ale_fixers': []},
+\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+\}
 
 " Fixers
 let g:ale_fixers = {
