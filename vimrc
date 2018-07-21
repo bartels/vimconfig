@@ -2,6 +2,10 @@ scriptencoding utf-8
 
 " Plugins ---------------------------------------------------------------- {{{1
 
+" Always use system python (even when inside virtualenv)
+let g:python_host_prog = substitute(system('which -a python | tail -n1'), '\n', '', 'g')
+let g:python3_host_prog = substitute(system('which -a python3 | tail -n1'), '\n', '', 'g')
+
 call plug#begin('~/.vim/plugged')
 
 " Editing plugins
