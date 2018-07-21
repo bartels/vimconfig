@@ -398,6 +398,7 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'normal'  " only lint for normal mode hanges
 let g:ale_lint_on_insert_leave = 1         " lint when leaving insert mode
+
 autocmd vimrc BufWinEnter * call ale#Queue(0)
 
 " bindings
@@ -438,9 +439,9 @@ if s:use_ncm
                 \ }
 
     " tab completion
-    inoremap <expr><CR>    pumvisible() ? "\<c-y>" : "\<CR>"
-    inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <CR>    pumvisible() ? "\<c-y>" : "\<CR>"
+    inoremap <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
     " disable jedi completions
     let g:jedi#completions_enabled = 0
