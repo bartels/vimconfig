@@ -192,6 +192,10 @@ func! FThtml()
     setf html
 endfunc
 
+" Use system python (even in a virtualenv)
+let g:python_host_prog = substitute(system('which -a python | tail -n1'), '\n', '', 'g')
+let g:python3_host_prog = substitute(system('which -a python3 | tail -n1'), '\n', '', 'g')
+
 " Files to use closetag plugin
 let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx'
 let g:closetag_filetypes = 'xml,html,javascript'
