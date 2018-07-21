@@ -39,11 +39,19 @@ Plug 'w0rp/ale'
 
 " Code Completion
 let s:has_python = has('python') || has('python3')
-let s:use_ncm = has('nvim') && s:has_python
+let s:use_ncm =  0 " has('nvim') && s:has_python
 if s:use_ncm
     Plug 'roxma/nvim-completion-manager'
     Plug 'roxma/ncm-flow'
     Plug 'calebeby/ncm-css'
+endif
+
+let s:use_deoplete = has('nvim') && has('python3')
+if s:use_deoplete
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/neco-syntax'
+    Plug 'Shougo/neco-vim'
+    Plug 'wellle/tmux-complete.vim'
 endif
 
 " Snippets
@@ -56,7 +64,7 @@ endif
 Plug 'hynek/vim-python-pep8-indent'
 
 if s:has_python
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    " Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 endif
 
 " Markup/HTML
@@ -197,10 +205,6 @@ func! FThtml()
     endwhile
     setf html
 endfunc
-
-" Use system python (even in a virtualenv)
-let g:python_host_prog = substitute(system('which -a python | tail -n1'), '\n', '', 'g')
-let g:python3_host_prog = substitute(system('which -a python3 | tail -n1'), '\n', '', 'g')
 
 " Files to use closetag plugin
 let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx'
@@ -449,6 +453,34 @@ if s:use_ncm
                 \ 'cm-bufkeyword': {'priority':6},
                 \ 'flow': {'scopes': ['javascript', 'jsx', 'javascript.jsx']},
                 \ }
+
+    " tab completion
+    inoremap <expr> <CR>    pumvisible() ? "\<c-y>" : "\<CR>"
+    inoremap <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    " disable jedi completions
+    let g:jedi#completions_enabled = 0
+endif
+
+
+" Deoplete --------------------------------------------------------------- {{{1
+if s:use_deoplete
+    let g:deoplete#enable_at_startup = 1
+
+    " options
+    call deoplete#custom#option({
+    \  'auto_complete_delay': 30,
+    \  'auto_refresh_delay': 30,
+    \ })
+
+    " call deoplete#custom#source('_', 'matchers', ['matcher_head'])
+    call deoplete#custom#source('LanguageClient', 'input_patterns', {
+    \   'python': "[\w\)\]\}\'\"]+\.\w*$|^\s*@\w*$|^\s*from\s+[\w\.]*(?:\s+import\s+(?:\w*(?:,\s*)?)*)?|^\s*import\s+(?:[\w\.]*(?:,\s*)?)*",
+    \ })
+
+    " manual completion
+    inoremap <expr> <C-SPACE> call deoplete#manual_complete(['LanguageClient'])
 
     " tab completion
     inoremap <expr> <CR>    pumvisible() ? "\<c-y>" : "\<CR>"
