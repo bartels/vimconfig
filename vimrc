@@ -81,7 +81,6 @@ Plug 'groenewege/vim-less'
 " Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx'] }
 Plug 'leafgarland/typescript-vim'
 
 " Markdown
@@ -222,19 +221,6 @@ let g:jsx_ext_required = 0
 
 " vim-javascript
 let g:javascript_plugin_flow = 1 " flow syntax
-
-" vim-flow
-let g:flow#enable = 0
-let g:flow#omnifunc = 0 " disable omnifunc
-
-" Use locally installed flow for vim-flow
-let s:local_flow = finddir('node_modules', '.;') . '/.bin/flow'
-if matchstr(s:local_flow, "^\/\\w") ==# ''
-    let s:local_flow= getcwd() . '/' . s:local_flow
-endif
-if executable(s:local_flow)
-  let g:flow#flowpath = s:local_flow
-endif
 
 " vim-gnupg
 let g:GPGPreferSymmetric = 1
@@ -469,6 +455,8 @@ endif
 " LanguageClient --------------------------------------------------------- {{{1
 let g:LanguageClient_serverCommands = {
 \   'python': ['pyls'],
+\   'javascript': ['flow', 'lsp'],
+\   'javascript.jsx': ['flow', 'lsp'],
 \ }
 
 let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
