@@ -157,7 +157,7 @@ let g:is_bash = 1 " default to bash when no shebang
 augroup FileTypeDetect
     autocmd!
 
-    " These filetypes map to other types
+    " Map file extensions to proper filetype
     autocmd BufNewFile,BufRead *.thtml,*.ctp set filetype=php
     autocmd BufNewFile,BufRead *.wsgi set filetype=python
     autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
@@ -165,6 +165,7 @@ augroup FileTypeDetect
     autocmd BufNewFile,BufRead requirements.txt,requirements_*.txt set filetype=conf
     autocmd BufNewFile,BufRead *.ejs set filetype=html
     autocmd BufNewFile,BufRead .eslintrc,.babelrc,.stylelintrc set filetype=javascript
+    autocmd BufNewFile,BufRead */fontconfig/*.conf,*/fonts/*.conf set filetype=xml
 
     " Removes default django template detection in $VIMRUNTIME/filetype.vim
     autocmd! BufNewFile,BufRead *.html,*.htm
