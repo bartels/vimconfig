@@ -37,6 +37,9 @@ Plug 'jamessan/vim-gnupg'
 " Syntax Checking
 Plug 'w0rp/ale'
 
+" Language Server
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+
 " Code Completion
 let s:has_python = has('python') || has('python3')
 let s:use_ncm =  0 " has('nvim') && s:has_python
@@ -462,6 +465,25 @@ if s:use_ncm
     " disable jedi completions
     let g:jedi#completions_enabled = 0
 endif
+
+" LanguageClient --------------------------------------------------------- {{{1
+let g:LanguageClient_serverCommands = {
+\   'python': ['pyls'],
+\ }
+
+let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
+
+command! LCReferences call LanguageClient#textDocument_references()
+command! LCContext call LanguageClient_contextMenu()
+
+" mappings
+function! LanguageServerMaps()
+    nnoremap <buffer> <F2> :call LanguageClient_contextMenu()<CR>
+    nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> <leader>d :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> <leader> r :call LanguageClient#textDocument_rename()<CR>
+endfunction
 
 
 " Deoplete --------------------------------------------------------------- {{{1

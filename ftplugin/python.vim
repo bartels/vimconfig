@@ -36,3 +36,6 @@ EOF
 
     nnoremap <silent> <buffer> <leader>p :call BreakpointSet(line('.'))<CR>
 endif
+
+" language server mappings
+call LanguageServerMaps()
