@@ -19,7 +19,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'lifepillar/vim-solarized8'
 
 " Utilities / Helpers
 Plug 'tpope/vim-eunuch'
