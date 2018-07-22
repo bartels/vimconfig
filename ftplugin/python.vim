@@ -30,4 +30,4 @@ EOF
 endif
 
 " language server mappings
-call LanguageServerMaps()
+call LanguageClientMaps()

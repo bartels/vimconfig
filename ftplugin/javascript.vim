@@ -15,4 +15,4 @@ syntax sync fromstart
 let b:surround_indent = 0
 
 " language server mappings
-call LanguageServerMaps()
+call LanguageClientMaps()

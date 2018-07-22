@@ -442,7 +442,7 @@ if s:use_lc
 endif
 
 " mappings
-function! LanguageServerMaps()
+function! LanguageClientMaps()
     if s:use_lc
         nnoremap <buffer> <F2> :call LanguageClient_contextMenu()<CR>
         nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
