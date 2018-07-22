@@ -192,7 +192,7 @@ func! FThtml()
         return
       endif
       if getline(l:n) =~# '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>\|{#\s\+'
-        setf htmldjango
+        setf htmldjango.html
         return
       endif
       let l:n = l:n + 1
