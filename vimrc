@@ -38,7 +38,10 @@ Plug 'jamessan/vim-gnupg'
 Plug 'w0rp/ale'
 
 " Language Server
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+let s:use_lc = has('nvim')
+if s:use_lc
+    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+endif
 
 " Code Completion
 Plug 'Shougo/echodoc.vim'
@@ -423,24 +426,28 @@ let g:ale_vim_vint_show_style_issues = 1
 
 
 " LanguageClient --------------------------------------------------------- {{{1
-let g:LanguageClient_serverCommands = {
-\   'python': ['pyls'],
-\   'javascript': ['flow', 'lsp'],
-\   'javascript.jsx': ['flow', 'lsp'],
-\ }
+if s:use_lc
+    let g:LanguageClient_serverCommands = {
+    \   'python': ['pyls'],
+    \   'javascript': ['flow', 'lsp'],
+    \   'javascript.jsx': ['flow', 'lsp'],
+    \ }
 
-let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
+    let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
 
-command! LCReferences call LanguageClient#textDocument_references()
-command! LCContext call LanguageClient_contextMenu()
+    command! LCReferences call LanguageClient#textDocument_references()
+    command! LCContext call LanguageClient_contextMenu()
+endif
 
 " mappings
 function! LanguageServerMaps()
-    nnoremap <buffer> <F2> :call LanguageClient_contextMenu()<CR>
-    nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
-    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <buffer> <silent> <leader>d :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <buffer> <silent> <leader> r :call LanguageClient#textDocument_rename()<CR>
+    if s:use_lc
+        nnoremap <buffer> <F2> :call LanguageClient_contextMenu()<CR>
+        nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
+        nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+        nnoremap <buffer> <silent> <leader>d :call LanguageClient#textDocument_definition()<CR>
+        nnoremap <buffer> <silent> <leader> r :call LanguageClient#textDocument_rename()<CR>
+    endif
 endfunction
 
 
