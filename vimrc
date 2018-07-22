@@ -43,14 +43,6 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 " Code Completion
 Plug 'Shougo/echodoc.vim'
 
-let s:has_python = has('python') || has('python3')
-let s:use_ncm =  0 " has('nvim') && s:has_python
-if s:use_ncm
-    Plug 'roxma/nvim-completion-manager'
-    Plug 'roxma/ncm-flow'
-    Plug 'calebeby/ncm-css'
-endif
-
 let s:use_deoplete = has('nvim') && has('python3')
 if s:use_deoplete
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -60,17 +52,13 @@ if s:use_deoplete
 endif
 
 " Snippets
-if s:has_python
+if has('python') || has('python3')
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 endif
 
 " Python
 Plug 'hynek/vim-python-pep8-indent'
-
-if s:has_python
-    " Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-endif
 
 " Markup/HTML
 Plug 'othree/html5.vim'
@@ -434,26 +422,6 @@ let g:ale_fixers = {
 let g:ale_vim_vint_show_style_issues = 1
 
 
-" nvim-completion-manager  ----------------------------------------------- {{{1
-if s:use_ncm
-    set shortmess+=c
-
-    let g:cm_refresh_length = [[1,3],[7,2]]  " [[1,4],[7,3]]
-    let g:cm_matcher = {'module': 'cm_matchers.abbrev_matcher', 'case': 'case'}
-    let g:cm_sources_override = {
-                \ 'cm-bufkeyword': {'priority':6},
-                \ 'flow': {'scopes': ['javascript', 'jsx', 'javascript.jsx']},
-                \ }
-
-    " tab completion
-    inoremap <expr> <CR>    pumvisible() ? "\<c-y>" : "\<CR>"
-    inoremap <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-    " disable jedi completions
-    let g:jedi#completions_enabled = 0
-endif
-
 " LanguageClient --------------------------------------------------------- {{{1
 let g:LanguageClient_serverCommands = {
 \   'python': ['pyls'],
@@ -498,9 +466,6 @@ if s:use_deoplete
     inoremap <expr> <CR>    pumvisible() ? "\<c-y>" : "\<CR>"
     inoremap <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-    " disable jedi completions
-    let g:jedi#completions_enabled = 0
 endif
 
 
