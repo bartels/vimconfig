@@ -387,8 +387,10 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " ALE -------------------------------------------------------------------- {{{1
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
+let g:ale_sign_info = 'ℹ'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_info_str = 'I'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
 
 let g:ale_lint_on_save = 1
@@ -433,6 +435,7 @@ if s:use_lc
     \ }
 
     let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
+    let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
 
     command! LCReferences call LanguageClient#textDocument_references()
     command! LCContext call LanguageClient_contextMenu()
