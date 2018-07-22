@@ -41,6 +41,8 @@ Plug 'w0rp/ale'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
 " Code Completion
+Plug 'Shougo/echodoc.vim'
+
 let s:has_python = has('python') || has('python3')
 let s:use_ncm =  0 " has('nvim') && s:has_python
 if s:use_ncm
