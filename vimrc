@@ -44,10 +44,9 @@ if s:use_lc
 endif
 
 " Code Completion
-Plug 'Shougo/echodoc.vim'
-
 let s:use_deoplete = has('nvim') && has('python3')
 if s:use_deoplete
+    Plug 'Shougo/echodoc.vim'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'Shougo/neco-syntax'
     Plug 'Shougo/neco-vim'
