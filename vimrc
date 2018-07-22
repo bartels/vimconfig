@@ -55,7 +55,7 @@ if s:use_deoplete
 endif
 
 " Snippets
-if has('python') || has('python3')
+if has('python3')
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 endif
