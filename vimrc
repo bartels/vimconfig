@@ -374,6 +374,9 @@ if ! has('gui_running')
             let a:palette.normal.airline_c[3] = 236
         endif
     endfunction
+
+    " refresh after sourcing vimrc
+    autocmd! vimrc User SourceVimrc AirlineRefresh
 else
     let g:airline_left_sep=''
     let g:airline_right_sep=''
@@ -690,7 +693,7 @@ cnoremap w!! w !sudo tee % > /dev/null
 nnoremap <silent> <leader>ev :exec ':e' . resolve($MYVIMRC)<CR>
 
 " Source the vimrc file
-nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :source $MYVIMRC<CR> :silent doautocmd <nomodeline> User SourceVimrc<CR>
 
 
 " Custom Functions ------------------------------------------------------- {{{1
