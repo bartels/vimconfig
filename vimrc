@@ -312,6 +312,9 @@ if has('unnamedplus') || has('nvim')
     set clipboard=unnamedplus
 endif
 
+" Open help in vertical split
+autocmd! vimrc FileType help :wincmd H | :vert resize 90
+
 
 " Colors ----------------------------------------------------------------- {{{1
 
