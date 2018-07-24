@@ -497,6 +497,11 @@ if isdirectory(expand('~/.fzf'))
                 \ --bind=tab:toggle-up,btab:toggle-down,alt-a:toggle-all
                 \ --toggle-sort=ctrl-r'
 
+    " hide statusline
+    augroup Fzf
+        autocmd!
+        autocmd FileType fzf setlocal nonumber norelativenumber
+    augroup END
 
     " Finds the git project root
     function! s:find_git_root(...)
