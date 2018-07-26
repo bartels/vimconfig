@@ -430,9 +430,13 @@ let g:ale_vim_vint_show_style_issues = 1
 if s:use_lc
     let g:LanguageClient_serverCommands = {
     \   'python': ['pyls'],
-    \   'javascript': ['flow', 'lsp'],
-    \   'javascript.jsx': ['flow', 'lsp'],
     \ }
+
+    " Javascript - check for .flowconfig
+    if !empty(findfile('.flowconfig', '.;'))
+        let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
+        let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
+    endif
 
     let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
     let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
