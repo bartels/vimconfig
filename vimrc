@@ -169,7 +169,7 @@ augroup FileTypeDetect
     autocmd BufNewFile,BufRead *.wsgi set filetype=python
     autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
     autocmd BufNewFile,BufRead *.conf set filetype=conf
-    autocmd BufNewFile,BufRead requirements.txt,requirements_*.txt set filetype=conf
+    autocmd BufNewFile,BufRead requirements.txt,requirements*.txt set filetype=conf
     autocmd BufNewFile,BufRead *.ejs set filetype=html
     autocmd BufNewFile,BufRead .eslintrc,.babelrc,.stylelintrc set filetype=javascript
     autocmd BufNewFile,BufRead */fontconfig/*.conf,*/fonts/*.conf set filetype=xml
