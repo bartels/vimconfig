@@ -13,3 +13,6 @@ syntax sync fromstart
 
 " There are errors indenting jsx code, so turning disabling re-indent
 let b:surround_indent = 0
+
+" language server mappings
+call LanguageClientMaps()
