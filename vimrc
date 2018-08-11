@@ -452,7 +452,7 @@ function! LanguageClientMaps()
         nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
         nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
         nnoremap <buffer> <silent> <leader>d :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <buffer> <silent> <leader> r :call LanguageClient#textDocument_rename()<CR>
+        nnoremap <buffer> <silent> <leader>r :call LanguageClient#textDocument_references()<CR>
     endif
 endfunction
 
