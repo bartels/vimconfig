@@ -441,18 +441,29 @@ if s:use_lc
     let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
     let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
 
+    " custom commands
+    command! LCContextMenu call LanguageClient_contextMenu()
+    command! LCHover call LanguageClient#textDocument_hover()
+    command! LCDefinition call LanguageClient#textDocument_definition()
+    command! LCTypeDefinition call LanguageClient#textDocument_typeDefinition()
+    command! LCImplementation call LanguageClient#textDocument_implementation()
+    command! LCRename call LanguageClient#textDocument_rename()
+    command! LCDocumentSymbol call LanguageClient#textDocument_documentSymbol()
     command! LCReferences call LanguageClient#textDocument_references()
-    command! LCContext call LanguageClient_contextMenu()
+    command! LCCodeAction call LanguageClient#textDocument_codeAction()
+    command! LCFormat call LanguageClient#textDocument_formatting()
+    command! LCRangeFormat call LanguageClient#textDocument_rangeFormatting()
+    command! LCWorkspaceSymbol call LanguageClient#workspace_symbol()
 endif
 
-" mappings
+" LanguageClient mappings
 function! LanguageClientMaps()
     if s:use_lc
-        nnoremap <buffer> <F2> :call LanguageClient_contextMenu()<CR>
-        nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
-        nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <buffer> <silent> <leader>d :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <buffer> <silent> <leader>r :call LanguageClient#textDocument_references()<CR>
+        nnoremap <buffer> <F2> :LCContextMenu<CR>
+        nnoremap <buffer> <silent> K :LCHover<CR>
+        nnoremap <buffer> <silent> gd :LCDefinition<CR>
+        nnoremap <buffer> <silent> <leader>d :LCDefinition<CR>
+        nnoremap <buffer> <silent> <leader>r :LCReferences<CR>
     endif
 endfunction
 
