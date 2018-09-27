@@ -169,6 +169,12 @@ static getDerivedStateFromProps(props, state) {
 }
 endsnippet
 
+snippet "gsb(u)?" "React getDerivedStateFromProps" br
+static getSnapshotBeforeUpdate(prevProps, prevState) {
+	$1
+}
+endsnippet
+
 snippet ren "React render"
 render() {
 	return ${1:(
