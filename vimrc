@@ -73,7 +73,6 @@ Plug 'groenewege/vim-less'
 " Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'leafgarland/typescript-vim'
 
 " Markdown
 Plug 'shime/vim-livedown'
@@ -162,7 +161,7 @@ set autoindent              " Copy indent from previous line
 let g:is_bash = 1 " default to bash when no shebang
 
 " Files to use closetag plugin
-let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx'
+let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
 let g:closetag_filetypes = 'xml,html,javascript'
 let g:closetag_close_shortcut = ',>'
 
@@ -366,7 +365,10 @@ nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 nmap <F8> <Plug>(ale_fix)
 
+let g:ale_linters = {}
+
 " javascript
+let g:ale_linters.javascript = ['eslint', 'flow']
 let g:ale_javascript_eslint_executable = executable('eslint_d') ? 'eslint_d' : 'eslint'
 let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
 let g:ale_pattern_options = {
@@ -376,6 +378,9 @@ let g:ale_pattern_options = {
 \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
 \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
 \}
+
+" typescript
+let g:ale_linters.typescript = ['tsserver']
 
 " Fixers
 let g:ale_fixers = {
@@ -393,11 +398,15 @@ if s:use_lc
     \   'python': ['pyls'],
     \ }
 
-    " Javascript - check for .flowconfig
+    " javascript - flow setup
     if !empty(findfile('.flowconfig', '.;'))
         let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
         let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
     endif
+
+    " typescript setup
+    let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
+    let g:LanguageClient_serverCommands['typescript.jsx'] = ['javascript-typescript-stdio']
 
     let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
     let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
