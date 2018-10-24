@@ -103,6 +103,7 @@ set fileformats+=mac              " handle 'mac' style EOLs
 set modeline                      " alow modlines in files
 set history=10000                 " command history entries
 set updatetime=1000
+set diffopt=filler,vertical
 
 if has('shada')
     " how much info to store in shada (previously viminfo)
