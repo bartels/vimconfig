@@ -161,46 +161,6 @@ set autoindent              " Copy indent from previous line
 
 let g:is_bash = 1 " default to bash when no shebang
 
-" Filetype handling
-augroup FileTypeDetect
-    autocmd!
-
-    " Map file extensions to proper filetype
-    autocmd BufNewFile,BufRead *.thtml,*.ctp set filetype=php
-    autocmd BufNewFile,BufRead *.wsgi set filetype=python
-    autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
-    autocmd BufNewFile,BufRead *.conf set filetype=conf
-    autocmd BufNewFile,BufRead requirements.txt,requirements*.txt set filetype=conf
-    autocmd BufNewFile,BufRead *.ejs set filetype=html
-    autocmd BufNewFile,BufRead .eslintrc,.babelrc,.stylelintrc set filetype=javascript
-    autocmd BufNewFile,BufRead */fontconfig/*.conf,*/fonts/*.conf set filetype=xml
-
-    " Removes default django template detection in $VIMRUNTIME/filetype.vim
-    autocmd! BufNewFile,BufRead *.html,*.htm
-
-    " Better django template detection
-    " - looks for a few additional Django tag types.
-    autocmd BufNewFile,BufRead,BufWrite *.html,*.htm call FThtml()
-augroup END
-
-" Distinguish between HTML, XHTML and Django
-" custom/improved version than in runtime/filetype.vim
-func! FThtml()
-    let l:n = 1
-    while l:n < 10 && l:n <= line('$')
-      if getline(l:n) =~# '\<DTD\s\+XHTML\s'
-        setf xhtml
-        return
-      endif
-      if getline(l:n) =~# '{%\s*\(extends\|block\|load\|comment\|if\|for\)\>\|{#\s\+'
-        setf htmldjango.html
-        return
-      endif
-      let l:n = l:n + 1
-    endwhile
-    setf html
-endfunc
-
 " Files to use closetag plugin
 let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx'
 let g:closetag_filetypes = 'xml,html,javascript'
