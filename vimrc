@@ -445,7 +445,7 @@ let g:ale_pattern_options = {
 \}
 
 " typescript
-let g:ale_linters.typescript = ['tsserver']
+let g:ale_linters.typescript = ['tsserver', 'eslint']
 
 " Fixers
 let g:ale_fixers = {
