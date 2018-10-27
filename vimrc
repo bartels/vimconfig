@@ -459,23 +459,30 @@ let g:ale_vim_vint_show_style_issues = 1
 
 " LanguageClient --------------------------------------------------------- {{{1
 if s:use_lc
-    let g:LanguageClient_serverCommands = {
-    \   'python': ['pyls'],
-    \ }
+    " settings
+    let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
+    let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
+    let g:LanguageClient_windowLogMessageLevel = 'Error'  " disable showing warnings
 
-    " javascript - flow setup
-    if !empty(findfile('.flowconfig', '.;'))
+    " language server commands
+    let g:LanguageClient_serverCommands = {}
+
+    " python
+    if executable('pyls')
+        let g:LanguageClient_serverCommands.python = ['pyls']
+    endif
+
+    " javascript - flow
+    if executable('flow') && !empty(findfile('.flowconfig', '.;'))
         let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
         let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
     endif
 
     " typescript setup
-    let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
-    let g:LanguageClient_serverCommands['typescript.jsx'] = ['javascript-typescript-stdio']
-
-    let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
-    let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
-    let g:LanguageClient_windowLogMessageLevel = 'Error'  " disable showing warnings
+    if executable('javascript-typescript-stdio') && !empty(findfile('tsconfig.json', '.;'))
+        let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
+        let g:LanguageClient_serverCommands['typescript.jsx'] = ['javascript-typescript-stdio']
+    endif
 
     " custom commands
     command! LCContextMenu call LanguageClient_contextMenu()
