@@ -39,9 +39,8 @@ syntax keyword typescriptLabel readonly
 
 syntax keyword typescriptGlobalObjects Array Boolean Date Function Infinity Math Number NaN Object Packages RegExp String Symbol netscape
 
-syntax keyword typescriptReserved constructor declare as interface module abstract enum int short export import interface static byte extends long super char final native synchronized class float package throws goto private transient debugger implements protected volatile double public type namespace from get set keyof
+syntax keyword typescriptReserved constructor declare as interface module abstract enum int short export default interface static byte extends long super char final native synchronized class float package throws goto private transient debugger implements protected volatile double public type namespace from get set keyof
 
-syntax keyword typescriptImport import skipwhite skipempty
 syntax keyword typescriptExport export skipwhite skipempty
 "}}}
 
@@ -83,7 +82,6 @@ if v:version >= 508 || !exists('did_typescript_syn_inits')
   HiLink typescriptBraces Function
   HiLink typescriptParens Operator
   HiLink typescriptExport Include
-  HiLink typescriptImport Include
   HiLink typescriptStringS String
   HiLink typescriptStringD String
   HiLink typescriptStringB String
