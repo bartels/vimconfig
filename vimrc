@@ -165,15 +165,6 @@ let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
 let g:closetag_filetypes = 'xml,html,javascript'
 let g:closetag_close_shortcut = ',>'
 
-" Disable conceal feature in json files (vim-json)
-let g:vim_json_syntax_conceal = 0
-
-" Support jsx syntax in .js files (vim-jsx)
-let g:jsx_ext_required = 0
-
-" vim-javascript
-let g:javascript_plugin_flow = 1 " flow syntax
-
 " vim-gnupg
 let g:GPGPreferSymmetric = 1
 
