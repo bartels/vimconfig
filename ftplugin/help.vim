@@ -1,4 +1,4 @@
-nnoremap <silent> <buffer> <nowait> q <C-W>c
+nnoremap <silent> <buffer> <nowait> q :bd<CR>
 nnoremap <silent> <buffer> d <c-d>
 nnoremap <silent> <buffer> u <c-u>
 nnoremap <silent> <buffer> i <Nop>
