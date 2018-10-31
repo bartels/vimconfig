@@ -752,8 +752,11 @@ function! <SID>SynStack()
   if !exists('*synstack')
     return
   endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
+  let stack = map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
+  let link = synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+  echo join(stack, ' > ') . ' : ' . link
 endfunc
+
 nnoremap <leader>sy :call <SID>SynStack()<CR>
 
 " vim:foldmethod=marker:foldlevel=1
