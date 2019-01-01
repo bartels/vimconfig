@@ -520,7 +520,8 @@ if isdirectory(expand('~/.fzf'))
     " fzf search files from git project root
     function! s:fzf_projectfiles(dir, bang)
         let l:search_root = s:find_git_root(a:dir)
-        return fzf#vim#files(l:search_root, {'source': $FZF_DEFAULT_COMMAND}, a:bang)
+        let l:command = $FZF_DEFAULT_COMMAND . (a:bang ? ' --all-types ' : '')
+        return fzf#vim#files(l:search_root, {'source': l:command}, a:bang)
     endfunction
 
     " fzf ag command with with custom options
