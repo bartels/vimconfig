@@ -435,8 +435,8 @@ if s:use_deoplete
 
     " options
     call deoplete#custom#option({
-    \  'auto_complete_delay': 30,
-    \  'auto_refresh_delay': 30,
+    \  'auto_complete_delay': 20,
+    \  'auto_refresh_delay': 20,
     \ })
 
     " call deoplete#custom#source('_', 'matchers', ['matcher_head'])
