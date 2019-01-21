@@ -75,7 +75,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
 " Markdown
-Plug 'shime/vim-livedown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install --prod'  }
 
 " nginx
 Plug 'chr4/nginx.vim'
@@ -606,13 +606,10 @@ autocmd! vimrc User GoyoEnter nested call <SID>goyo_enter()
 autocmd! vimrc User GoyoLeave nested call <SID>goyo_leave()
 
 
-" Livedown Preview ------------------------------------------------------- {{{1
+" Markdown-preview ------------------------------------------------------- {{{1
 
-let g:livedown_autorun = 0
-let g:livedown_open = 1
-let g:livedown_port = 1337
-let g:livedown_browser = 'google-chrome'
-nmap <leader>m :LivedownToggle<CR>
+let g:mkdp_browser = 'google-chrome'
+nmap <leader>m :MarkdownPreview<CR>
 
 
 " tmux-navigator --------------------------------------------------------- {{{1
