@@ -29,7 +29,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'urbainvaes/vim-tmux-pilot'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'chrisbra/Colorizer'
 Plug 'jamessan/vim-gnupg'
@@ -610,23 +610,6 @@ autocmd! vimrc User GoyoLeave nested call <SID>goyo_leave()
 
 let g:mkdp_browser = 'google-chrome'
 nmap <leader>m :MarkdownPreview<CR>
-
-
-" tmux-navigator --------------------------------------------------------- {{{1
-
-" disable mappings while tmux is zoomed
-let g:tmux_navigator_disable_when_zoomed = 1
-
-" Fix: tmux-navigator maps break fzf pane maps
-if exists(':tnoremap')
-    function! s:unset_tmux_maps_for_fzf()
-        noremap <buffer> <c-h> <Nop>
-        tnoremap <buffer> <c-j> <c-n>
-        tnoremap <buffer> <c-k> <c-p>
-        tnoremap <buffer> <c-l> <Nop>
-    endfunction
-    autocmd! vimrc FileType fzf call <SID>unset_tmux_maps_for_fzf()
-endif
 
 
 " Key Mappings ----------------------------------------------------------- {{{1
