@@ -694,6 +694,11 @@ nnoremap <silent> <leader>ev :exec ':e' . resolve($MYVIMRC)<CR>
 " Source the vimrc file
 nnoremap <silent> <leader>sv :source $MYVIMRC<CR> :silent doautocmd <nomodeline> User SourceVimrc<CR>
 
+" command line abbreviations
+cnoreabbrev gdiff Gdiff
+cnoreabbrev gwrite Gwrite
+cnoreabbrev gmove Gmove
+cnoreabbrev gblame Gblame
 
 " Custom Functions ------------------------------------------------------- {{{1
 
