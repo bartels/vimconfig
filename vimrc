@@ -23,6 +23,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'Lokaltog/vim-monotone'
 
 " Utilities / Helpers
 Plug 'tpope/vim-eunuch'
@@ -267,8 +268,9 @@ if has('termguicolors')
     set t_8b=[48;2;%lu;%lu;%lum
 endif
 
-" lucius dark colorscheme overrides
+" Overrides for lucius dark colorscheme
 function! PatchLucius()
+    let g:airline_theme = 'lucius'
     if &background ==# 'dark'
         hi Normal       guibg=#2f2f31
         hi TabLineSel   guifg=#2f2f31 guibg=#bcbcbc ctermfg=236 ctermbg=249
@@ -277,6 +279,48 @@ function! PatchLucius()
     endif
 endfunc
 
+" Overrides for monotone colorscheme
+function! PatchMonotone()
+    let g:airline_theme = 'hybrid'
+
+    " <h> <s> <l> <secondary-hue> <emphasize-comments> <emphasize-whitespace> <contrast-factor>
+    Monotone 235 7 94 0 0 1 1
+
+    " Brighten special highlight groups
+    hi Include      guifg=#f0f0f8  gui=bold    cterm=bold
+    hi Define       guifg=#f0f0f8  gui=bold    cterm=bold
+    hi Macro        guifg=#f0f0f8  gui=bold    cterm=bold
+    hi PreCondit    guifg=#f0f0f8  gui=bold    cterm=bold
+    hi Special      guifg=#f0f0f8  gui=italic  cterm=italic
+    hi Function     guifg=#f0f0f8
+    hi Identifier   guifg=#f0f0f8
+    hi Include      guifg=#f0f0f8
+    hi Keyword      guifg=#f0f0f8
+    hi Statement    guifg=#f0f0f8
+    hi Type         guifg=#f0f0f8
+    hi Title        guifg=#f0f0f8
+
+    " vimdiff
+    hi DiffAdd     guifg=#dddddd  guibg=#557755  gui=NONE  ctermfg=107  ctermbg=0  cterm=NONE
+    hi DiffDelete  guifg=#aa7766  guibg=#443E44  gui=NONE  ctermfg=137  ctermbg=0  cterm=NONE
+    hi DiffChange  guifg=#bbbbbb  guibg=#76764a  gui=NONE  ctermfg=67   ctermbg=0  cterm=NONE
+    hi DiffText    guifg=#ffff00  guibg=#76764a  gui=bold  ctermfg=67   ctermbg=0  cterm=bold
+
+    " help links
+    hi helpHyperTextJump  guifg=#b3Dd44 guibg=NONE gui=italic  ctermfg=107 ctermbg=NONE  cterm=bold
+
+    " js
+    hi link jsClassProperty Label
+    hi link jsFlowClassGroup Special
+
+    " yaml
+    hi link yamlBlockMappingKey Label
+endfunc
+
+" Override colorscheme settings
+autocmd vimrc ColorScheme monotone call PatchMonotone()
+autocmd vimrc ColorScheme lucius call PatchLucius()
+
 " gui colorscheme
 if has('gui_running')
     set background=light
@@ -284,8 +328,10 @@ if has('gui_running')
 " terminal colorscheme
 else
     set background=dark
-    autocmd vimrc ColorScheme lucius call PatchLucius()
-    colorscheme lucius
+    hi clear
+
+    colorscheme monotone
+    " colorscheme lucius
 endif
 
 " Colorizer mappings
@@ -307,7 +353,7 @@ if ! has('gui_running')
     let g:airline#extensions#tabline#show_splits = 0
     let g:airline#extensions#tabline#show_buffers = 0
 
-    " override some theme colors
+    " override theme colors
     let g:airline_theme_patch_func = 'AirlineThemePatch'
     function! AirlineThemePatch(palette)
         if g:airline_theme ==# 'lucius' && &background ==# 'dark'
