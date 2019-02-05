@@ -694,11 +694,28 @@ nnoremap <silent> <leader>ev :exec ':e' . resolve($MYVIMRC)<CR>
 " Source the vimrc file
 nnoremap <silent> <leader>sv :source $MYVIMRC<CR> :silent doautocmd <nomodeline> User SourceVimrc<CR>
 
-" command line abbreviations
-cnoreabbrev gdiff Gdiff
-cnoreabbrev gwrite Gwrite
-cnoreabbrev gmove Gmove
-cnoreabbrev gblame Gblame
+" Abbreviations
+
+" Allow command-line abbreviations that start at the begining and do not apply
+" for search patterns (like normal cabbrev does).
+function! s:ccabbrev(abbrev, expansion)
+    exec 'cnoreabbrev ' . a:abbrev .
+            \ ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ' .
+            \ '? "' . a:expansion . '" ' .
+            \ ': "' . a:abbrev . '"<CR>'
+endfunction
+
+" Cabbrev command
+command! -nargs=+ Cabbrev call s:ccabbrev(<f-args>)
+
+" Fugitive abbreviations
+Cabbrev gdiff Gdiff
+Cabbrev gwrite Gwrite
+Cabbrev gmove Gmove
+Cabbrev gblame Gblame
+Cabbrev gcommit Gcommit
+Cabbrev gremove Gremove
+Cabbrev gdelete Gdelete
 
 " Custom Functions ------------------------------------------------------- {{{1
 
