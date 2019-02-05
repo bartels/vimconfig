@@ -89,7 +89,7 @@ Plug 'jparise/vim-graphql'
 call plug#end()
 
 
-" Misc ------------------------------------------------------------------- {{{1
+" Setup ------------------------------------------------------------------ {{{1
 
 " set up vimrc group for autocmd
 augroup vimrc
@@ -718,9 +718,9 @@ Cabbrev gcommit Gcommit
 Cabbrev gremove Gremove
 Cabbrev gdelete Gdelete
 
-" Custom Functions ------------------------------------------------------- {{{1
+" Misc Helpers ----------------------------------------------------------- {{{1
 
-" Toggle diff mode on visible windows
+" Toggle diff mode on/off for visible windows
 function! g:ToggleWinDiff()
     if &diff
         exec ':diffoff!'
