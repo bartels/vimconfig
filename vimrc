@@ -300,6 +300,9 @@ function! PatchMonotone()
     hi Type         guifg=#f0f0f8
     hi Title        guifg=#f0f0f8
 
+    " Popup
+    hi Pmenu guibg=#444550 guifg=#c6c6cd
+
     " vimdiff
     hi DiffAdd     guifg=#dddddd  guibg=#557755  gui=NONE  ctermfg=107  ctermbg=0  cterm=NONE
     hi DiffDelete  guifg=#aa7766  guibg=#443E44  gui=NONE  ctermfg=137  ctermbg=0  cterm=NONE
