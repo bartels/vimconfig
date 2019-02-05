@@ -310,7 +310,7 @@ function! PatchMonotone()
     hi DiffText    guifg=#ffff00  guibg=#76764a  gui=bold  ctermfg=67   ctermbg=0  cterm=bold
 
     " help links
-    hi helpHyperTextJump  guifg=#b3Dd44 guibg=NONE gui=italic  ctermfg=107 ctermbg=NONE  cterm=bold
+    hi helpHyperTextJump guifg=#c5e2c5 guibg=NONE gui=italic  ctermfg=107 ctermbg=NONE  cterm=italic
 
     " js
     hi link jsClassProperty Label
