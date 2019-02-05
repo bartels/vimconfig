@@ -612,6 +612,20 @@ let g:mkdp_browser = 'google-chrome'
 nmap <leader>m :MarkdownPreview<CR>
 
 
+" tmux-pilot ------------------------------------------------------------- {{{1
+
+" Fix: tmux-pilot maps conflict with fzf maps
+if exists(':tnoremap')
+    function! s:unset_tmux_maps_for_fzf()
+        noremap <buffer> <c-h> <Nop>
+        tnoremap <buffer> <c-j> <c-n>
+        tnoremap <buffer> <c-k> <c-p>
+        tnoremap <buffer> <c-l> <Nop>
+    endfunction
+    autocmd! vimrc FileType fzf call <SID>unset_tmux_maps_for_fzf()
+endif
+
+
 " Key Mappings ----------------------------------------------------------- {{{1
 
 " Prevent jumping back one char when leaving insert mode
