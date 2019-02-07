@@ -217,7 +217,6 @@ set scrolloff=3                   " number of context lines while scrolling
 set sidescrolloff=3               " number of context columns
 set shortmess+=Ic                 " turn off intro text
 set noshowmode                    " don't show message on last line for insert/visual/replace mode
-set fillchars=eob:\               " Hide '~' chars at end of buffer
 
 " nvim only
 if has('nvim')
@@ -305,6 +304,9 @@ function! PatchMonotone()
 
     " Popup
     hi Pmenu guibg=#444550 guifg=#c6c6cd
+
+    " Hide '~' chars at end of buffer
+    hi EndOfBuffer guifg=bg ctermfg=bg
 
     " vimdiff
     hi DiffAdd     guifg=#dddddd  guibg=#557755  gui=NONE  ctermfg=107  ctermbg=0  cterm=NONE
