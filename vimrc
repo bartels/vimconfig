@@ -286,6 +286,9 @@ function! PatchMonotone()
     " <h> <s> <l> <secondary-hue> <emphasize-comments> <emphasize-whitespace> <contrast-factor>
     Monotone 235 7 94 0 0 1 1
 
+    " Flat gray background
+    hi Normal guibg=#2f2f31 ctermbg=235
+
     " Brighten special highlight groups
     hi Include      guifg=#f0f0f8  gui=bold    cterm=bold
     hi Define       guifg=#f0f0f8  gui=bold    cterm=bold
@@ -307,7 +310,7 @@ function! PatchMonotone()
     hi DiffAdd     guifg=#dddddd  guibg=#557755  gui=NONE  ctermfg=107  ctermbg=0  cterm=NONE
     hi DiffDelete  guifg=#aa7766  guibg=#443E44  gui=NONE  ctermfg=137  ctermbg=0  cterm=NONE
     hi DiffChange  guifg=#bbbbbb  guibg=#76764a  gui=NONE  ctermfg=67   ctermbg=0  cterm=NONE
-    hi DiffText    guifg=#ffff00  guibg=#76764a  gui=bold  ctermfg=67   ctermbg=0  cterm=bold
+    hi DiffText    guifg=#eeee00  guibg=#76764a  gui=bold  ctermfg=67   ctermbg=0  cterm=bold
 
     " help links
     hi helpHyperTextJump guifg=#c5e2c5 guibg=NONE gui=italic  ctermfg=107 ctermbg=NONE  cterm=italic
@@ -363,6 +366,11 @@ if ! has('gui_running')
             " darker normal/visual mode statusline bg
             let a:palette.normal.airline_c[1] = '#303030'
             let a:palette.normal.airline_c[3] = 236
+        endif
+        if g:airline_theme ==# 'hybrid'
+            " statusline & tabline background
+            let a:palette.normal.airline_c[1] = '#2f2f31'
+            let a:palette.normal.airline_c[3] = 233
         endif
     endfunction
 
