@@ -270,8 +270,10 @@ endif
 " lucius dark colorscheme overrides
 function! PatchLucius()
     if &background ==# 'dark'
-        hi StatusLineNC guifg=#767676 guibg=#444444 ctermfg=242 ctermbg=236
-        hi TabLineSel   guifg=#303030 guibg=#bcbcbc ctermfg=236 ctermbg=249
+        hi Normal       guibg=#2f2f31
+        hi TabLineSel   guifg=#2f2f31 guibg=#bcbcbc ctermfg=236 ctermbg=249
+        hi StatusLineNC guifg=#767676 guibg=NONE ctermfg=242 ctermbg=NONE
+        hi LineNr       guibg=NONE ctermbg=NONE
     endif
 endfunc
 
