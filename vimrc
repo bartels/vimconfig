@@ -272,7 +272,7 @@ function! PatchLucius()
     let g:airline_theme = 'lucius'
     if &background ==# 'dark'
         hi Normal       guibg=#2f2f31
-        hi TabLineSel   guifg=#2f2f31 guibg=#bcbcbc ctermfg=236 ctermbg=249
+        hi TabLineSel   guifg=bg guibg=#bcbcbc ctermfg=236 ctermbg=249
         hi StatusLineNC guifg=#767676 guibg=NONE ctermfg=242 ctermbg=NONE
         hi LineNr       guibg=NONE ctermbg=NONE
     endif
@@ -372,7 +372,7 @@ if ! has('gui_running')
         if g:airline_theme ==# 'hybrid'
             " statusline & tabline background
             let a:palette.normal.airline_c[1] = '#2f2f31'
-            let a:palette.normal.airline_c[3] = 233
+            let a:palette.normal.airline_c[3] = 235
         endif
     endfunction
 
