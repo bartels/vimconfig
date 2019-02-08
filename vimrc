@@ -283,27 +283,27 @@ function! PatchMonotone()
     let g:airline_theme = 'hybrid'
 
     " <h> <s> <l> <secondary-hue> <emphasize-comments> <emphasize-whitespace> <contrast-factor>
-    Monotone 235 7 94 0 0 1 1
+    Monotone 235 12 94 350 0 1 1
 
     " Flat gray background
     hi Normal guibg=#2f2f31 ctermbg=235
 
     " Brighten special highlight groups
-    hi Include      guifg=#f0f0f8  gui=bold    cterm=bold
-    hi Define       guifg=#f0f0f8  gui=bold    cterm=bold
-    hi Macro        guifg=#f0f0f8  gui=bold    cterm=bold
-    hi PreCondit    guifg=#f0f0f8  gui=bold    cterm=bold
-    hi Special      guifg=#f0f0f8  gui=italic  cterm=italic
-    hi Function     guifg=#f0f0f8
-    hi Identifier   guifg=#f0f0f8
-    hi Include      guifg=#f0f0f8
-    hi Keyword      guifg=#f0f0f8
-    hi Statement    guifg=#f0f0f8
-    hi Type         guifg=#f0f0f8
-    hi Title        guifg=#f0f0f8
+    hi Include      guifg=#eeeef0  gui=bold    cterm=bold
+    hi Define       guifg=#eeeef0  gui=bold    cterm=bold
+    hi Macro        guifg=#eeeef0  gui=bold    cterm=bold
+    hi PreCondit    guifg=#eeeef0  gui=bold    cterm=bold
+    hi Special      guifg=#eeeef0  gui=italic  cterm=italic
+    hi Function     guifg=#eeeef0
+    hi Identifier   guifg=#eeeef0
+    hi Include      guifg=#eeeef0
+    hi Keyword      guifg=#eeeef0
+    hi Statement    guifg=#eeeef0
+    hi Type         guifg=#eeeef0
+    hi Title        guifg=#eeeef0
 
     " Popup
-    hi Pmenu guibg=#444550 guifg=#c6c6cd
+    hi Pmenu guibg=#444550 guifg=#c6c6cd ctermfg=250 ctermbg=242
 
     " Hide '~' chars at end of buffer
     hi EndOfBuffer guifg=bg ctermfg=bg
@@ -371,6 +371,8 @@ if ! has('gui_running')
         endif
         if g:airline_theme ==# 'hybrid'
             " statusline & tabline background
+            let a:palette.normal.airline_b[1] = '#444550'
+            let a:palette.normal.airline_b[3] = 242
             let a:palette.normal.airline_c[1] = '#2f2f31'
             let a:palette.normal.airline_c[3] = 235
         endif
