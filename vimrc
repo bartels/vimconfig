@@ -296,7 +296,6 @@ function! PatchMonotone()
     hi Special      guifg=#eeeef0  gui=italic  cterm=italic
     hi Function     guifg=#eeeef0
     hi Identifier   guifg=#eeeef0
-    hi Include      guifg=#eeeef0
     hi Keyword      guifg=#eeeef0
     hi Statement    guifg=#eeeef0
     hi Type         guifg=#eeeef0
