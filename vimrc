@@ -313,6 +313,9 @@ function! PatchMonotone()
     hi DiffChange  guifg=#bbbbbb  guibg=#76764a  gui=NONE  ctermfg=67   ctermbg=0  cterm=NONE
     hi DiffText    guifg=#eeee00  guibg=#76764a  gui=bold  ctermfg=67   ctermbg=0  cterm=bold
 
+    " terminal cursor
+    hi TermCursor gui=reverse cterm=reverse
+
     " help links
     hi helpHyperTextJump guifg=#c5e2c5 guibg=NONE gui=italic  ctermfg=107 ctermbg=NONE  cterm=italic
 
