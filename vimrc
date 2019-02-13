@@ -473,6 +473,7 @@ if s:use_lc
 
     let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
     let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
+    let g:LanguageClient_windowLogMessageLevel = 'Error'  " disable showing warnings
 
     " custom commands
     command! LCContextMenu call LanguageClient_contextMenu()
