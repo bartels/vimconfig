@@ -472,16 +472,19 @@ if s:use_lc
         let g:LanguageClient_serverCommands.python = ['pyls']
     endif
 
-    " javascript - flow
-    if executable('flow') && !empty(findfile('.flowconfig', '.;'))
-        let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
-        let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
-    endif
-
-    " typescript setup
-    if executable('javascript-typescript-stdio') && !empty(findfile('tsconfig.json', '.;'))
+    " typescript
+    if executable('javascript-typescript-stdio') &&
+            \ (!empty(findfile('tsconfig.json', '.;')) ||
+            \  !empty(findfile('jsconfig.json', '.;')))
         let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
         let g:LanguageClient_serverCommands['typescript.jsx'] = ['javascript-typescript-stdio']
+        let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+        let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
+
+    " javascript - flow
+    elseif executable('flow') && !empty(findfile('.flowconfig', '.;'))
+        let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
+        let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
     endif
 
     " custom commands
