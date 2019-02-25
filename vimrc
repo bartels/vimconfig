@@ -519,6 +519,8 @@ endfunction
 " Deoplete --------------------------------------------------------------- {{{1
 if s:use_deoplete
     let g:deoplete#enable_at_startup = 1
+    let g:echodoc#enable_at_startup = 1
+    let g:echodoc#enable_force_overwrite = 1
 
     " options
     call deoplete#custom#option({
