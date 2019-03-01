@@ -67,13 +67,13 @@ Plug 'hynek/vim-python-pep8-indent'
 Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 
+" Javascript
+Plug 'pangloss/vim-javascript'
+Plug 'amadeus/vim-jsx'
+
 " CSS
 Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less'
-
-" Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install --prod'  }
