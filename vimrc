@@ -65,6 +65,7 @@ Plug 'hynek/vim-python-pep8-indent'
 
 " Markup/HTML
 Plug 'othree/html5.vim'
+Plug 'amadeus/vim-xml'
 Plug 'alvan/vim-closetag'
 
 " Javascript
