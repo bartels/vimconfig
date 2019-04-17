@@ -137,6 +137,9 @@ if ! has('nvim')
     set viminfo+=n~/.cache/vim/viminfo
 endif
 
+" helps with file watchers which update on file changes
+set backupcopy=yes
+
 " grep
 if executable('ag')
     set grepprg=ag\ --vimgrep
