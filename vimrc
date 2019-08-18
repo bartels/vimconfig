@@ -458,7 +458,8 @@ let g:ale_pattern_options = {
 \}
 
 " typescript
-let g:ale_linters.typescript = ['tsserver', 'eslint']
+let g:ale_linter_aliases = {'jsx': ['css', 'typescript']}
+let g:ale_linters.typescript = ['tsserver', 'eslint', 'stylelint']
 
 " Fixers
 let g:ale_fixers = {
