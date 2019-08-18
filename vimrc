@@ -76,6 +76,9 @@ Plug 'amadeus/vim-jsx'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less'
 
+" style-components
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install --prod'  }
 
