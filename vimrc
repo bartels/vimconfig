@@ -594,12 +594,12 @@ if s:use_coc
     endfunction
 
     " maps
-    nnoremap gd <Plug>(coc-definition)
-    nnoremap <leader>d <Plug>(coc-definition)
-    nnoremap <silent> gy <Plug>(coc-type-definition)
-    nnoremap <silent> gi <Plug>(coc-implementation)
-    nnoremap <silent> gr <Plug>(coc-references)
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
+    nnoremap K :call <SID>show_documentation()<CR>
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+    nnoremap <leader>d :call CocAction('jumpDefinition')<CR>
 
     " Use `[c` and `]c` to navigate diagnostics
     nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
