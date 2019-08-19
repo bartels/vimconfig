@@ -34,34 +34,13 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'chrisbra/Colorizer'
 Plug 'jamessan/vim-gnupg'
 
-" Syntax Checking
-let s:use_ale = 0
-if s:use_ale
-    Plug 'w0rp/ale'
-endif
-
-" Language Server
-let s:use_lc = 0  " has('nvim')
-if s:use_lc
-    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-endif
-
-" Code Completion
-let s:use_deoplete = 0  " has('nvim') && has('python3')
-if s:use_deoplete
-    Plug 'Shougo/echodoc.vim'
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/neco-syntax'
-    Plug 'Shougo/neco-vim'
-    Plug 'wellle/tmux-complete.vim'
-endif
-
+" COC code completion, linter, language server
 let s:use_coc = has('nvim')
 if s:use_coc
     Plug 'Shougo/neco-vim'
     Plug 'neoclide/coc-neco'
     Plug 'wellle/tmux-complete.vim'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'tags': '*', 'branch': 'release'}
 endif
 
 " Snippets
@@ -429,143 +408,6 @@ let g:netrw_liststyle = 3  " tree mode
 " Editorconfig ----------------------------------------------------------- {{{1
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
-
-" ALE -------------------------------------------------------------------- {{{1
-if s:use_ale
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-let g:ale_sign_info = 'ℹ'
-
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_info_str = 'I'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
-
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'normal'  " only lint for normal mode hanges
-let g:ale_lint_on_insert_leave = 1         " lint when leaving insert mode
-let g:ale_lint_delay = 0
-
-autocmd vimrc BufWinEnter * call ale#Queue(0)
-
-" bindings
-nmap <silent> <leader>k <Plug>(ale_previous_wrap)
-nmap <silent> <leader>j <Plug>(ale_next_wrap)
-nmap <F8> <Plug>(ale_fix)
-
-let g:ale_linters = {}
-
-" javascript
-let g:ale_linters.javascript = ['eslint', 'flow']
-let g:ale_javascript_eslint_executable = executable('eslint_d') ? 'eslint_d' : 'eslint'
-let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
-let g:ale_pattern_options = {
-\ '.eslintrc$': {'ale_linters': [], 'ale_fixers': []},
-\ '.stylelintrc$': {'ale_linters': [], 'ale_fixers': []},
-\ '.babelrc$': {'ale_linters': [], 'ale_fixers': []},
-\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-\}
-
-" typescript
-let g:ale_linter_aliases = {'jsx': ['css', 'typescript']}
-let g:ale_linters.typescript = ['tsserver', 'eslint', 'stylelint']
-
-" Fixers
-let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\   'python': ['autopep8']
-\}
-
-" vim
-let g:ale_vim_vint_show_style_issues = 1
-
-endif
-
-
-" LanguageClient --------------------------------------------------------- {{{1
-if s:use_lc
-    " settings
-    let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
-    let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
-    let g:LanguageClient_windowLogMessageLevel = 'Error'  " disable showing warnings
-
-    " language server commands
-    let g:LanguageClient_serverCommands = {}
-
-    " python
-    if executable('pyls')
-        let g:LanguageClient_serverCommands.python = ['pyls']
-    endif
-
-    " typescript
-    if executable('javascript-typescript-stdio') &&
-            \ (!empty(findfile('tsconfig.json', '.;')) ||
-            \  !empty(findfile('jsconfig.json', '.;')))
-        let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
-        let g:LanguageClient_serverCommands['typescript.jsx'] = ['javascript-typescript-stdio']
-        let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-        let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
-
-    " javascript - flow
-    elseif executable('flow') && !empty(findfile('.flowconfig', '.;'))
-        let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
-        let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
-    endif
-
-    " custom commands
-    command! LCContextMenu call LanguageClient_contextMenu()
-    command! LCHover call LanguageClient#textDocument_hover()
-    command! LCDefinition call LanguageClient#textDocument_definition()
-    command! LCTypeDefinition call LanguageClient#textDocument_typeDefinition()
-    command! LCImplementation call LanguageClient#textDocument_implementation()
-    command! LCRename call LanguageClient#textDocument_rename()
-    command! LCDocumentSymbol call LanguageClient#textDocument_documentSymbol()
-    command! LCReferences call LanguageClient#textDocument_references()
-    command! LCCodeAction call LanguageClient#textDocument_codeAction()
-    command! LCFormat call LanguageClient#textDocument_formatting()
-    command! LCRangeFormat call LanguageClient#textDocument_rangeFormatting()
-    command! LCWorkspaceSymbol call LanguageClient#workspace_symbol()
-endif
-
-" LanguageClient mappings
-function! LanguageClientMaps()
-    if s:use_lc
-        nnoremap <buffer> <F2> :LCContextMenu<CR>
-        nnoremap <buffer> <silent> K :LCHover<CR>
-        nnoremap <buffer> <silent> gd :LCDefinition<CR>
-        nnoremap <buffer> <silent> <leader>d :LCDefinition<CR>
-        nnoremap <buffer> <silent> <leader>r :LCReferences<CR>
-    endif
-endfunction
-
-
-" Deoplete --------------------------------------------------------------- {{{1
-if s:use_deoplete
-    let g:deoplete#enable_at_startup = 1
-    let g:echodoc#enable_at_startup = 1
-    let g:echodoc#enable_force_overwrite = 1
-
-    " options
-    call deoplete#custom#option({
-    \  'auto_complete_delay': 20,
-    \  'auto_refresh_delay': 20,
-    \ })
-
-    " call deoplete#custom#source('_', 'matchers', ['matcher_head'])
-    call deoplete#custom#source('LanguageClient', 'input_patterns', {
-    \   'python': "[\w\)\]\}\'\"]+\.\w*$|^\s*@\w*$|^\s*from\s+[\w\.]*(?:\s+import\s+(?:\w*(?:,\s*)?)*)?|^\s*import\s+(?:[\w\.]*(?:,\s*)?)*",
-    \ })
-
-    " manual completion
-    inoremap <expr> <C-SPACE> call deoplete#manual_complete(['LanguageClient'])
-
-    " tab completion
-    inoremap <expr> <CR>    pumvisible() ? "\<c-y>" : "\<CR>"
-    inoremap <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-endif
 
 " COC (completion) ------------------------------------------------------- {{{1
 if s:use_coc

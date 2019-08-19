@@ -9,6 +9,3 @@ let g:jsx_ext_required = 0
 
 " vim-javascript
 let g:javascript_plugin_flow = 1
-
-" language server mappings
-call LanguageClientMaps()
