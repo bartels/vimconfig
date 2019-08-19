@@ -35,22 +35,33 @@ Plug 'chrisbra/Colorizer'
 Plug 'jamessan/vim-gnupg'
 
 " Syntax Checking
-Plug 'w0rp/ale'
+let s:use_ale = 0
+if s:use_ale
+    Plug 'w0rp/ale'
+endif
 
 " Language Server
-let s:use_lc = has('nvim')
+let s:use_lc = 0  " has('nvim')
 if s:use_lc
     Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 endif
 
 " Code Completion
-let s:use_deoplete = has('nvim') && has('python3')
+let s:use_deoplete = 0  " has('nvim') && has('python3')
 if s:use_deoplete
     Plug 'Shougo/echodoc.vim'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'Shougo/neco-syntax'
     Plug 'Shougo/neco-vim'
     Plug 'wellle/tmux-complete.vim'
+endif
+
+let s:use_coc = has('nvim')
+if s:use_coc
+    Plug 'Shougo/neco-vim'
+    Plug 'neoclide/coc-neco'
+    Plug 'wellle/tmux-complete.vim'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
 " Snippets
@@ -69,6 +80,9 @@ Plug 'alvan/vim-closetag'
 
 " Javascript
 Plug 'neoclide/vim-jsx-improve'
+
+" json
+Plug 'neoclide/jsonc.vim'
 
 " CSS
 Plug 'hail2u/vim-css3-syntax'
@@ -417,6 +431,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 
 " ALE -------------------------------------------------------------------- {{{1
+if s:use_ale
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 let g:ale_sign_info = 'ℹ'
@@ -465,6 +480,8 @@ let g:ale_fixers = {
 
 " vim
 let g:ale_vim_vint_show_style_issues = 1
+
+endif
 
 
 " LanguageClient --------------------------------------------------------- {{{1
@@ -548,6 +565,45 @@ if s:use_deoplete
     inoremap <expr> <CR>    pumvisible() ? "\<c-y>" : "\<CR>"
     inoremap <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+endif
+
+" COC (completion) ------------------------------------------------------- {{{1
+if s:use_coc
+    " tab completion
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <c-space> to trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " show coc documentation  (or vim help)
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        else
+            call CocAction('doHover')
+        endif
+    endfunction
+
+    " maps
+    nnoremap gd <Plug>(coc-definition)
+    nnoremap <leader>d <Plug>(coc-definition)
+    nnoremap <silent> gy <Plug>(coc-type-definition)
+    nnoremap <silent> gi <Plug>(coc-implementation)
+    nnoremap <silent> gr <Plug>(coc-references)
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    " Use `[c` and `]c` to navigate diagnostics
+    nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
+    nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
 endif
 
 

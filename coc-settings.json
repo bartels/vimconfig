@@ -1,0 +1,11 @@
+{
+  // eslint
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  "python.linting.flake8Enabled": true,
+}
