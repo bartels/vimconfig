@@ -455,9 +455,11 @@ if s:use_coc
     nmap <silent> gy <Plug>(coc-type-definition)
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
+    vmap <leader> gf <Plug>(coc-format-selected)
+    nmap <leader> gf <Plug>(coc-format-selected)
     nnoremap <leader>d :call CocAction('jumpDefinition')<CR>
 
-    " Use `[c` and `]c` to navigate diagnostics
+    " Navigate diagnostics errors/warnings
     nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
     nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
 endif
