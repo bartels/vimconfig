@@ -34,7 +34,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'chrisbra/Colorizer'
 Plug 'jamessan/vim-gnupg'
 
-" COC code completion, linter, language server
+" Coc - code completion, linter, language server
 let s:use_coc = has('nvim')
 if s:use_coc
     Plug 'Shougo/neco-vim'
@@ -410,7 +410,7 @@ let g:netrw_liststyle = 3  " tree mode
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 
-" COC (completion) ------------------------------------------------------- {{{1
+" Coc (completion) ------------------------------------------------------- {{{1
 if s:use_coc
     " always install
     let g:coc_global_extensions = [
@@ -422,17 +422,21 @@ if s:use_coc
     \   'coc-css',
     \ ]
 
+    " airline configuration
+    let airline#extensions#coc#error_symbol = 'E:'
+    let airline#extensions#coc#warning_symbol = 'W:'
+
     " tab completion
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
           \ <SID>check_back_space() ? "\<TAB>" :
           \ coc#refresh()
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
 
     " Use <c-space> to trigger completion.
     inoremap <silent><expr> <c-space> coc#refresh()
@@ -446,7 +450,6 @@ if s:use_coc
         endif
     endfunction
 
-    " maps
     nnoremap K :call <SID>show_documentation()<CR>
     nmap <silent> gd <Plug>(coc-definition)
     nmap <silent> gy <Plug>(coc-type-definition)
