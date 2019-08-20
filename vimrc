@@ -422,6 +422,8 @@ if s:use_coc
     \   'coc-css',
     \ ]
 
+    let g:coc_filetype_map = { 'htmldjango': 'html' }
+
     " airline configuration
     let airline#extensions#coc#error_symbol = 'E:'
     let airline#extensions#coc#warning_symbol = 'W:'
