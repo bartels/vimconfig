@@ -412,6 +412,16 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " COC (completion) ------------------------------------------------------- {{{1
 if s:use_coc
+    " always install
+    let g:coc_global_extensions = [
+    \   'coc-syntax',
+    \   'coc-ultisnips',
+    \   'coc-python',
+    \   'coc-tsserver',
+    \   'coc-eslint',
+    \   'coc-css',
+    \ ]
+
     " tab completion
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
