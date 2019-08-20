@@ -4,6 +4,13 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "ℹ'",
 
+  "list.normalMappings": {
+    "<C-c>": "do:exit"
+  },
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
+  },
+
   // eslint
   "eslint.filetypes": [
     "javascript",
