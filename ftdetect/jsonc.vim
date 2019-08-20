@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead tsconfig.json,jsconfig.json set filetype=jsonc
+autocmd BufNewFile,BufRead tsconfig.json,jsconfig.json filetype=jsonc

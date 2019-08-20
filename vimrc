@@ -62,6 +62,7 @@ Plug 'neoclide/vim-jsx-improve'
 
 " json
 Plug 'neoclide/jsonc.vim'
+Plug 'GutenYe/json5.vim'
 
 " CSS
 Plug 'hail2u/vim-css3-syntax'
