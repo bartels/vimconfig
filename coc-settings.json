@@ -1,9 +1,11 @@
 {
+  // diagnostics
   "diagnostic.checkCurrentLine": true,
   "diagnostic.errorSign": "✖",
   "diagnostic.warningSign": "⚠",
-  "diagnostic.infoSign": "ℹ'",
+  "diagnostic.infoSign": "ℹ",
 
+  // lists
   "list.normalMappings": {
     "<C-c>": "do:exit"
   },
