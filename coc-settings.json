@@ -7,10 +7,12 @@
 
   // lists
   "list.normalMappings": {
-    "<C-c>": "do:exit"
+    "<C-c>": "do:exit",
   },
   "list.insertMappings": {
-    "<C-c>": "do:exit"
+    "<C-c>": "do:exit",
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
   },
 
   // eslint
