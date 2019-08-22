@@ -68,8 +68,7 @@ Plug 'amadeus/vim-xml'
 Plug 'alvan/vim-closetag'
 
 " Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'amadeus/vim-jsx'
+Plug 'neoclide/vim-jsx-improve'
 
 " CSS
 Plug 'hail2u/vim-css3-syntax'
