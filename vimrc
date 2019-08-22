@@ -573,14 +573,9 @@ if isdirectory(expand('~/.fzf'))
     " loads fzf as vim plugin
     set runtimepath+=~/.fzf
 
-    " Use ag if available as default fzf command
-    if executable('ag')
-        let $FZF_DEFAULT_COMMAND = 'ag -g ""
-                    \ --nogroup
-                    \ --follow
-                    \ --depth 50
-                    \ --hidden
-                    \ --ignore .git'
+    " Use rg if available as default fzf command
+    if executable('rg')
+        let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
     endif
 
     " fzf defaults
@@ -599,7 +594,7 @@ if isdirectory(expand('~/.fzf'))
     augroup END
 
     " Finds the git project root
-    function! s:find_git_root(...)
+    function! s:find_project_root(...)
         if executable('git')
             let l:dir = empty(a:1) ? '.' : a:1
             let l:cmd = 'cd ' . shellescape(l:dir) . ' && ' .
@@ -616,40 +611,51 @@ if isdirectory(expand('~/.fzf'))
 
     " fzf search files from git project root
     function! s:fzf_projectfiles(dir, bang)
-        let l:search_root = s:find_git_root(a:dir)
-        let l:command = $FZF_DEFAULT_COMMAND . (a:bang ? ' --all-types ' : '')
+        let l:search_root = empty(a:dir) ? s:find_project_root('.') : a:dir
+        let l:command = $FZF_DEFAULT_COMMAND . (a:bang ? ' --no-ignore-vcs ' : '')
         return fzf#vim#files(l:search_root, {'source': l:command}, a:bang)
     endfunction
 
-    " fzf ag command with with custom options
-    function! s:fzf_ag(query, dir, bang)
-        let l:search_root = s:find_git_root(a:dir)
-        let l:opts = '--hidden --ignore .git'
-        return fzf#vim#ag(a:query, l:opts, {'dir': l:search_root}, a:bang)
-    endfunction
-
-    " fzf ag command with prompt for search pattern
-    function! s:fzf_ag_prompt(dir, bang)
-        return s:fzf_ag(input('Pattern: '), a:dir, a:bang)
-    endfunction
-
-    " :ProjectFiles - :Files but search from project repo root
+    " Override :Files to search project root by default
     command! -bang -nargs=? -complete=dir
-                \ ProjectFiles
+                \ Files
                 \ call s:fzf_projectfiles(<q-args>, <bang>0)
 
-    " :AgPrompt - :Ag but prompt for search pattern
-    command! -bang -nargs=? -complete=dir
-                \ AgPrompt call s:fzf_ag_prompt(<q-args>, <bang>0)
+    " fzf search with rg (with customized options)
+    function! s:fzf_rg(query, dir, bang)
+        let l:search_root = s:find_project_root(a:dir)
+        let l:opts = "--hidden
+                    \ --column
+                    \ --line-number
+                    \ --no-heading
+                    \ --smart-case
+                    \ --color=always
+                    \ --colors 'path:fg:green'
+                    \ --colors 'line:fg:white'
+                    \ --colors 'line:style:bold'
+                    \ --colors 'match:bg:yellow'
+                    \ --colors 'match:fg:black'"
+        let l:cmd = "rg " . l:opts . " " . shellescape(a:query) . " " . shellescape(l:search_root)
+        return fzf#vim#grep(l:cmd, 1, a:bang)
+    endfunction
 
-    " :Ag but with customized options
+    " fzf rg command with prompt for search pattern
+    function! s:fzf_rg_prompt(dir, bang)
+        return s:fzf_rg(input('Pattern: '), a:dir, a:bang)
+    endfunction
+
+    " :RgPrompt - :Rg but prompt for search pattern
+    command! -bang -nargs=? -complete=dir
+                \ RgPrompt call s:fzf_rg_prompt(<q-args>, <bang>0)
+
+    " :Rg but with customized options
     command! -bang -nargs=* -complete=dir
-                \ Ag call s:fzf_ag(<q-args>, '', <bang>0)
+                \ Rg call s:fzf_rg(<q-args>, '', <bang>0)
 
     " Bindings
-    nnoremap <silent><leader>f :ProjectFiles<CR>
+    nnoremap <silent><leader>f :Files<CR>
     nnoremap <silent><leader>b :Buffers<CR>
-    nnoremap <silent><leader>a :AgPrompt<CR>
+    nnoremap <silent><leader>a :RgPrompt<CR>
     nnoremap <silent><leader>gs :GitFiles?<CR>
     nnoremap <silent><leader>rf :History<CR>
     nnoremap <silent><leader>u :Snippets<CR>
