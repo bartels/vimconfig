@@ -622,8 +622,8 @@ if isdirectory(expand('~/.fzf'))
                 \ call s:fzf_projectfiles(<q-args>, <bang>0)
 
     " fzf search with rg (with customized options)
-    function! s:fzf_rg(query, dir, bang)
-        let l:search_root = s:find_project_root(a:dir)
+    function! s:fzf_rg(bang, query, dir)
+        let l:search_root = empty(a:dir) ? s:find_project_root('.') : a:dir
         let l:opts = "--hidden
                     \ --column
                     \ --line-number
@@ -640,22 +640,25 @@ if isdirectory(expand('~/.fzf'))
     endfunction
 
     " fzf rg command with prompt for search pattern
-    function! s:fzf_rg_prompt(dir, bang)
-        return s:fzf_rg(input('Pattern: '), a:dir, a:bang)
+    function! s:fzf_rg_prompt(bang, ...)
+        if a:1 =~ '^?'
+            let l:args = split(a:1, ' ')[1:]
+            let l:dir = len(l:args) > 0 ? l:args[0] : ''
+            return s:fzf_rg(a:bang, input('Pattern: '), l:dir)
+        else
+            return s:fzf_rg(a:bang, a:1, '')
+        endif
     endfunction
 
-    " :RgPrompt - :Rg but prompt for search pattern
-    command! -bang -nargs=? -complete=dir
-                \ RgPrompt call s:fzf_rg_prompt(<q-args>, <bang>0)
-
-    " :Rg but with customized options
+    " :Rg but with some customized options
+    " Use :Rg? to prompt for search, or pass a directory to :Rg
     command! -bang -nargs=* -complete=dir
-                \ Rg call s:fzf_rg(<q-args>, '', <bang>0)
+                \ Rg call s:fzf_rg_prompt(<bang>0, <q-args>, '')
 
     " Bindings
     nnoremap <silent><leader>f :Files<CR>
     nnoremap <silent><leader>b :Buffers<CR>
-    nnoremap <silent><leader>a :RgPrompt<CR>
+    nnoremap <silent><leader>a :Rg?<CR>
     nnoremap <silent><leader>gs :GitFiles?<CR>
     nnoremap <silent><leader>rf :History<CR>
     nnoremap <silent><leader>u :Snippets<CR>
