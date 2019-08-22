@@ -175,6 +175,7 @@ let g:is_bash = 1 " default to bash when no shebang
 let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
 let g:closetag_filetypes = 'xml,html,javascript'
 let g:closetag_close_shortcut = ',>'
+let g:closetag_emptyTags_caseSensitive = 1
 
 " vim-gnupg
 let g:GPGPreferSymmetric = 1
