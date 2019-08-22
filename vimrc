@@ -595,6 +595,13 @@ if isdirectory(expand('~/.fzf'))
 
     " Finds the git project root
     function! s:find_project_root(...)
+        " Look for package.json
+        let l:package = findfile('package.json', ".;")
+        if l:package != ''
+            return fnamemodify(l:package, ':p:h')
+        endif
+
+        " find git root
         if executable('git')
             let l:dir = empty(a:1) ? '.' : a:1
             let l:cmd = 'cd ' . shellescape(l:dir) . ' && ' .
