@@ -16,6 +16,10 @@
   },
   "list.maxHeight": 20,
 
+  // tsserver
+  "javascript.showUnused": false,
+  "typescript.showUnused": false,
+
   // eslint
   "eslint.filetypes": [
     "javascript",
