@@ -643,7 +643,7 @@ if isdirectory(expand('~/.fzf'))
                     \ --colors 'line:style:bold'
                     \ --colors 'match:bg:yellow'
                     \ --colors 'match:fg:black'"
-        let l:cmd = 'rg ' . l:opts . ' ' . shellescape(a:query) . ' ' . shellescape(l:search_root)
+        let l:cmd = 'rg ' .(a:bang ? '--no-ignore-vcs ' : '') . l:opts . ' ' . shellescape(a:query) . ' ' . shellescape(l:search_root)
         return fzf#vim#grep(l:cmd, 1, a:bang)
     endfunction
 
