@@ -599,8 +599,8 @@ if isdirectory(expand('~/.fzf'))
         let l:dir = len(a:000) >= 1 ? a:1 : l:working_dir
 
         " Look for package.json
-        let l:packagejson = findfile('package.json', l:dir.";")
-        if l:packagejson != ''
+        let l:packagejson = findfile('package.json', l:dir.';')
+        if l:packagejson !=# ''
             let l:project_root = fnamemodify(l:packagejson, ':p:h')
 
         " Look for git root
@@ -643,13 +643,13 @@ if isdirectory(expand('~/.fzf'))
                     \ --colors 'line:style:bold'
                     \ --colors 'match:bg:yellow'
                     \ --colors 'match:fg:black'"
-        let l:cmd = "rg " . l:opts . " " . shellescape(a:query) . " " . shellescape(l:search_root)
+        let l:cmd = 'rg ' . l:opts . ' ' . shellescape(a:query) . ' ' . shellescape(l:search_root)
         return fzf#vim#grep(l:cmd, 1, a:bang)
     endfunction
 
     " fzf rg command with prompt for search pattern
     function! s:fzf_rg_prompt(bang, ...)
-        if a:1 =~ '^?'
+        if a:1 =~# '^?'
             let l:args = split(a:1, ' ')[1:]
             let l:dir = len(l:args) > 0 ? l:args[0] : ''
             return s:fzf_rg(a:bang, input('Pattern: '), l:dir)
