@@ -13,7 +13,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'wellle/targets.vim'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 Plug 'junegunn/goyo.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -464,6 +464,11 @@ if s:use_coc
     " Navigate diagnostics errors/warnings
     nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
     nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
+
+    " autopairs?
+    inoremap <silent><expr> <cr> pumvisible()
+                \ ? coc#_select_confirm()
+                \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
     " :CocList
     nnoremap <F6> :CocList<CR>
