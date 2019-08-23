@@ -747,9 +747,6 @@ endif
 nnoremap <S-H> ^
 nnoremap <S-L> $
 
-" Toggle :set list
-nnoremap <leader>l :set list!<CR>
-
 " Clear last search highlight
 nnoremap <silent> <leader><space> :noh<CR>
 
