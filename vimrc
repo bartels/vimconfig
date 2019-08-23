@@ -593,32 +593,33 @@ if isdirectory(expand('~/.fzf'))
         autocmd FileType fzf setlocal nonumber norelativenumber
     augroup END
 
-    " Finds the git project root
+    " Finds the project root dir (looks for package.json & .git)
     function! s:find_project_root(...)
+        let l:working_dir = getcwd()
+        let l:dir = len(a:000) >= 1 ? a:1 : l:working_dir
+
         " Look for package.json
-        let l:package = findfile('package.json', ".;")
-        if l:package != ''
-            return fnamemodify(l:package, ':p:h')
+        let l:packagejson = findfile('package.json', l:dir.";")
+        if l:packagejson != ''
+            let l:project_root = fnamemodify(l:packagejson, ':p:h')
+
+        " Look for git root
+        elseif executable('git')
+            let l:cmd = 'cd '.shellescape(l:dir).' && '.'git rev-parse --show-toplevel 2> /dev/null'
+            let l:project_root = system(l:cmd)[:-2]
+
+        " Fallback to working directory
+        else
+            let l:project_root = l:working_dir 
         endif
 
-        " find git root
-        if executable('git')
-            let l:dir = empty(a:1) ? '.' : a:1
-            let l:cmd = 'cd ' . shellescape(l:dir) . ' && ' .
-                        \ 'git rev-parse --show-toplevel 2> /dev/null'
-            let l:git_root = system(l:cmd)[:-2]
-            if getcwd() == l:git_root
-                let l:git_root = '.'
-            endif
-            return l:git_root
-        else
-            return '.'
-        endif
+        " Return . if matches working_dir (avoids pathname in FZF prompt)
+        return l:project_root == l:working_dir ? '.' : l:project_root
     endfunction
 
     " fzf search files from git project root
     function! s:fzf_projectfiles(dir, bang)
-        let l:search_root = empty(a:dir) ? s:find_project_root('.') : a:dir
+        let l:search_root = empty(a:dir) ? s:find_project_root() : a:dir
         let l:command = $FZF_DEFAULT_COMMAND . (a:bang ? ' --no-ignore-vcs ' : '')
         return fzf#vim#files(l:search_root, {'source': l:command}, a:bang)
     endfunction
@@ -630,7 +631,7 @@ if isdirectory(expand('~/.fzf'))
 
     " fzf search with rg (with customized options)
     function! s:fzf_rg(bang, query, dir)
-        let l:search_root = empty(a:dir) ? s:find_project_root('.') : a:dir
+        let l:search_root = empty(a:dir) ? s:find_project_root() : a:dir
         let l:opts = "--hidden
                     \ --column
                     \ --line-number
