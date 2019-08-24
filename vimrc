@@ -425,13 +425,13 @@ if s:use_coc
     let g:coc_filetype_map = { 'htmldjango': 'html' }
 
     " airline configuration
-    let airline#extensions#coc#error_symbol = 'E:'
-    let airline#extensions#coc#warning_symbol = 'W:'
+    let g:airline#extensions#coc#error_symbol = 'E:'
+    let g:airline#extensions#coc#warning_symbol = 'W:'
 
     " tab completion
     function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
+        let l:col = col('.') - 1
+        return !l:col || getline('.')[l:col - 1]  =~# '\s'
     endfunction
 
     inoremap <silent><expr> <TAB>
@@ -782,9 +782,9 @@ function! <SID>SynStack()
   if !exists('*synstack')
     return
   endif
-  let stack = map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
-  let link = synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
-  echo join(stack, ' > ') . ' : ' . link
+  let l:stack = map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
+  let l:link = synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+  echo join(l:stack, ' > ') . ' : ' . l:link
 endfunc
 
 nnoremap <leader>sy :call <SID>SynStack()<CR>
