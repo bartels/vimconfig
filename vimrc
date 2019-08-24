@@ -851,21 +851,6 @@ augroup AutoDiffUpdate
                 \ endif
 augroup END
 
-" Toggle colorcolumn on/off
-if exists('+colorcolumn')
-    function! g:ToggleColorColumn()
-        " Use textwidth but default to 80
-        let l:textWidth = (&textwidth ? &textwidth : 79) + 1
-        if &colorcolumn
-            setlocal colorcolumn&
-        else
-            let &l:colorcolumn=l:textWidth
-        endif
-    endfunction
-
-    nnoremap <silent> <leader>cc :call g:ToggleColorColumn()<CR>
-endif
-
 " Displays the syntax highlighting group for word under cursor
 function! <SID>SynStack()
   if !exists('*synstack')
