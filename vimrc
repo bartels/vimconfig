@@ -594,7 +594,7 @@ if isdirectory(expand('~/.fzf'))
     augroup END
 
     " Finds the project root dir (looks for package.json & .git)
-    function! s:find_project_root(...)
+    function! s:FindProjectRoot(...)
         let l:dir = len(a:000) >= 1 ? a:1 : getcwd()
 
         " When root dir matches cwd, return '.' for a shorter fzf prompt
@@ -620,8 +620,8 @@ if isdirectory(expand('~/.fzf'))
     endfunction
 
     " fzf search files from git project root
-    function! s:fzf_projectfiles(dir, bang)
-        let l:search_root = empty(a:dir) ? s:find_project_root() : a:dir
+    function! s:FzfProjectFiles(dir, bang)
+        let l:search_root = empty(a:dir) ? s:FindProjectRoot() : a:dir
         let l:command = $FZF_DEFAULT_COMMAND . (a:bang ? ' --no-ignore-vcs ' : '')
         return fzf#vim#files(l:search_root, {'source': l:command}, a:bang)
     endfunction
@@ -629,11 +629,11 @@ if isdirectory(expand('~/.fzf'))
     " Override :Files to search project root by default
     command! -bang -nargs=? -complete=dir
                 \ Files
-                \ call s:fzf_projectfiles(<q-args>, <bang>0)
+                \ call s:FzfProjectFiles(<q-args>, <bang>0)
 
     " fzf search with rg (with customized options)
-    function! s:fzf_rg(bang, query, dir)
-        let l:search_root = empty(a:dir) ? s:find_project_root() : a:dir
+    function! s:FzfRg(bang, query, dir)
+        let l:search_root = empty(a:dir) ? s:FindProjectRoot() : a:dir
         let l:opts = "--hidden
                     \ --column
                     \ --line-number
@@ -650,20 +650,20 @@ if isdirectory(expand('~/.fzf'))
     endfunction
 
     " fzf rg command with prompt for search pattern
-    function! s:fzf_rg_prompt(bang, ...)
+    function! s:FzfRgPrompt(bang, ...)
         if a:1 =~# '^?'
             let l:args = split(a:1, ' ')[1:]
             let l:dir = len(l:args) > 0 ? l:args[0] : ''
-            return s:fzf_rg(a:bang, input('Pattern: '), l:dir)
+            return s:FzfRg(a:bang, input('Pattern: '), l:dir)
         else
-            return s:fzf_rg(a:bang, a:1, '')
+            return s:FzfRg(a:bang, a:1, '')
         endif
     endfunction
 
     " :Rg but with some customized options
     " Use :Rg? to prompt for search, or pass a directory to :Rg
     command! -bang -nargs=* -complete=dir
-                \ Rg call s:fzf_rg_prompt(<bang>0, <q-args>, '')
+                \ Rg call s:FzfRgPrompt(<bang>0, <q-args>, '')
 
     " Bindings
     nnoremap <silent><leader>f :Files<CR>
@@ -689,7 +689,7 @@ let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
 noremap <leader>` :Goyo<CR>
 
 " Custom settings when in goyo mode
-function! s:goyo_enter()
+function! s:GoyoEnter()
     noremap     <buffer> <silent> <Up> g<Up>
     noremap     <buffer> <silent> <Down> g<Down>
     noremap     <buffer> <silent> k gk
@@ -703,7 +703,7 @@ function! s:goyo_enter()
 endfunction
 
 " Restore settings when leaving goyo mode
-function! s:goyo_leave()
+function! s:GoyoLeave()
     unmap     <buffer>  <Up>
     unmap     <buffer>  <Down>
     unmap     <buffer>  k
@@ -716,8 +716,8 @@ function! s:goyo_leave()
     echo 'Goyo Leave'
 endfunction
 
-autocmd! vimrc User GoyoEnter nested call <SID>goyo_enter()
-autocmd! vimrc User GoyoLeave nested call <SID>goyo_leave()
+autocmd! vimrc User GoyoEnter nested call <SID>GoyoEnter()
+autocmd! vimrc User GoyoLeave nested call <SID>GoyoLeave()
 
 
 " Markdown-preview ------------------------------------------------------- {{{1
@@ -728,15 +728,15 @@ nmap <leader>m :MarkdownPreview<CR>
 
 " tmux-pilot ------------------------------------------------------------- {{{1
 
-" Fix: tmux-pilot maps conflict with fzf maps
+" Fix: unset tmux-pilot maps in fzf buffers - they conflict with
 if exists(':tnoremap')
-    function! s:unset_tmux_maps_for_fzf()
+    function! s:UnsetTmuxMapsForFzf()
         noremap <buffer> <c-h> <Nop>
         tnoremap <buffer> <c-j> <c-n>
         tnoremap <buffer> <c-k> <c-p>
         tnoremap <buffer> <c-l> <Nop>
     endfunction
-    autocmd! vimrc FileType fzf call <SID>unset_tmux_maps_for_fzf()
+    autocmd! vimrc FileType fzf call <SID>UnsetTmuxMapsForFzf()
 endif
 
 
