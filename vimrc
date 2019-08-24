@@ -697,9 +697,6 @@ nnoremap <silent> <leader><space> :noh<CR>
 nnoremap <silent> <leader>v :vsplit<CR>
 nnoremap <silent> <leader>s :split<CR>
 
-" C-Space as omnicomplete shortcut
-inoremap <C-Space> <C-x><C-o>
-
 " Tabpage mappings
 nnoremap <silent> <leader>t :tabnew<CR>
 nnoremap <silent> <leader>w :close<CR>
