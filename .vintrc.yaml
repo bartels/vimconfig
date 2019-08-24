@@ -7,3 +7,5 @@ policies:
     enabled: false
   ProhibitImplicitScopeVariable:
     enabled: true
+  ProhibitAbbreviationOption:
+    enabled: true
