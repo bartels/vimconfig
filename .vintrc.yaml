@@ -3,5 +3,7 @@ cmdargs:
   env:
     neovim: true
 policies:
+  ProhibitAutocmdWithNoGroup:
+    enabled: false
   ProhibitImplicitScopeVariable:
     enabled: true
