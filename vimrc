@@ -575,7 +575,7 @@ if isdirectory(expand('~/.fzf'))
 
     " Use rg if available as default fzf command
     if executable('rg')
-        let $FZF_DEFAULT_COMMAND = "rg --files --hidden -g '!.git'"
+        let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
     endif
 
     " fzf defaults
