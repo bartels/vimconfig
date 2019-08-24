@@ -595,26 +595,28 @@ if isdirectory(expand('~/.fzf'))
 
     " Finds the project root dir (looks for package.json & .git)
     function! s:find_project_root(...)
-        let l:working_dir = getcwd()
-        let l:dir = len(a:000) >= 1 ? a:1 : l:working_dir
+        let l:dir = len(a:000) >= 1 ? a:1 : getcwd()
+
+        " When root dir matches cwd, return '.' for a shorter fzf prompt
+        function! s:NormalizeRoot(root)
+            return a:root ==# getcwd() ? '.' : a:root
+        endfunction
 
         " Look for package.json
         let l:packagejson = findfile('package.json', l:dir.';')
         if l:packagejson !=# ''
-            let l:project_root = fnamemodify(l:packagejson, ':p:h')
+            let l:packagejson_dir = fnamemodify(l:packagejson, ':p:h')
+            return s:NormalizeRoot(l:packagejson_dir)
 
         " Look for git root
         elseif executable('git')
             let l:cmd = 'cd '.shellescape(l:dir).' && '.'git rev-parse --show-toplevel 2> /dev/null'
-            let l:project_root = system(l:cmd)[:-2]
-
-        " Fallback to working directory
-        else
-            let l:project_root = l:working_dir 
+            let l:git_root = system(l:cmd)[:-2]
+            return s:NormalizeRoot(l:git_root)
         endif
 
-        " Return . if matches working_dir (avoids pathname in FZF prompt)
-        return l:project_root == l:working_dir ? '.' : l:project_root
+        " Fallback to working directory
+        return '.'
     endfunction
 
     " fzf search files from git project root
