@@ -269,7 +269,7 @@ if has('termguicolors')
 endif
 
 " Overrides for lucius dark colorscheme
-function! PatchLucius()
+function! s:PatchLucius()
     let g:airline_theme = 'lucius'
     if &background ==# 'dark'
         hi Normal       guibg=#2f2f31
@@ -280,7 +280,7 @@ function! PatchLucius()
 endfunc
 
 " Overrides for monotone colorscheme
-function! PatchMonotone()
+function! s:PatchMonotone()
     let g:airline_theme = 'hybrid'
 
     " <h> <s> <l> <secondary-hue> <emphasize-comments> <emphasize-whitespace> <contrast-factor>
@@ -335,8 +335,8 @@ function! PatchMonotone()
 endfunc
 
 " Override colorscheme settings
-autocmd vimrc ColorScheme monotone call PatchMonotone()
-autocmd vimrc ColorScheme lucius call PatchLucius()
+autocmd vimrc ColorScheme monotone call s:PatchMonotone()
+autocmd vimrc ColorScheme lucius call s:PatchLucius()
 
 " gui colorscheme
 if has('gui_running')
@@ -373,8 +373,8 @@ if ! has('gui_running')
     let g:airline#extensions#tabline#show_buffers = 0
 
     " override theme colors
-    let g:airline_theme_patch_func = 'AirlineThemePatch'
-    function! AirlineThemePatch(palette)
+    let g:airline_theme_patch_func = 'g:AirlineThemePatch'
+    function! g:AirlineThemePatch(palette)
         if g:airline_theme ==# 'lucius' && &background ==# 'dark'
             " darker normal/visual mode statusline bg
             let a:palette.normal.airline_c[1] = '#303030'
@@ -778,7 +778,7 @@ augroup AutoDiffUpdate
 augroup END
 
 " Displays the syntax highlighting group for word under cursor
-function! <SID>SynStack()
+function! s:SynStack()
   if !exists('*synstack')
     return
   endif
