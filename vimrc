@@ -98,7 +98,7 @@ set backspace=indent,eol,start    " more powerful backspacing
 set fileformats+=mac              " handle 'mac' style EOLs
 set modeline                      " alow modlines in files
 set history=10000                 " command history entries
-set updatetime=1000
+set updatetime=350
 
 set diffopt=filler,vertical
 if has('nvim-0.3.2') || has('patch-8.1.0360')
