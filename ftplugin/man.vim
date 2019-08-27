@@ -10,3 +10,6 @@ nnoremap <silent> <buffer> a <Nop>
 nnoremap <silent> <buffer> A <Nop>
 nnoremap <silent> <buffer> o <Nop>
 nnoremap <silent> <buffer> O <Nop>
+if has('mouse')
+    set mouse=a
+endif
