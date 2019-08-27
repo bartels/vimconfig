@@ -34,19 +34,6 @@
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
 
-  // language servers
-  "languageserver": {
-    "flow": {
-      "command": "flow",
-      "args": ["lsp"],
-      "filetypes": ["javascript", "javascriptreact"],
-      "initializationOptions": {},
-      "rootPatterns": [".flowconfig"],
-      "requireRootPattern": true,
-      "settings": {}
-    }
-  },
-
   // coc-diagnostics
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",
@@ -82,5 +69,18 @@
         "style_problem": "warning",
       }
     },
+  },
+
+  // language servers
+  "languageserver": {
+    "flow": {
+      "command": "flow",
+      "args": ["lsp"],
+      "filetypes": ["javascript", "javascriptreact"],
+      "initializationOptions": {},
+      "rootPatterns": [".flowconfig"],
+      "requireRootPattern": true,
+      "settings": {}
+    }
   },
 }
