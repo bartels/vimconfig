@@ -458,6 +458,8 @@ if s:use_coc
     nmap <silent>gr <Plug>(coc-references)
     nmap <silent><leader>d <Plug>(coc-definition)
     nmap <silent><leader>rn <Plug>(coc-rename)
+    nmap <silent><leader>gf <Plug>(coc-format-selected)
+    xmap <silent><leader>gf <Plug>(coc-format-selected)
     nnoremap <silent>K :call <SID>show_documentation()<CR>
 
     " Navigate diagnostics errors/warnings
