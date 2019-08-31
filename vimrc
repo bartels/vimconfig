@@ -452,12 +452,13 @@ if s:use_coc
         endif
     endfunction
 
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
-    nnoremap <leader> d :call CocAction('jumpDefinition')<CR>
+    nmap <silent>gd <Plug>(coc-definition)
+    nmap <silent>gy <Plug>(coc-type-definition)
+    nmap <silent>gi <Plug>(coc-implementation)
+    nmap <silent>gr <Plug>(coc-references)
+    nmap <silent><leader>d <Plug>(coc-definition)
+    nmap <silent><leader>rn <Plug>(coc-rename)
+    nnoremap <silent>K :call <SID>show_documentation()<CR>
 
     " Navigate diagnostics errors/warnings
     nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
