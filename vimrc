@@ -614,6 +614,28 @@ let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
 " Use '/' as /* */ comment surround
 let g:surround_47 = "/* \r */"
 
+function! s:DoCommentMaps()
+    if !exists('b:comment_char') || empty(' b:comment_char')
+        return
+    endif
+
+    " /* ... */ comments
+    if b:comment_char ==# '/'
+        nmap <silent><buffer><leader>cc ^v$hS/
+        nmap <silent><buffer><leader>cu 0f*lds/==
+        xmap <silent><buffer><leader>cc S/
+        xmap <silent><buffer><leader>cu <Esc>0f*lds/==
+    " start-of-line comments
+    else
+        nnoremap <silent><expr><buffer><leader>cc 'I'. b:comment_char ." <Esc>"
+        nnoremap <silent><expr><buffer><leader>cu '0:s/' . escape(b:comment_char, '/') . '\s*//e<CR>:nohl<CR>'
+        xnoremap <silent><expr><buffer><leader>cc '0<c-v>I' . b:comment_char . ' <Esc>'
+        xnoremap <silent><expr><buffer><leader>cu '0<c-v>:s/' . escape(b:comment_char, '/') . '\s*//e<CR>gv=:nohl<CR>'
+    endif
+endfunction
+
+autocmd! vimrc BufNewFile,BufReadPost * call <SID>DoCommentMaps()
+
 
 " Goyo ------------------------------------------------------------------- {{{1
 noremap <leader>` :Goyo<CR>
