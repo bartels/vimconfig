@@ -4,9 +4,13 @@ hi link typescriptImport Include
 hi link typescriptExport Include
 hi link typescriptVariable Type
 
-" Below is copied from plugin: neoclide/vim-jsx-improve
+" styled-components
+" Hack to get typescriptComments cluster into styledDefinition region
+syntax cluster CSSTop add=@typescriptComments
 
-" JSX
+
+" JSX syntax
+" Below is copied and modified from plugin: neoclide/vim-jsx-improve
 let s:jsx_cpo = &cpo
 set cpo&vim
 
