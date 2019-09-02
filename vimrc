@@ -608,7 +608,11 @@ endif
 
 
 " Surround --------------------------------------------------------------- {{{1
+let g:surround_indent = 1
 let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
+
+" Use '/' as /* */ comment surround
+let g:surround_47 = "/* \r */"
 
 
 " Goyo ------------------------------------------------------------------- {{{1
