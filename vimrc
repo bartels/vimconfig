@@ -461,6 +461,7 @@ if s:use_coc
     nmap <silent><leader>gf <Plug>(coc-format-selected)
     xmap <silent><leader>gf <Plug>(coc-format-selected)
     nnoremap <silent>K :call <SID>show_documentation()<CR>
+    nnoremap <leader>rs :CocRestart<CR>
 
     " Navigate diagnostics errors/warnings
     nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
