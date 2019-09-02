@@ -726,7 +726,7 @@ cnoremap w!! w !sudo tee % > /dev/null
 nnoremap <silent> <leader>ev :exec ':e' . resolve($MYVIMRC)<CR>
 
 " Source the vimrc file
-nnoremap <silent> <leader>sv :source $MYVIMRC<CR> :silent doautocmd <nomodeline> User SourceVimrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR> :silent doautocmd <nomodeline> User SourceVimrc<CR>
 
 " Abbreviations
 
