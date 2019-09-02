@@ -40,7 +40,7 @@ if s:use_coc
     Plug 'Shougo/neco-vim'
     Plug 'neoclide/coc-neco'
     Plug 'wellle/tmux-complete.vim'
-    Plug 'neoclide/coc.nvim', {'tags': '*', 'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 endif
 
 " Snippets
