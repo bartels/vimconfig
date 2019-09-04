@@ -410,6 +410,9 @@ let g:netrw_liststyle = 3  " tree mode
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 
+" auto-pairs ------------------------------------------------------------- {{{1
+let g:AutoPairsFlyMode = 1
+
 " Coc (completion) ------------------------------------------------------- {{{1
 if s:use_coc
     " always install
