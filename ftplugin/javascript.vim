@@ -11,3 +11,6 @@ let g:jsx_ext_required = 0
 let g:javascript_plugin_flow = 1
 
 let b:comment_char = '/'
+
+
+nnoremap <silent><buffer><leader>gf :CocCommand eslint.executeAutofix .<CR>
