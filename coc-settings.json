@@ -1,0 +1,115 @@
+{
+  // diagnostics
+  "diagnostic.level": "warning",
+  "diagnostic.errorSign": "✖",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+
+  // lists
+  "list.normalMappings": {
+    "<C-c>": "do:exit",
+  },
+  "list.insertMappings": {
+    "<C-c>": "do:exit",
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
+  },
+  "list.maxHeight": 20,
+
+  // tsserver
+  "javascript.showUnused": false,
+  "typescript.showUnused": false,
+
+  // eslint
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // python
+  "python.jediEnabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+
+  // coc-diagnostics
+  "diagnostic-languageserver.filetypes": {
+    "vim": "vint",
+    "sh": "shellcheck",
+  },
+
+  "diagnostic-languageserver.linters": {
+    "vint": {
+      "command": "vint",
+      "debounce": 100,
+      "args": [
+        "--enable-neovim",
+        "-f",
+        "'{file_path}:{line_number}:{column_number}:{severity}: {description}(see {reference})'",
+        "-",
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "vint",
+      "formatLines": 1,
+      "formatPattern": [
+        "[^:]+:(\\d+):(\\d+):([^:]+):\\s*(.*$)",
+        {
+          "line": 1,
+          "column": 2,
+          "security": 3,
+          "message": 4
+        }
+      ],
+      "securities": {
+        "error": "error",
+        "warning": "warning",
+        "style_problem": "warning",
+      }
+    },
+
+    "shellcheck": {
+      "command": "shellcheck",
+      "debounce": 100,
+      "args": [
+        "--format=gcc",
+        "--shell=bash",
+        "--exclude=SC1090,SC2034",
+        "-",
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "shellcheck",
+      "formatLines": 1,
+      "formatPattern": [
+        "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "message": 4,
+          "security": 3
+        }
+      ],
+      "securities": {
+        "error": "error",
+        "warning": "warning",
+        "note": "info"
+      }
+    },
+  },
+
+  // language servers
+  "languageserver": {
+    "flow": {
+      "command": "flow",
+      "args": ["lsp"],
+      "filetypes": ["javascript", "javascriptreact"],
+      "initializationOptions": {},
+      "rootPatterns": [".flowconfig"],
+      "requireRootPattern": true,
+      "settings": {}
+    }
+  },
+}

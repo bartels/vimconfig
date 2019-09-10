@@ -1,3 +1,11 @@
 cmdargs:
+  color: false
   env:
     neovim: true
+policies:
+  ProhibitAutocmdWithNoGroup:
+    enabled: false
+  ProhibitImplicitScopeVariable:
+    enabled: true
+  ProhibitAbbreviationOption:
+    enabled: true

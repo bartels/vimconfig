@@ -37,8 +37,9 @@ endsnippet
 
 # React & JSX
 snippet "rcl(ass)?" "React Class" br
-type Props = {
+export type Props = {
 	children: React.Node,
+	className?: string,
 }
 
 export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
@@ -55,10 +56,11 @@ endsnippet
 snippet rcc "React Class Component" b
 import * as React from 'react'
 
-import './${2:$1}.scss'
+// import './${2:$1}.scss'
 
-type Props = {
+export type Props = {
 	children: React.Node,
+	className?: string,
 }
 
 export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
@@ -78,10 +80,11 @@ snippet rccc "React Redux Class Component" b
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import './${2:$1}.scss'
+// import './${2:$1}.scss'
 
-type Props = {
+export type Props = {
 	children: React.Node,
+	className?: string,
 }
 
 export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
@@ -103,13 +106,14 @@ endsnippet
 snippet rfc "React Functional Component" b
 import * as React from 'react'
 
-import './${2:$1}.scss'
+// import './${2:$1}.scss'
 
-type Props = {
+export type Props = {
+	className?: string,
 }
 
-export const ${1:`!v expand('%:t:r')`} = (${3:{ ...props }: Props}) => (
-	<div className="$1">
+export const ${1:`!v expand('%:t:r')`} = (${3:{ className }: Props}) => (
+	<div className={\`$1 ${className}\`}>
 		$5
 	</div>
 )

@@ -34,23 +34,13 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'chrisbra/Colorizer'
 Plug 'jamessan/vim-gnupg'
 
-" Syntax Checking
-Plug 'w0rp/ale'
-
-" Language Server
-let s:use_lc = has('nvim')
-if s:use_lc
-    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-endif
-
-" Code Completion
-let s:use_deoplete = has('nvim') && has('python3')
-if s:use_deoplete
-    Plug 'Shougo/echodoc.vim'
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/neco-syntax'
+" Coc - code completion, linter, language server
+let s:use_coc = has('nvim')
+if s:use_coc
     Plug 'Shougo/neco-vim'
+    Plug 'neoclide/coc-neco'
     Plug 'wellle/tmux-complete.vim'
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 endif
 
 " Snippets
@@ -69,6 +59,10 @@ Plug 'alvan/vim-closetag'
 
 " Javascript
 Plug 'neoclide/vim-jsx-improve'
+
+" json
+Plug 'neoclide/jsonc.vim'
+Plug 'GutenYe/json5.vim'
 
 " CSS
 Plug 'hail2u/vim-css3-syntax'
@@ -104,7 +98,7 @@ set backspace=indent,eol,start    " more powerful backspacing
 set fileformats+=mac              " handle 'mac' style EOLs
 set modeline                      " alow modlines in files
 set history=10000                 " command history entries
-set updatetime=1000
+set updatetime=350
 
 set diffopt=filler,vertical
 if has('nvim-0.3.2') || has('patch-8.1.0360')
@@ -275,7 +269,7 @@ if has('termguicolors')
 endif
 
 " Overrides for lucius dark colorscheme
-function! PatchLucius()
+function! s:PatchLucius()
     let g:airline_theme = 'lucius'
     if &background ==# 'dark'
         hi Normal       guibg=#2f2f31
@@ -286,7 +280,7 @@ function! PatchLucius()
 endfunc
 
 " Overrides for monotone colorscheme
-function! PatchMonotone()
+function! s:PatchMonotone()
     let g:airline_theme = 'hybrid'
 
     " <h> <s> <l> <secondary-hue> <emphasize-comments> <emphasize-whitespace> <contrast-factor>
@@ -341,8 +335,8 @@ function! PatchMonotone()
 endfunc
 
 " Override colorscheme settings
-autocmd vimrc ColorScheme monotone call PatchMonotone()
-autocmd vimrc ColorScheme lucius call PatchLucius()
+autocmd vimrc ColorScheme monotone call s:PatchMonotone()
+autocmd vimrc ColorScheme lucius call s:PatchLucius()
 
 " gui colorscheme
 if has('gui_running')
@@ -379,8 +373,8 @@ if ! has('gui_running')
     let g:airline#extensions#tabline#show_buffers = 0
 
     " override theme colors
-    let g:airline_theme_patch_func = 'AirlineThemePatch'
-    function! AirlineThemePatch(palette)
+    let g:airline_theme_patch_func = 'g:AirlineThemePatch'
+    function! g:AirlineThemePatch(palette)
         if g:airline_theme ==# 'lucius' && &background ==# 'dark'
             " darker normal/visual mode statusline bg
             let a:palette.normal.airline_c[1] = '#303030'
@@ -416,138 +410,75 @@ let g:netrw_liststyle = 3  " tree mode
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 
-" ALE -------------------------------------------------------------------- {{{1
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-let g:ale_sign_info = 'ℹ'
+" auto-pairs ------------------------------------------------------------- {{{1
+let g:AutoPairsFlyMode = 1
 
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_info_str = 'I'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
+" Coc (completion) ------------------------------------------------------- {{{1
+if s:use_coc
+    " always install
+    let g:coc_global_extensions = [
+    \   'coc-syntax',
+    \   'coc-ultisnips',
+    \   'coc-python',
+    \   'coc-tsserver',
+    \   'coc-eslint',
+    \   'coc-css',
+    \ ]
 
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'normal'  " only lint for normal mode hanges
-let g:ale_lint_on_insert_leave = 1         " lint when leaving insert mode
-let g:ale_lint_delay = 0
+    let g:coc_filetype_map = { 'htmldjango': 'html' }
 
-autocmd vimrc BufWinEnter * call ale#Queue(0)
-
-" bindings
-nmap <silent> <leader>k <Plug>(ale_previous_wrap)
-nmap <silent> <leader>j <Plug>(ale_next_wrap)
-nmap <F8> <Plug>(ale_fix)
-
-let g:ale_linters = {}
-
-" javascript
-let g:ale_linters.javascript = ['eslint', 'flow']
-let g:ale_javascript_eslint_executable = executable('eslint_d') ? 'eslint_d' : 'eslint'
-let g:ale_javascript_eslint_use_global = executable('eslint_d') ? 1 : 0
-let g:ale_pattern_options = {
-\ '.eslintrc$': {'ale_linters': [], 'ale_fixers': []},
-\ '.stylelintrc$': {'ale_linters': [], 'ale_fixers': []},
-\ '.babelrc$': {'ale_linters': [], 'ale_fixers': []},
-\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-\}
-
-" typescript
-let g:ale_linter_aliases = {'jsx': ['css', 'typescript']}
-let g:ale_linters.typescript = ['tsserver', 'eslint', 'stylelint']
-
-" Fixers
-let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\   'python': ['autopep8']
-\}
-
-" vim
-let g:ale_vim_vint_show_style_issues = 1
-
-
-" LanguageClient --------------------------------------------------------- {{{1
-if s:use_lc
-    " settings
-    let g:LanguageClient_diagnosticsEnable = 0 " disable since w're using ale
-    let g:LanguageClient_diagnosticsDisplay = { 1: { 'signTexthl': 'ErrorMsg' } } " fix color of error sings
-    let g:LanguageClient_windowLogMessageLevel = 'Error'  " disable showing warnings
-
-    " language server commands
-    let g:LanguageClient_serverCommands = {}
-
-    " python
-    if executable('pyls')
-        let g:LanguageClient_serverCommands.python = ['pyls']
-    endif
-
-    " typescript
-    if executable('javascript-typescript-stdio') &&
-            \ (!empty(findfile('tsconfig.json', '.;')) ||
-            \  !empty(findfile('jsconfig.json', '.;')))
-        let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
-        let g:LanguageClient_serverCommands['typescript.jsx'] = ['javascript-typescript-stdio']
-        let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-        let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
-
-    " javascript - flow
-    elseif executable('flow') && !empty(findfile('.flowconfig', '.;'))
-        let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
-        let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
-    endif
-
-    " custom commands
-    command! LCContextMenu call LanguageClient_contextMenu()
-    command! LCHover call LanguageClient#textDocument_hover()
-    command! LCDefinition call LanguageClient#textDocument_definition()
-    command! LCTypeDefinition call LanguageClient#textDocument_typeDefinition()
-    command! LCImplementation call LanguageClient#textDocument_implementation()
-    command! LCRename call LanguageClient#textDocument_rename()
-    command! LCDocumentSymbol call LanguageClient#textDocument_documentSymbol()
-    command! LCReferences call LanguageClient#textDocument_references()
-    command! LCCodeAction call LanguageClient#textDocument_codeAction()
-    command! LCFormat call LanguageClient#textDocument_formatting()
-    command! LCRangeFormat call LanguageClient#textDocument_rangeFormatting()
-    command! LCWorkspaceSymbol call LanguageClient#workspace_symbol()
-endif
-
-" LanguageClient mappings
-function! LanguageClientMaps()
-    if s:use_lc
-        nnoremap <buffer> <F2> :LCContextMenu<CR>
-        nnoremap <buffer> <silent> K :LCHover<CR>
-        nnoremap <buffer> <silent> gd :LCDefinition<CR>
-        nnoremap <buffer> <silent> <leader>d :LCDefinition<CR>
-        nnoremap <buffer> <silent> <leader>r :LCReferences<CR>
-    endif
-endfunction
-
-
-" Deoplete --------------------------------------------------------------- {{{1
-if s:use_deoplete
-    let g:deoplete#enable_at_startup = 1
-    let g:echodoc#enable_at_startup = 1
-    let g:echodoc#enable_force_overwrite = 1
-
-    " options
-    call deoplete#custom#option({
-    \  'auto_complete_delay': 20,
-    \  'auto_refresh_delay': 20,
-    \ })
-
-    " call deoplete#custom#source('_', 'matchers', ['matcher_head'])
-    call deoplete#custom#source('LanguageClient', 'input_patterns', {
-    \   'python': "[\w\)\]\}\'\"]+\.\w*$|^\s*@\w*$|^\s*from\s+[\w\.]*(?:\s+import\s+(?:\w*(?:,\s*)?)*)?|^\s*import\s+(?:[\w\.]*(?:,\s*)?)*",
-    \ })
-
-    " manual completion
-    inoremap <expr> <C-SPACE> call deoplete#manual_complete(['LanguageClient'])
+    " airline configuration
+    let g:airline#extensions#coc#error_symbol = 'E:'
+    let g:airline#extensions#coc#warning_symbol = 'W:'
 
     " tab completion
-    inoremap <expr> <CR>    pumvisible() ? "\<c-y>" : "\<CR>"
-    inoremap <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    function! s:check_back_space() abort
+        let l:col = col('.') - 1
+        return !l:col || getline('.')[l:col - 1]  =~# '\s'
+    endfunction
+
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    " Use <c-space> to trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " show coc documentation  (or vim help)
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        else
+            call CocAction('doHover')
+        endif
+    endfunction
+
+    nmap <silent>gd <Plug>(coc-definition)
+    nmap <silent>gy <Plug>(coc-type-definition)
+    nmap <silent>gi <Plug>(coc-implementation)
+    nmap <silent>gr <Plug>(coc-references)
+    nmap <silent><leader>d <Plug>(coc-definition)
+    nmap <silent><leader>rn <Plug>(coc-rename)
+    nmap <silent><leader>gf <Plug>(coc-format-selected)
+    xmap <silent><leader>gf <Plug>(coc-format-selected)
+    nnoremap <silent>K :call <SID>show_documentation()<CR>
+    nnoremap <leader>rs :CocRestart<CR>
+
+    " Navigate diagnostics errors/warnings
+    nmap <silent> <leader>k <Plug>(coc-diagnostic-prev-error)
+    nmap <silent> <leader>j <Plug>(coc-diagnostic-next-error)
+    nmap <silent> <leader>K <Plug>(coc-diagnostic-prev)
+    nmap <silent> <leader>J <Plug>(coc-diagnostic-next)
+
+    " autopairs?
+    inoremap <silent><expr> <cr> pumvisible()
+                \ ? coc#_select_confirm()
+                \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+    " :CocList
+    nnoremap <F6> :CocList<CR>
 endif
 
 
@@ -682,7 +613,33 @@ endif
 
 
 " Surround --------------------------------------------------------------- {{{1
+let g:surround_indent = 1
 let g:surround_no_insert_mappings = 1   " turn off insert mode mappings
+
+" Use '/' as /* */ comment surround
+let g:surround_47 = "/* \r */"
+
+function! s:DoCommentMaps()
+    if !exists('b:comment_char') || empty(' b:comment_char')
+        return
+    endif
+
+    " /* ... */ comments
+    if b:comment_char ==# '/'
+        nmap <silent><buffer><leader>cc ^v$hS/
+        nmap <silent><buffer><leader>cu 0f*lds/==
+        xmap <silent><buffer><leader>cc S/
+        xmap <silent><buffer><leader>cu <Esc>0f*lds/==
+    " start-of-line comments
+    else
+        nnoremap <silent><expr><buffer><leader>cc 'I'. b:comment_char ." <Esc>"
+        nnoremap <silent><expr><buffer><leader>cu '0:s/' . escape(b:comment_char, '/') . '\s*//e<CR>:nohl<CR>'
+        xnoremap <silent><expr><buffer><leader>cc '0<c-v>I' . b:comment_char . ' <Esc>'
+        xnoremap <silent><expr><buffer><leader>cu '0<c-v>:s/' . escape(b:comment_char, '/') . '\s*//e<CR>gv=:nohl<CR>'
+    endif
+endfunction
+
+autocmd! vimrc BufNewFile,BufReadPost * call <SID>DoCommentMaps()
 
 
 " Goyo ------------------------------------------------------------------- {{{1
@@ -773,9 +730,6 @@ nnoremap <silent> <leader><space> :noh<CR>
 nnoremap <silent> <leader>v :vsplit<CR>
 nnoremap <silent> <leader>s :split<CR>
 
-" C-Space as omnicomplete shortcut
-inoremap <C-Space> <C-x><C-o>
-
 " Tabpage mappings
 nnoremap <silent> <leader>t :tabnew<CR>
 nnoremap <silent> <leader>w :close<CR>
@@ -803,7 +757,7 @@ cnoremap w!! w !sudo tee % > /dev/null
 nnoremap <silent> <leader>ev :exec ':e' . resolve($MYVIMRC)<CR>
 
 " Source the vimrc file
-nnoremap <silent> <leader>sv :source $MYVIMRC<CR> :silent doautocmd <nomodeline> User SourceVimrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR> :silent doautocmd <nomodeline> User SourceVimrc<CR>
 
 " Abbreviations
 
@@ -854,13 +808,13 @@ augroup AutoDiffUpdate
 augroup END
 
 " Displays the syntax highlighting group for word under cursor
-function! <SID>SynStack()
+function! s:SynStack()
   if !exists('*synstack')
     return
   endif
-  let stack = map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
-  let link = synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
-  echo join(stack, ' > ') . ' : ' . link
+  let l:stack = map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
+  let l:link = synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+  echo join(l:stack, ' > ') . ' : ' . l:link
 endfunc
 
 nnoremap <leader>sy :call <SID>SynStack()<CR>

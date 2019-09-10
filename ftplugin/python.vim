@@ -4,6 +4,8 @@ setlocal omnifunc=pythoncomplete#Complete
 " Add paren for print (help me with python 2 muscle memory)
 iabbrev <buffer> print print(
 
+let b:comment_char = '#'
+
 " Inserting breakpoints
 " This code was borrowed from the python-mode plugin.
 if has('python')
@@ -31,6 +33,3 @@ EOF
 
     nnoremap <silent> <buffer> <leader>p :call BreakpointSet(line('.'))<CR>
 endif
-
-" language server mappings
-call LanguageClientMaps()
