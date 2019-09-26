@@ -750,6 +750,10 @@ if has('gui_running')
     inoremap <S-A-k> <ESC>gT
 endif
 
+" Command line maps
+cmap <C-p> <Up>
+cmap <C-n> <Down>
+
 " Save buffer using 'sudo'
 " If you accidentally edit a file without permissions, use :w!!
 cnoremap w!! w !sudo tee % > /dev/null
