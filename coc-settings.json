@@ -30,17 +30,41 @@
 
   // python
   "python.jediEnabled": true,
-  "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
+  "python.linting.lintOnSave": false,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": false,
 
   // coc-diagnostics
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",
     "sh": "shellcheck",
+    "python": "flake8",
   },
 
   "diagnostic-languageserver.linters": {
+    "flake8": {
+      "command": "flake8",
+      "debounce": 100,
+      "args": [
+        "--stdin-display-name",
+        "%filename",
+        "-"
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "flake8",
+      "formatLines": 1,
+      "formatPattern": [
+        "^.+:(\\d+):(\\d+): (([^\\s]+) .*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "security": 4,
+          "message": 3,
+        }
+      ]
+    },
     "vint": {
       "command": "vint",
       "debounce": 100,
