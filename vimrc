@@ -544,7 +544,9 @@ if isdirectory(expand('~/.fzf'))
         elseif executable('git')
             let l:cmd = 'cd '.shellescape(l:dir).' && '.'git rev-parse --show-toplevel 2> /dev/null'
             let l:git_root = system(l:cmd)[:-2]
-            return s:NormalizeRoot(l:git_root)
+            if !empty(l:git_root)
+                return s:NormalizeRoot(l:git_root)
+            endif
         endif
 
         " Fallback to working directory
