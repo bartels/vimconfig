@@ -6,6 +6,9 @@
   "diagnostic.infoSign": "ℹ",
 
   // lists
+  "list.maxHeight": 20,
+  "list.nextKeymap": "<C-j>",
+  "list.previousKeymap": "<C-k>",
   "list.normalMappings": {
     "<C-c>": "do:exit",
   },
@@ -14,7 +17,6 @@
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",
   },
-  "list.maxHeight": 20,
 
   // tsserver
   "javascript.showUnused": false,
