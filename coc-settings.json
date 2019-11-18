@@ -124,18 +124,5 @@
         "note": "info"
       }
     },
-  },
-
-  // language servers
-  "languageserver": {
-    "flow": {
-      "command": "flow",
-      "args": ["lsp"],
-      "filetypes": ["javascript", "javascriptreact"],
-      "initializationOptions": {},
-      "rootPatterns": [".flowconfig"],
-      "requireRootPattern": true,
-      "settings": {}
-    }
-  },
+  }
 }

@@ -428,6 +428,22 @@ if s:use_coc
 
     let g:coc_filetype_map = { 'htmldjango': 'html' }
 
+    " Enable flow and disable tsserver when .flowconfig is found
+    if executable('flow') && findfile('.flowconfig', '.;') !=# ''
+        call coc#config('tsserver.enableJavascript', 0)
+        call coc#config('languageserver', {
+            \   'flow': {
+            \   'command': 'flow',
+            \   'args': ['lsp'],
+            \   'filetypes': ['javascript', 'javascriptreact'],
+            \   'initializationOptions': {},
+            \   'rootPatterns': ['.flowconfig'],
+            \   'requireRootPattern': 1,
+            \   'settings': {}
+            \ }
+            \ })
+    endif
+
     " airline configuration
     let g:airline#extensions#coc#error_symbol = 'E:'
     let g:airline#extensions#coc#warning_symbol = 'W:'
