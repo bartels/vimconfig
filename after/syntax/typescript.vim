@@ -8,11 +8,14 @@ hi link typescriptVariable Type
 " Hack to get typescriptComments cluster into styledDefinition region
 syntax cluster CSSTop add=@typescriptComments
 
-" optional chaining - ?.
-syntax match   typescriptDotNotation /?\?\./ nextgroup=typescriptProp skipnl
+" add optional chaining syntax - ?.
+syntax match   typescriptDotNotation /\.\|?\.\|!\./ nextgroup=typescriptProp skipnl
 
-" nullish coalescing operator - ??
+" add nullish coalescing operator - ??
 syntax match   typescriptBinaryOp contained /??/ nextgroup=@typescriptValue skipwhite skipempty
+
+" Fix ternary operator, distinct from .? and ?? operators
+syntax region typescriptTernary matchgroup=typescriptTernaryOp start=/?[.?]\@!/ end=/:/ contained contains=@typescriptValue,@typescriptComments nextgroup=@typescriptValue skipwhite skipempty
 
 " JSX syntax
 " Below is copied and modified from plugin: neoclide/vim-jsx-improve
