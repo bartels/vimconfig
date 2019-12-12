@@ -37,6 +37,19 @@
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": false,
 
+  // yaml
+  "yaml.schemas": {
+    "kubernetes": [
+      "*k8s/**/*.yaml",
+      "*k8s/**/*.yml",
+      "*deployment*.yaml",
+      "*service*.yaml",
+      "*ingress*.yaml",
+      "*statefulset*.yaml",
+      "*daemonset*.yaml",
+    ],
+  },
+
   // coc-diagnostics
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",
