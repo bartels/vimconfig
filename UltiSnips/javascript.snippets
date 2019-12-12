@@ -121,6 +121,26 @@ export const ${1:`!v expand('%:t:r')`} = (${3:{ className }: Props}) => (
 export default $1
 endsnippet
 
+
+snippet rsc "React Styled Component" b
+import * as React from 'react'
+import { styled } from 'linaria/react'
+
+export type Props = {
+	className?: string,
+}
+
+export const ${1:`!v expand('%:t:r')`} = (${3:{ className }: Props}) => (
+	<div className={className}>
+		$4
+	</div>
+)
+
+export default styled($1)\`
+
+\`
+endsnippet
+
 # Component Lifecycle
 snippet cwm "React componentWillMount" b
 componentWillMount() {
