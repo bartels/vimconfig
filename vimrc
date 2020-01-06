@@ -768,6 +768,10 @@ if has('gui_running')
     inoremap <S-A-k> <ESC>gT
 endif
 
+" Mouse wheel maps
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
+
 " Command line maps
 cmap <C-p> <Up>
 cmap <C-n> <Down>
