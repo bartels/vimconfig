@@ -22,14 +22,6 @@
   "javascript.showUnused": false,
   "typescript.showUnused": false,
 
-  // eslint
-  "eslint.filetypes": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-
   // python
   "python.jediEnabled": true,
   "python.linting.enabled": true,
