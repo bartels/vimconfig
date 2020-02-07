@@ -257,6 +257,18 @@ if has('unnamedplus') || has('nvim')
     set clipboard=unnamedplus
 endif
 
+" Prevent cursor jumping back one char leaving insert mode after 'i'
+let g:InsertI=0
+function! g:RestoreCursorI()
+    if g:InsertI
+        norm! `^
+    endif
+    let g:InsertI=0
+endfunc
+
+nnoremap <silent> i :let InsertI=1<CR>i
+autocmd! vimrc InsertLeave * call RestoreCursorI()
+
 
 " Colors ----------------------------------------------------------------- {{{1
 
@@ -717,9 +729,6 @@ endif
 
 
 " Key Mappings ----------------------------------------------------------- {{{1
-
-" Prevent jumping back one char when leaving insert mode
-inoremap <Esc> <Esc>`^
 
 " Use kj for escape
 imap kj <Esc>
