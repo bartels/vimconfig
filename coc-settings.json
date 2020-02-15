@@ -40,7 +40,28 @@
       "*statefulset*.yaml",
       "*daemonset*.yaml",
     ],
+
+    "https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/sam-schema/schema.json": [
+      "template.yaml",
+      "template.yml",
+    ],
   },
+
+  "yaml.customTags": [
+      // cloudformation tags:
+      "!Equals sequence",
+      "!FindInMap sequence",
+      "!GetAtt",
+      "!GetAtt sequence",
+      "!GetAZs",
+      "!ImportValue",
+      "!Join sequence",
+      "!Ref",
+      "!Select sequence",
+      "!Split sequence",
+      "!Sub",
+      "!Base64 mapping",
+  ],
 
   // coc-diagnostics
   "diagnostic-languageserver.filetypes": {
