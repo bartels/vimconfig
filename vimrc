@@ -267,6 +267,8 @@ function! g:RestoreCursorI()
 endfunc
 
 nnoremap <silent> i :let InsertI=1<CR>i
+nnoremap <silent> o :let InsertI=1<CR>o
+nnoremap <silent> O :let InsertI=1<CR>O
 autocmd! vimrc InsertLeave * call RestoreCursorI()
 
 
