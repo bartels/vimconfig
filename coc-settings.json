@@ -76,7 +76,7 @@
       "debounce": 100,
       "args": [
         "--stdin-display-name",
-        "%filename",
+        "%filepath",
         "-"
       ],
       "offsetLine": 0,
