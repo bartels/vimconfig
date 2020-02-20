@@ -52,6 +52,9 @@ endif
 " Python
 Plug 'hynek/vim-python-pep8-indent'
 
+" .toml
+Plug 'cespare/vim-toml'
+
 " Markup/HTML
 Plug 'othree/html5.vim'
 Plug 'amadeus/vim-xml'
