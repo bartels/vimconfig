@@ -41,7 +41,8 @@
       "*daemonset*.yaml",
     ],
 
-    "https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/sam-schema/schema.json": [
+    // "https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/sam-schema/schema.json": [
+    "https://raw.githubusercontent.com/awslabs/goformation/master/schema/sam.schema.json": [
       "template.yaml",
       "template.yml",
     ],
