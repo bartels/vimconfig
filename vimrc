@@ -1,10 +1,15 @@
 scriptencoding utf-8
 
-" Plugins ---------------------------------------------------------------- {{{1
+" Python setup ----------------------------------------------------------- {{{1
 
-" Always use system python (even when inside virtualenv)
-let g:python_host_prog = substitute(system('which -a python | tail -n1'), '\n', '', 'g')
-let g:python3_host_prog = substitute(system('which -a python3 | tail -n1'), '\n', '', 'g')
+" Use virtualenv with nvim installed (this must come before plugins)
+let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python'
+let g:python_host_prog = $HOME.'/.virtualenvs/neovim-py2/bin/python'
+if !executable(g:python3_host_prog) | unlet g:python3_host_prog | endif
+if !executable(g:python_host_prog) | unlet g:python_host_prog | endif
+
+
+" Plugins ---------------------------------------------------------------- {{{1
 
 call plug#begin('~/.vim/plugged')
 
