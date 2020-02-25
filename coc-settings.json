@@ -32,13 +32,13 @@
   // yaml
   "yaml.schemas": {
     "kubernetes": [
-      "*k8s/**/*.yaml",
-      "*k8s/**/*.yml",
+      // "*k8s/**/*.yaml",
       "*deployment*.yaml",
       "*service*.yaml",
       "*ingress*.yaml",
       "*statefulset*.yaml",
       "*daemonset*.yaml",
+      "*k8s/**/*patch*.yaml",
     ],
 
     // "https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/sam-schema/schema.json": [
