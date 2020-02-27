@@ -99,8 +99,10 @@
       "debounce": 100,
       "args": [
         "--enable-neovim",
+        "--stdin-display-name",
+        "%filepath",
         "-f",
-        "'{file_path}:{line_number}:{column_number}:{severity}: {description}(see {reference})'",
+        "'{file_path}:{line_number}:{column_number}:{severity}: {description} (see {reference})'",
         "-",
       ],
       "offsetLine": 0,
