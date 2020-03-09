@@ -853,6 +853,24 @@ augroup AutoDiffUpdate
                 \ endif
 augroup END
 
+
+" Open all files in quickfix list in new tabs
+command! Ctabs call s:Ctabs()
+function! s:Ctabs()
+  let l:files = []
+  for l:entry in getqflist()
+    let l:filename = bufname(l:entry.bufnr)
+    if index(l:files, l:filename) == -1
+        call add(l:files, l:filename)
+    endif
+  endfor
+
+  for l:file in l:files[1:]
+    silent exe 'tabedit ' . l:file
+  endfor
+endfunction
+
+
 " Displays the syntax highlighting group for word under cursor
 function! s:SynStack()
   if !exists('*synstack')
