@@ -493,10 +493,8 @@ if s:use_coc
     nnoremap <leader>rs :CocRestart<CR>
 
     " Navigate diagnostics errors/warnings
-    nmap <silent> <leader>k <Plug>(coc-diagnostic-prev-error)
-    nmap <silent> <leader>j <Plug>(coc-diagnostic-next-error)
-    nmap <silent> <leader>K <Plug>(coc-diagnostic-prev)
-    nmap <silent> <leader>J <Plug>(coc-diagnostic-next)
+    nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
+    nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
 
     " autopairs?
     inoremap <silent><expr> <cr> pumvisible()
