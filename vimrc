@@ -230,6 +230,7 @@ set scrolloff=3                   " number of context lines while scrolling
 set sidescrolloff=3               " number of context columns
 set shortmess+=Ic                 " turn off intro text
 set noshowmode                    " don't show message on last line for insert/visual/replace mode
+set lazyredraw                    " Do not redraw screen in the middle of a macro
 
 " nvim only
 if has('nvim')
