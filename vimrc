@@ -703,12 +703,6 @@ autocmd! vimrc User GoyoEnter nested call <SID>GoyoEnter()
 autocmd! vimrc User GoyoLeave nested call <SID>GoyoLeave()
 
 
-" Markdown-preview ------------------------------------------------------- {{{1
-
-let g:mkdp_browser = 'google-chrome'
-nmap <leader>m :MarkdownPreview<CR>
-
-
 " tmux-pilot ------------------------------------------------------------- {{{1
 
 " Fix: unset tmux-pilot maps in fzf buffers - they conflict with
