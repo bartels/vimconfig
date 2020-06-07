@@ -38,6 +38,8 @@
       "*ingress.yaml",
       "*statefulset*.yaml",
       "*daemonset*.yaml",
+      "*pdb*.yaml",
+      "*pvc*.yaml",
       "*k8s/**/*patch*.yaml",
     ],
 
