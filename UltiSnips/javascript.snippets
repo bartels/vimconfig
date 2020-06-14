@@ -1,4 +1,28 @@
-# Javascript snippets
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
 # ES2015
 snippet "c(onst)?" "const" br
@@ -33,175 +57,6 @@ endsnippet
 
 snippet cle "console.error(...)"
 console.error(${1})
-endsnippet
-
-# React & JSX
-snippet "rcl(ass)?" "React Class" br
-export type Props = {
-	children: React.Node,
-	className?: string,
-}
-
-export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
-	render() {
-		return (
-			<div className="$1">
-				$3
-			</div>
-		)
-	}
-}
-endsnippet
-
-snippet rcc "React Class Component" b
-import * as React from 'react'
-
-// import './${2:$1}.scss'
-
-export type Props = {
-	children: React.Node,
-	className?: string,
-}
-
-export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
-	render() {
-		return (
-			<div className="$1">
-				$3
-			</div>
-		)
-	}
-}
-
-export default $1
-endsnippet
-
-snippet rccc "React Redux Class Component" b
-import * as React from 'react'
-import { connect } from 'react-redux'
-
-// import './${2:$1}.scss'
-
-export type Props = {
-	children: React.Node,
-	className?: string,
-}
-
-export class ${1:`!v expand('%:t:r')`} extends React.Component<Props> {
-	render() {
-		return (
-			<div className="$1">
-				$3
-			</div>
-		)
-	}
-}
-
-const mapStateToProps = (state, props) => ({
-})
-
-export default connect(mapStateToProps)($1)
-endsnippet
-
-snippet rfc "React Functional Component" b
-import * as React from 'react'
-
-// import './${2:$1}.scss'
-
-export type Props = {
-	className?: string,
-}
-
-export const ${1:`!v expand('%:t:r')`} = (${3:{ className }: Props}) => (
-	<div className={\`$1 ${className}\`}>
-		$5
-	</div>
-)
-
-export default $1
-endsnippet
-
-
-snippet rsc "React Styled Component" b
-import * as React from 'react'
-import styled from 'styled-components'
-
-export type Props = {
-	className?: string,
-}
-
-export const ${1:`!v expand('%:t:r')`} = (${3:{ className }: Props}) => (
-	<div className={className}>
-		$4
-	</div>
-)
-
-export default styled($1)\`
-
-\`
-endsnippet
-
-# Component Lifecycle
-snippet cwm "React componentWillMount" b
-componentWillMount() {
-	$1
-}
-endsnippet
-
-snippet cdm "React componentDidMount" b
-componentDidMount() {
-	$1
-}
-endsnippet
-
-snippet cwrp "React componentWillReceiveProps" b
-componentWillReceiveProps(nextProps) {
-	$1
-}
-endsnippet
-
-snippet scup "React shouldComponentUpdate" b
-shouldComponentUpdate(nextProps, nextState) {
-	$1
-}
-endsnippet
-
-snippet cwup "React componentWillUpdate" b
-componentWillUpdate(nextProps, nextState) {
-	$1
-}
-endsnippet
-
-snippet cdup "React componentDidUpdate" b
-componentDidUpdate(prevProps, prevState) {
-	$1
-}
-endsnippet
-
-snippet cwu "React componentWillUnmount" b
-componentWillUnmount() {
-	$1
-}
-endsnippet
-
-snippet "gds(fp)?" "React getDerivedStateFromProps" br
-static getDerivedStateFromProps(props, state) {
-	$1
-}
-endsnippet
-
-snippet "gsb(u)?" "React getDerivedStateFromProps" br
-static getSnapshotBeforeUpdate(prevProps, prevState) {
-	$1
-}
-endsnippet
-
-snippet ren "React render"
-render() {
-	return ${1:(
-		${2:<div>${3}</div>}
-	);}
-}
 endsnippet
 
 
