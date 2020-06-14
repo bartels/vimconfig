@@ -66,6 +66,14 @@
       "!Base64 mapping",
   ],
 
+  // snippets
+  "snippets.userSnippetsDirectory": "~/.vim/UltiSnips",
+  "snippets.extends": {
+    "javascriptreact": ["javascript"],
+    "typescript": ["javascript"],
+    "typescriptreact": ["javascript", "javascriptreact"],
+  },
+
   // coc-diagnostics
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",

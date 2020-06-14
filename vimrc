@@ -45,13 +45,8 @@ if s:use_coc
     Plug 'Shougo/neco-vim'
     Plug 'neoclide/coc-neco'
     Plug 'wellle/tmux-complete.vim'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-endif
-
-" Snippets
-if has('python3')
-    Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
 " Python
@@ -428,7 +423,6 @@ if s:use_coc
     " always install
     let g:coc_global_extensions = [
     \   'coc-syntax',
-    \   'coc-ultisnips',
     \   'coc-python',
     \   'coc-tsserver',
     \   'coc-eslint',
@@ -503,12 +497,15 @@ if s:use_coc
 
     " :CocList
     nnoremap <F6> :CocList<CR>
+
+    " coc-snippets
+    " Use <C-j> for both expand and jump (make expand higher priority.)
+    imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+    command! Snippets CocList snippets
+    command! SnippetsEdit CocCommand snippets.editSnippets
+    command! SnippetsOpen CocCommand snippets.openSnippetFiles
 endif
-
-
-" UltiSnips -------------------------------------------------------------- {{{1
-let g:UltiSnipsExpandTrigger = '<c-j>'
-let g:UltiSnipsEditSplit = 'vertical'
 
 
 " UndoTree --------------------------------------------------------------- {{{1
