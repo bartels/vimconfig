@@ -169,7 +169,7 @@ set autoindent              " Copy indent from previous line
 let g:is_bash = 1 " default to bash when no shebang
 
 " Files to use closetag plugin
-let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
+let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.tsx'
 let g:closetag_filetypes = 'xml,html,javascript'
 let g:closetag_close_shortcut = ',>'
 let g:closetag_emptyTags_caseSensitive = 1
