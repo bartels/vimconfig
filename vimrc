@@ -539,10 +539,12 @@ if isdirectory(expand('~/.fzf'))
                 \ --bind=tab:toggle-up,btab:toggle-down,alt-a:toggle-all
                 \ --toggle-sort=ctrl-r'
 
-    " hide statusline
+
+    " fzffiletype
     augroup Fzf
         autocmd!
-        autocmd FileType fzf setlocal nonumber norelativenumber
+        autocmd FileType fzf setlocal nonumber norelativenumber  " hide numbers
+        autocmd FileType fzf keepalt file FZF  " change fzf buffer name display
     augroup END
 
     " Finds the project root dir (looks for package.json & .git)
