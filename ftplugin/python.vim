@@ -1,9 +1,6 @@
 " Set python omnicomplete function
 setlocal omnifunc=pythoncomplete#Complete
 
-" Add paren for print (help me with python 2 muscle memory)
-iabbrev <buffer> print print(
-
 let b:comment_char = '#'
 
 " Inserting breakpoints
