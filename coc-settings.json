@@ -73,6 +73,7 @@
     "typescript": ["javascript"],
     "typescriptreact": ["javascript", "javascriptreact"],
   },
+  "snippets.enableStatusItem": false,
 
   // coc-diagnostics
   "diagnostic-languageserver.filetypes": {
