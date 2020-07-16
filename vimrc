@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-abolish'
 Plug 'wellle/targets.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
