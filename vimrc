@@ -371,12 +371,14 @@ if ! has('gui_running')
     "" tabline
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_min_count = 2
-    let g:airline#extensions#tabline#fnamemod = ':s;.\+/\(.\+/.\+$\);\1;:.'
-    let g:airline#extensions#tabline#formatter = 'jsformatter'
-
     let g:airline#extensions#tabline#show_tab_type = 0
     let g:airline#extensions#tabline#show_splits = 0
     let g:airline#extensions#tabline#show_buffers = 0
+    let g:airline#extensions#tabline#show_tab_count = 0
+    let g:airline#extensions#tabline#show_close_button = 1
+
+    let g:airline#extensions#tabline#fnamemod = ':s;.\+/\(.\+/.\+$\);\1;:.'
+    let g:airline#extensions#tabline#formatter = 'jsformatter'
 
     " override theme colors
     let g:airline_theme_patch_func = 'g:AirlineThemePatch'
