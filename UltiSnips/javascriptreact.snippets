@@ -102,11 +102,13 @@ export type Props = {
 	className?: string,
 }
 
-export const ${1:`!v expand('%:t:r')`} = ({ ${3:className} }: Props) => (
-	<div className={cx('$1', $3)}>
-		$5
-	</div>
-)
+export const ${1:`!v expand('%:t:r')`} = ({ ${3:className} }: Props) => {
+	return (
+		<div className={cx('$1', $3)}>
+			$5
+		</div>
+	)
+}
 
 export default $1
 endsnippet
@@ -120,11 +122,13 @@ export type Props = {
 	className?: string,
 }
 
-export const ${1:`!v expand('%:t:r')`} = (${3:{ className }}: Props) => (
-	<div className={className}>
-		$4
-	</div>
-)
+export const ${1:`!v expand('%:t:r')`} = (${3:{ className }}: Props) => {
+	return (
+		<div className={className}>
+			$4
+		</div>
+	)
+}
 
 export default styled($1)\`
 
