@@ -80,6 +80,10 @@
     "vim": "vint",
     "sh": "shellcheck",
     "python": "flake8",
+    "javascript": "eslint_d",
+    "javascriptreact": "eslint_d",
+    "typescript": "eslint_d",
+    "typescriptreact": "eslint_d",
   },
 
   "diagnostic-languageserver.linters": {
@@ -162,6 +166,34 @@
         "error": "error",
         "warning": "warning",
         "note": "info"
+      }
+    },
+    "eslint_d": {
+      "command": "./node_modules/.bin/eslint_d",
+      "rootPatterns": [
+        ".git"
+      ],
+      "debounce": 100,
+      "args": [
+        "--stdin",
+        "--stdin-filename",
+        "%filepath",
+        "--format",
+        "json"
+      ],
+      "sourceName": "eslint_d",
+      "parseJson": {
+        "errorsRoot": "[0].messages",
+        "line": "line",
+        "column": "column",
+        "endLine": "endLine",
+        "endColumn": "endColumn",
+        "message": "${message} [${ruleId}]",
+        "security": "severity"
+      },
+      "securities": {
+        "2": "error",
+        "1": "warning"
       }
     },
   }

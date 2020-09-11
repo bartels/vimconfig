@@ -428,7 +428,6 @@ if s:use_coc
     \   'coc-syntax',
     \   'coc-python',
     \   'coc-tsserver',
-    \   'coc-eslint',
     \   'coc-css',
     \ ]
 
