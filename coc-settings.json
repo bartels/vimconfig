@@ -69,9 +69,8 @@
   // snippets
   "snippets.userSnippetsDirectory": "~/.vim/UltiSnips",
   "snippets.extends": {
-    "javascriptreact": ["javascript"],
     "typescript": ["javascript"],
-    "typescriptreact": ["javascript", "javascriptreact"],
+    "typescriptreact": ["javascriptreact"],
   },
   "snippets.enableStatusItem": false,
 
