@@ -200,3 +200,36 @@ render() {
 	);}
 }
 endsnippet
+
+# React Hooks
+snippet "useS(t|tate)?" "useState Hook" br
+const [${1}, set${2}] = useState(${3})
+endsnippet
+
+snippet "useCo(on|ntext)?" "useContext Hook" br
+const ${1:context} = useContext(${2})
+endsnippet
+
+snippet "useE(f|ffect)?" "useEffect Hook" br
+useEffect(() => {
+	$0
+}${1:, [${2}]})
+endsnippet
+
+snippet "useL(a|ay|ayout|ayoutEffect)?" "useLayoutEffect Hook" br
+useLayoutEffect(() => {
+	$0
+}${1:, [${2}]})
+endsnippet
+
+snippet "useC(a|al|allback)?" "useCallback Hook" br
+useCallback(() => {
+	$0
+}, [${1}])
+endsnippet
+
+snippet "useM(e|em|emo)?" "useMemo(fn, inputs)" br
+const ${1:memorized} = useMemo(() => ${2:{
+	${3}
+}}, [${4}])
+endsnippet
