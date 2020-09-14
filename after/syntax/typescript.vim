@@ -196,7 +196,7 @@ else
   highlight def link jsxAttributeBraces Special
 endif
 
-let b:current_syntax = 'javascript.jsx'
+let b:current_syntax = 'typescript'
 
 if &ft == 'html'
   syn region  htmlScriptTag     contained start=+<script+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
