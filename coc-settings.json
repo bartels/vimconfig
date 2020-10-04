@@ -10,12 +10,12 @@
   "list.nextKeymap": "<C-j>",
   "list.previousKeymap": "<C-k>",
   "list.normalMappings": {
-    "<C-c>": "do:exit",
+    "<C-c>": "do:exit"
   },
   "list.insertMappings": {
     "<C-c>": "do:exit",
     "<C-n>": "normal:j",
-    "<C-p>": "normal:k",
+    "<C-p>": "normal:k"
   },
 
   // tsserver
@@ -40,14 +40,14 @@
       "*daemonset*.yaml",
       "*pdb*.yaml",
       "*pvc*.yaml",
-      "*k8s/**/*patch*.yaml",
+      "*k8s/**/*patch*.yaml"
     ],
 
     // "https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/sam-schema/schema.json": [
     "https://raw.githubusercontent.com/awslabs/goformation/master/schema/sam.schema.json": [
       "template.yaml",
-      "template.yml",
-    ],
+      "template.yml"
+    ]
   },
 
   "yaml.customTags": [
@@ -63,14 +63,14 @@
       "!Select sequence",
       "!Split sequence",
       "!Sub",
-      "!Base64 mapping",
+      "!Base64 mapping"
   ],
 
   // snippets
   "snippets.userSnippetsDirectory": "~/.vim/UltiSnips",
   "snippets.extends": {
     "typescript": ["javascript"],
-    "typescriptreact": ["javascriptreact"],
+    "typescriptreact": ["javascriptreact"]
   },
   "snippets.enableStatusItem": false,
 
@@ -82,7 +82,7 @@
     "javascript": "eslint_d",
     "javascriptreact": "eslint_d",
     "typescript": "eslint_d",
-    "typescriptreact": "eslint_d",
+    "typescriptreact": "eslint_d"
   },
 
   "diagnostic-languageserver.linters": {
@@ -104,7 +104,7 @@
           "line": 1,
           "column": 2,
           "security": 4,
-          "message": 3,
+          "message": 3
         }
       ]
     },
@@ -117,7 +117,7 @@
         "%filepath",
         "-f",
         "'{file_path}:{line_number}:{column_number}:{severity}: {description} (see {reference})'",
-        "-",
+        "-"
       ],
       "offsetLine": 0,
       "offsetColumn": 0,
@@ -135,7 +135,7 @@
       "securities": {
         "error": "error",
         "warning": "warning",
-        "style_problem": "warning",
+        "style_problem": "warning"
       }
     },
 
@@ -146,7 +146,7 @@
         "--format=gcc",
         "--shell=bash",
         "--exclude=SC1090,SC2034",
-        "-",
+        "-"
       ],
       "offsetLine": 0,
       "offsetColumn": 0,
@@ -194,6 +194,6 @@
         "2": "error",
         "1": "warning"
       }
-    },
+    }
   }
 }
