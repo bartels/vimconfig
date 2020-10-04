@@ -6,7 +6,7 @@
   "diagnostic.infoSign": "ℹ",
 
   // lists
-  "list.maxHeight": 20,
+  "list.height": 20,
   "list.nextKeymap": "<C-j>",
   "list.previousKeymap": "<C-k>",
   "list.normalMappings": {
