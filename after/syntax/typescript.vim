@@ -13,6 +13,7 @@ syntax cluster CSSTop add=@typescriptComments
 syntax match   typescriptBinaryOp contained /??/ nextgroup=@typescriptValue skipwhite skipempty
 
 " type import (taken from yats.vim)
+syntax keyword typescriptImport                from as
 syntax keyword typescriptImport                import
     \ nextgroup=typescriptImportType
     \ skipwhite
