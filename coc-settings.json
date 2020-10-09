@@ -80,9 +80,12 @@
     "sh": "shellcheck",
     "python": "flake8",
     "javascript": "eslint_d",
-    "javascriptreact": "eslint_d",
+    "javascriptreact": ["eslint_d", "stylelint"],
     "typescript": "eslint_d",
-    "typescriptreact": "eslint_d"
+    "typescriptreact": ["eslint_d", "stylelint"],
+    "css": "stylelint",
+    "scss": "stylelint",
+    "less": "stylelint"
   },
 
   "diagnostic-languageserver.linters": {
@@ -168,7 +171,7 @@
       }
     },
     "eslint_d": {
-      "command": "./node_modules/.bin/eslint_d",
+      "command": "eslint_d",
       "rootPatterns": [
         ".git"
       ],
@@ -193,6 +196,31 @@
       "securities": {
         "2": "error",
         "1": "warning"
+      }
+    },
+    "stylelint": {
+      "command": "./node_modules/.bin/stylelint",
+      "rootPatterns": [
+        ".git"
+      ],
+      "debounce": 100,
+      "args": [
+        "--formatter",
+        "json",
+        "--stdin-filename",
+        "%filepath"
+      ],
+      "sourceName": "stylelint",
+      "parseJson": {
+        "errorsRoot": "[0].warnings",
+        "line": "line",
+        "column": "column",
+        "message": "${text}",
+        "security": "severity"
+      },
+      "securities": {
+        "error": "error",
+        "warning": "warning"
       }
     }
   }
