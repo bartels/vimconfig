@@ -541,6 +541,10 @@ if isdirectory(expand('~/.fzf'))
                 \ --bind=tab:toggle-up,btab:toggle-down,alt-a:toggle-all
                 \ --toggle-sort=ctrl-r'
 
+    " fzf layout in vim
+    let g:fzf_layout = has('nvim-0.4')
+        \ ? { 'window' : { 'width': 1, 'height': 0.45,  'yoffset': 1, 'border': 'top' } }
+        \ : { 'down': '~40%' }
 
     " fzffiletype
     augroup Fzf
