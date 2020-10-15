@@ -529,7 +529,7 @@ if isdirectory(expand('~/.fzf'))
 
     " Use rg if available as default fzf command
     if executable('rg')
-        let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+        let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --no-messages'
     endif
 
     " fzf defaults
