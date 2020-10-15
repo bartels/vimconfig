@@ -526,6 +526,7 @@ if isdirectory(expand('~/.fzf'))
 
     " loads fzf as vim plugin
     set runtimepath+=~/.fzf
+    helptags ~/.fzf/doc
 
     " Use rg if available as default fzf command
     if executable('rg')
