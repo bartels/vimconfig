@@ -5,10 +5,6 @@ hi link typescriptExport Include
 hi link typescriptExportType Include
 hi link typescriptVariable Type
 
-" styled-components
-" Hack to get typescriptComments cluster into styledDefinition region
-syntax cluster CSSTop add=@typescriptComments
-
 " add nullish coalescing operator - ??
 syntax match   typescriptBinaryOp contained /??/ nextgroup=@typescriptValue skipwhite skipempty
 
