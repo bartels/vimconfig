@@ -324,7 +324,7 @@ function! s:PatchMonotone()
     hi diffAdded guifg=#557755
     hi diffRemoved guifg=#aa7766
 
-    hi IncSearch gui=reverse
+    hi IncSearch gui=bold
 
     " terminal cursor
     hi TermCursor gui=reverse cterm=reverse
