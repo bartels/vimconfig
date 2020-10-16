@@ -394,6 +394,7 @@ if ! has('gui_running')
             let a:palette.normal.airline_b[3] = 242
             let a:palette.normal.airline_c[1] = '#2f2f31'
             let a:palette.normal.airline_c[3] = 235
+            let a:palette.inactive.airline_c[0] = '#8789a0'
         endif
     endfunction
 
