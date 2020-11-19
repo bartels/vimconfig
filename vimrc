@@ -43,11 +43,12 @@ Plug 'jamessan/vim-gnupg'
 " Coc - code completion, linter, language server
 let s:use_coc = has('nvim')
 if s:use_coc
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'Shougo/neco-vim'
     Plug 'neoclide/coc-neco'
+    Plug 'antoinemadec/coc-fzf'
     Plug 'wellle/tmux-complete.vim'
     Plug 'honza/vim-snippets'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
 " Python
@@ -500,6 +501,7 @@ if s:use_coc
 
     " :CocList
     nnoremap <F6> :CocList<CR>
+    nnoremap <silent><leader>c :CocFzfList<CR>
 
     " coc-snippets
     " Use <C-j> for both expand and jump (make expand higher priority.)
