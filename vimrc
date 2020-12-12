@@ -502,8 +502,8 @@ if s:use_coc
                 \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
     " Closing of floating windows doesn't always work correctly
-    nmap <Esc> :call coc#float#close_all()<CR>
-    nmap <C-c> :call coc#float#close_all()<CR>
+    nmap <silent><Esc> :call coc#float#close_all()<CR>
+    nmap <silent><C-c> :call coc#float#close_all()<CR>
 
     " :CocList
     nnoremap <F6> :CocList<CR>
