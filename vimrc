@@ -516,6 +516,8 @@ if s:use_coc
     command! Snippets CocList snippets
     command! SnippetsEdit CocCommand snippets.editSnippets
     command! SnippetsOpen CocCommand snippets.openSnippetFiles
+
+    hi! link CocCodeLens Warning
 endif
 
 
