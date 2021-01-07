@@ -75,6 +75,9 @@
   "snippets.enableStatusItem": false,
 
   // coc-diagnostics
+  // "diagnostic-languageserver.debug": true,
+  // "diagnostic-languageserver.trace.server": "verbose",
+
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",
     "sh": "shellcheck",
@@ -91,6 +94,9 @@
   "diagnostic-languageserver.linters": {
     "flake8": {
       "command": "flake8",
+      "rootPatterns": [
+        ".git"
+      ],
       "debounce": 100,
       "args": [
         "--stdin-display-name",
