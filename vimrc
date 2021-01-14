@@ -428,9 +428,8 @@ if s:use_coc
     " always install
     let g:coc_global_extensions = [
     \   'coc-syntax',
-    \   'coc-python',
-    \   'coc-tsserver',
-    \   'coc-css',
+    \   'coc-snippets',
+    \   'coc-word',
     \ ]
 
     let g:coc_filetype_map = { 'htmldjango': 'html' }
