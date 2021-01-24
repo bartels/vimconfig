@@ -82,10 +82,8 @@
     "vim": "vint",
     "sh": "shellcheck",
     "python": "flake8",
-    "javascript": "eslint_d",
-    "javascriptreact": ["eslint_d", "stylelint"],
-    "typescript": "eslint_d",
-    "typescriptreact": ["eslint_d", "stylelint"],
+    "javascriptreact": ["stylelint"],
+    "typescriptreact": ["stylelint"],
     "css": "stylelint",
     "scss": "stylelint",
     "less": "stylelint"
