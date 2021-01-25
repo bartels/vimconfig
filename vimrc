@@ -687,7 +687,7 @@ function! s:DoCommentMaps()
     endif
 endfunction
 
-autocmd! vimrc BufNewFile,BufReadPost * call <SID>DoCommentMaps()
+autocmd vimrc BufNewFile,BufReadPost * call <SID>DoCommentMaps()
 
 
 " Goyo ------------------------------------------------------------------- {{{1
