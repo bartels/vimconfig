@@ -22,6 +22,9 @@
   "javascript.showUnused": false,
   "typescript.showUnused": false,
 
+  // eslint
+  "eslint.autoFixOnSave": true,
+
   // python
   "python.jediEnabled": true,
   "python.linting.enabled": true,
