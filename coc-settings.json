@@ -153,28 +153,25 @@
       "command": "shellcheck",
       "debounce": 100,
       "args": [
-        "--format=gcc",
+        "--format=json",
         "--shell=bash",
         "--exclude=SC1090,SC2034",
         "-"
       ],
-      "offsetLine": 0,
-      "offsetColumn": 0,
       "sourceName": "shellcheck",
-      "formatLines": 1,
-      "formatPattern": [
-        "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
-        {
-          "line": 1,
-          "column": 2,
-          "message": 4,
-          "security": 3
-        }
-      ],
+      "parseJson": {
+        "line": "line",
+        "column": "column",
+        "endLine": "endLine",
+        "endColumn": "endColumn",
+        "message": "${message} [${code}]",
+        "security": "level"
+      },
       "securities": {
         "error": "error",
         "warning": "warning",
-        "note": "info"
+        "info": "warning",
+        "style": "warning"
       }
     },
     "eslint_d": {
