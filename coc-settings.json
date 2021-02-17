@@ -18,9 +18,16 @@
     "<C-p>": "normal:k"
   },
 
+  "codeLens.enable": false,
+
   // tsserver
   "javascript.showUnused": false,
   "typescript.showUnused": false,
+
+  "typescript.referencesCodeLens.enable": false,
+  "javascript.referencesCodeLens.enable": false,
+  "typescript.implementationsCodeLens.enable": false,
+  "javascript.implementationsCodeLens.enable": false,
 
   // eslint
   "eslint.autoFixOnSave": true,
