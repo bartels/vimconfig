@@ -73,7 +73,6 @@ Plug 'GutenYe/json5.vim'
 
 " CSS
 Plug 'hail2u/vim-css3-syntax'
-Plug 'groenewege/vim-less'
 
 " style-components
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
