@@ -168,7 +168,7 @@ syntax enable               " Enable syntax feature
 filetype plugin indent on   " Enable filetype plugins & indent
 set autoindent              " Copy indent from previous line
 
-
+let g:vimsyn_embed= 'lP'
 let g:is_bash = 1 " default to bash when no shebang
 
 " Files to use closetag plugin
