@@ -35,10 +35,12 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
-Plug 'urbainvaes/vim-tmux-pilot'
-Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'chrisbra/Colorizer'
 Plug 'jamessan/vim-gnupg'
+Plug 'urbainvaes/vim-tmux-pilot'
+
+" disabled until bug fixed: https://github.com/tmux-plugins/vim-tmux-focus-events/issues/33
+" Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Coc - code completion, linter, language server
 let s:use_coc = has('nvim')
