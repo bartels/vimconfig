@@ -61,7 +61,6 @@ Plug 'cespare/vim-toml'
 
 " Markup/HTML
 Plug 'othree/html5.vim'
-Plug 'amadeus/vim-xml'
 Plug 'alvan/vim-closetag'
 
 " Javascript
