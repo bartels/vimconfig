@@ -435,7 +435,7 @@ if s:use_coc
     let g:coc_filetype_map = { 'htmldjango': 'html' }
 
     " Disable coc for certain patterns
-    autocmd vimrc BufAdd,BufEnter *.min.js,*/dist/*.js,*/bundle/*.js let b:coc_enabled=0
+    autocmd vimrc BufAdd,BufEnter *.min.js,*/dist/*.js,*/bundle/*.js,*/node_modules/*.js let b:coc_enabled=0
 
     " Disable file with size > 100k
     autocmd BufAdd,BufEnter * if getfsize(expand('<afile>')) > 1024*100 | let b:coc_enabled=0 | endif
