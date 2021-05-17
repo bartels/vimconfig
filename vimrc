@@ -429,7 +429,6 @@ if s:use_coc
     let g:coc_global_extensions = [
     \   'coc-syntax',
     \   'coc-snippets',
-    \   'coc-word',
     \ ]
 
     let g:coc_filetype_map = { 'htmldjango': 'html' }
