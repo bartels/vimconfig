@@ -79,6 +79,9 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install --prod'  }
 
+" mdx
+Plug 'jxnblk/vim-mdx-js'
+
 " nginx
 Plug 'chr4/nginx.vim'
 
