@@ -91,6 +91,9 @@
   },
   "snippets.enableStatusItem": false,
 
+  // coc-styled-components
+  "styled-components.validate": false,
+
   // coc-diagnostics
   // "diagnostic-languageserver.debug": true,
   // "diagnostic-languageserver.trace.server": "verbose",
