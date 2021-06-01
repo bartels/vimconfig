@@ -442,6 +442,10 @@ let g:AutoPairsFlyMode = 0
 
 " Coc (completion) ------------------------------------------------------- {{{1
 if s:use_coc
+    " recommended settings
+    set nobackup
+    set nowritebackup
+
     " always install
     let g:coc_global_extensions = [
     \   'coc-syntax',
