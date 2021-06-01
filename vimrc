@@ -232,6 +232,11 @@ set shortmess+=Ic                 " turn off intro text
 set noshowmode                    " don't show message on last line for insert/visual/replace mode
 set lazyredraw                    " Do not redraw screen in the middle of a macro
 
+" Recently vim versions enable us to merge signcolumn and number
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+    set signcolumn=number
+endif
+
 " nvim only
 if has('nvim')
     set inccommand=nosplit        " shows incremental results of command
