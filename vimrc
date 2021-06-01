@@ -330,8 +330,11 @@ function! s:PatchMonotone()
 
     hi IncSearch gui=bold
 
-    " terminal cursor
-    hi TermCursor gui=reverse cterm=reverse
+    " cursor
+    hi Cursor gui=reverse cterm=reverse
+    hi iCursor guifg=#f8b281 guibg=#f8b281
+
+    hi link TermCursor Cursor
 
     " help links
     hi helpHyperTextJump guifg=#c5e2c5 guibg=NONE gui=italic  ctermfg=107 ctermbg=NONE  cterm=italic
@@ -360,6 +363,12 @@ else
     colorscheme monotone
     " colorscheme lucius
 endif
+
+" Cursor
+set guicursor=a:block-Cursor
+set guicursor+=i:ver100-iCursor
+set guicursor+=a:blinkon0
+set guicursor+=i:blinkwait100-blinkoff100-blinkon100
 
 " Colorizer mappings
 nmap <silent> <leader>cC <Plug>Colorizer
