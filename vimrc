@@ -123,6 +123,9 @@ set foldmethod=manual
 autocmd vimrc FileType text setlocal foldmethod=marker
 autocmd vimrc FileType GV set foldlevel=1
 
+" Don't write swap files
+set noswapfile
+
 " Update buffer when a file changes outside of vim
 set autoread
 autocmd vimrc FocusGained,BufEnter,CursorHold,CursorHoldI * silent! checktime
