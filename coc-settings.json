@@ -4,6 +4,7 @@
   "diagnostic.errorSign": "✖",
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "ℹ",
+  "diagnostic.messageDelay": 350,
 
   // suggest / completion
   "suggest.localityBonus": true,
