@@ -35,6 +35,7 @@
   "typescript.showUnused": false,
   "typescript.referencesCodeLens.enable": false,
   "typescript.implementationsCodeLens.enable": false,
+  "typescript.suggest.autoImports": false,
 
   // eslint
   "eslint.autoFixOnSave": true,
