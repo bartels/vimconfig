@@ -1,6 +1,6 @@
 {
   // diagnostics
-  "diagnostic.level": "warning",
+  // "diagnostic.level": "warning",
   "diagnostic.errorSign": "✖",
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "ℹ",
