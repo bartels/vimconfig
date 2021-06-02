@@ -274,6 +274,10 @@ if has('unnamedplus') || has('nvim')
     set clipboard=unnamedplus
 endif
 
+" Fix highlight problems in ts/js files (especially with jsx)
+autocmd vimrc BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd vimrc BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
 
 " Colors ----------------------------------------------------------------- {{{1
 
