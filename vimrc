@@ -236,7 +236,7 @@ set noshowmode                    " don't show message on last line for insert/v
 set lazyredraw                    " Do not redraw screen in the middle of a macro
 
 " Recently vim versions enable us to merge signcolumn and number
-if has("nvim-0.5.0") || has("patch-8.1.1564")
+if has('nvim-0.5.0') || has('patch-8.1.1564')
     set signcolumn=number
 endif
 
