@@ -382,10 +382,12 @@ else
 endif
 
 " Cursor
-set guicursor=a:block-Cursor
-set guicursor+=i:ver100-iCursor
-set guicursor+=a:blinkon0
-set guicursor+=i:blinkwait100-blinkoff100-blinkon100
+if has('nvim')
+    set guicursor=a:block-Cursor
+    set guicursor+=i:ver100-iCursor
+    set guicursor+=a:blinkon0
+    set guicursor+=i:blinkwait100-blinkoff100-blinkon100
+endif
 
 " Colorizer mappings
 nmap <silent> <leader>cC <Plug>Colorizer
