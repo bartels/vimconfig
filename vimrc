@@ -330,6 +330,11 @@ function! s:PatchMonotone()
     " Hide '~' chars at end of buffer
     hi EndOfBuffer guifg=bg ctermfg=bg
 
+    " Tabline
+    hi Tabline guifg=#8789a0 ctermfg=240
+    hi TablineSel guifg=#edeef1 guibg=#557755 ctermfg=252 ctermbg=0
+    hi link TablineFill Comment
+
     " vimdiff
     hi DiffAdd     guifg=#dddddd  guibg=#557755  gui=NONE  ctermfg=107  ctermbg=0  cterm=NONE
     hi DiffDelete  guifg=#aa7766  guibg=#443E44  gui=NONE  ctermfg=137  ctermbg=0  cterm=NONE
