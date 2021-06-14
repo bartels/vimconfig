@@ -575,6 +575,20 @@ if v:version >= 703
 endif
 
 
+" Fugitive --------------------------------------------------------------- {{{1
+
+" Add back some deprecated commands
+command! Gremove GRemove
+command! Gdelete GDelete
+command! Gblame Git blame
+command! GBlame Git blame
+command! -nargs=* Gcommit Git commit <args>
+
+" Add back in q for quit
+autocmd! vimrc FileType fugitive noremap <buffer> q :q<CR>
+autocmd! vimrc FileType fugitiveblame noremap <buffer> q :q<CR>
+
+
 " FZF -------------------------------------------------------------------- {{{1
 " If fzf is installed (.fzf directory exists)
 if isdirectory(expand('~/.fzf'))
@@ -869,8 +883,8 @@ Cabbrev gwrite Gwrite
 Cabbrev gmove Gmove
 Cabbrev gblame Gblame
 Cabbrev gcommit Gcommit
-Cabbrev gremove Gremove
-Cabbrev gdelete Gdelete
+Cabbrev gremove GRemove
+Cabbrev gdelete GDelete
 
 " Misc Helpers ----------------------------------------------------------- {{{1
 
