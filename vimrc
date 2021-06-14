@@ -285,9 +285,12 @@ autocmd vimrc BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 if has('termguicolors')
     set termguicolors
 
-    " The following is needed inside tmux (vim only)
-    set t_8f=[38;2;%lu;%lu;%lum
-    set t_8b=[48;2;%lu;%lu;%lum
+    " This black magick is needed inside tmux (for vanilla vim only)
+    " see: https://github.com/vim/vim/issues/993
+    if ! has('nvim')
+        set t_8f=[38;2;%lu;%lu;%lum
+        set t_8b=[48;2;%lu;%lu;%lum
+    endif
 endif
 
 " Overrides for lucius dark colorscheme
