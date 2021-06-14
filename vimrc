@@ -288,8 +288,8 @@ if has('termguicolors')
     " This black magick is needed inside tmux (for vanilla vim only)
     " see: https://github.com/vim/vim/issues/993
     if ! has('nvim')
-        set t_8f=[38;2;%lu;%lu;%lum
-        set t_8b=[48;2;%lu;%lu;%lum
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     endif
 endif
 
