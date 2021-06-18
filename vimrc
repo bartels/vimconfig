@@ -542,11 +542,6 @@ if s:use_coc
     nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
     nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
 
-    " autopairs?
-    inoremap <silent><expr> <cr> pumvisible()
-                \ ? coc#_select_confirm()
-                \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
     " Closing of floating windows doesn't always work correctly
     nmap <silent><Esc> :call coc#float#close_all()<CR>
     nmap <silent><C-c> :call coc#float#close_all()<CR>
