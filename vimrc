@@ -478,7 +478,8 @@ if s:use_coc
     autocmd vimrc BufAdd,BufEnter * if getfsize(expand('<afile>')) > 1024*100 | let b:coc_enabled=0 | endif
 
     " For monorepos, we will need to use different root patterns
-    autocmd vimrc FileType javascript,javascriptreact,typescript,typescriptreact let b:coc_root_patterns=['yarn.lock', 'npm.lock', 'package-lock.json']
+    autocmd vimrc FileType javascript,javascriptreact,typescript,typescriptreact
+                \ let b:coc_root_patterns=['yarn.lock', 'npm.lock', 'package-lock.json', 'pnpm-lock.yaml']
 
     " Enable flow and disable tsserver when .flowconfig is found
     if executable('flow') && findfile('.flowconfig', '.;') !=# ''
