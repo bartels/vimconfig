@@ -334,8 +334,8 @@ function! s:PatchMonotone()
     hi EndOfBuffer guifg=bg ctermfg=bg
 
     " Tabline
-    hi Tabline guifg=#8789a0 ctermfg=240
-    hi TablineSel guifg=#edeef1 guibg=#557755 ctermfg=252 ctermbg=0
+    hi TabLine guifg=#8789a0 ctermfg=240
+    hi TabLineSel guifg=#edeef1 guibg=#557755 ctermfg=252 ctermbg=0
     hi link TablineFill Comment
 
     " vimdiff
