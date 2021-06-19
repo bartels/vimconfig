@@ -297,6 +297,7 @@ function! MyTabLine()
         let l:buf = l:buflist[tabpagewinnr(l:i + 1) - 1]
         let l:bufname = bufname(l:buf)
         let l:buftype = getbufvar(l:buf, '&buftype')
+        let l:filetype = getbufvar(l:buf, '&filetype')
         let l:modified = getbufvar(l:buf, '&modified')
 
         " Track all buffer names in all windows
@@ -306,7 +307,8 @@ function! MyTabLine()
         call add(l:bufs, {
             \ 'buf': l:buf,
             \ 'name': l:bufname,
-            \ 'type': l:buftype,
+            \ 'buftype': l:buftype,
+            \ 'filetype': l:filetype,
             \ 'modified': l:modified,
             \ })
     endfor
@@ -328,12 +330,12 @@ function! MyTabLine()
         let l:s .= l:buf.modified > 0 ? '+ ' : ' '
 
         " Format buffer name
-        if l:buf.type ==# 'quickfix'
+        if l:buf.buftype ==# 'quickfix'
             let l:bufname = '[quickfix]'
         elseif l:buf.name == ''
             let l:bufname = '[No Name]'
         else
-            " Handle index files for javascript
+            " Special handling of javascript index files
             if l:buf.name =~# 'index.\(js\|jsx\|ts\|tsx\|vue\|cjs\|mjs\|es\)$'
                 let l:bufname = fnamemodify(l:buf.name, ':p:h:t') . '/i'
             else
@@ -350,9 +352,15 @@ function! MyTabLine()
                 let l:bufname = fnamemodify(l:buf.name, l:format)
             endif
 
-            " special buffer flags
-            if l:buf.type ==# 'help'
+            " Help files
+            if l:buf.buftype ==# 'help'
                 let l:bufname .= ' [h]'
+
+            " Fugitive diffs (truncate hash)
+            elseif l:buf.name =~# '^fugitive://'
+                let l:segments = split(l:bufname, '/')
+                let l:segments[0] = l:segments[0][0:6]
+                let l:bufname = join(l:segments, '/') . ' [git]'
             endif
         endif
 
