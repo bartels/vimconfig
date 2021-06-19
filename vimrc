@@ -506,6 +506,8 @@ if ! has('gui_running')
     let g:airline_powerline_fonts=1
     let g:airline_right_sep=''
 
+    let g:airline#extensions#branch#enabled = 0
+
     " override theme colors
     let g:airline_theme_patch_func = 'g:AirlineThemePatch'
     function! g:AirlineThemePatch(palette)
