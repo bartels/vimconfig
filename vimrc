@@ -38,6 +38,7 @@ Plug 'junegunn/gv.vim'
 Plug 'chrisbra/Colorizer'
 Plug 'jamessan/vim-gnupg'
 Plug 'urbainvaes/vim-tmux-pilot'
+Plug 'AndrewRadev/bufferize.vim'
 
 " disabled until bug fixed: https://github.com/tmux-plugins/vim-tmux-focus-events/issues/33
 " Plug 'tmux-plugins/vim-tmux-focus-events'
