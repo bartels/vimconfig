@@ -279,6 +279,106 @@ autocmd vimrc BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd vimrc BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 
+" Custom tabline
+set tabline=%!MyTabLine()
+
+function! MyTabLine()
+    let l:s = ''
+
+    let l:nTabs = tabpagenr('$')
+    let l:bufs = []
+    let l:allBufnames = []
+
+    " Collect buffer info for each tab page
+    for l:i in range(l:nTabs)
+        " Get active window buffer
+        let l:buflist = tabpagebuflist(l:i + 1)
+        let l:buf = l:buflist[tabpagewinnr(l:i + 1) - 1]
+        let l:bufname = bufname(l:buf)
+        let l:buftype = getbufvar(l:buf, '&buftype')
+        let l:modified = getbufvar(l:buf, '&modified')
+
+        " Track all buffer names in all windows
+        call extend(l:allBufnames, map(l:buflist, {_, val -> bufname(val)}))
+
+        " Add active window bufer info
+        call add(l:bufs, {
+            \ 'buf': l:buf,
+            \ 'name': l:bufname,
+            \ 'type': l:buftype,
+            \ 'modified': l:modified,
+            \ })
+    endfor
+
+    " Loop through each tab and build tabline
+    for l:i in range(l:nTabs)
+        let l:buf = l:bufs[l:i]
+
+        let l:isCurrent = l:i + 1 == tabpagenr()
+        let l:isLast = l:i == l:nTabs - 1
+
+        " Set tab highlight group
+        let l:s .= l:isCurrent ? '%#TabLineSel#' : '%#TabLine#'
+
+        " Set tab page number
+        let l:s .= '%' . (l:i + 1) . 'T ' . (l:i + 1)
+
+        " Add modified label
+        let l:s .= l:buf.modified > 0 ? '+ ' : ' '
+
+        " Format buffer name
+        if l:buf.type ==# 'quickfix'
+            let l:bufname = '[quickfix]'
+        elseif l:buf.name == ''
+            let l:bufname = '[No Name]'
+        else
+            " Handle index files for javascript
+            if l:buf.name =~# 'index.\(js\|jsx\|ts\|tsx\|vue\|cjs\|mjs\|es\)$'
+                let l:bufname = fnamemodify(l:buf.name, ':p:h:t') . '/i'
+            else
+                " Find duplicate buffer filenames
+                let l:dups = 0
+                for l:oBufname in l:allBufnames
+                    if l:oBufname !=# l:buf.name && fnamemodify(l:oBufname, ':t') ==# fnamemodify(l:buf.name, ':t')
+                        let l:dups += 1
+                    endif
+                endfor
+
+                " For duplicate filenames, format with directory included
+                let l:format = l:dups == 0 ?':t' : ':s;.\+/\(.\+/.\+$\);\1;:.'
+                let l:bufname = fnamemodify(l:buf.name, l:format)
+            endif
+
+            " special buffer flags
+            if l:buf.type ==# 'help'
+                let l:bufname .= ' [h]'
+            endif
+        endif
+
+        " Add buffer name
+        let l:s .= l:bufname . ' '
+
+        " Add separator
+        if l:isCurrent
+            let l:s .= '%#TabLineSelAlt#'
+            let l:s .= ''
+        elseif ! l:isLast
+            if l:i + 2 == tabpagenr()
+                let l:s .= '%#TabLineAlt#'
+                let l:s .= ''
+            else
+                let l:s .= ''
+            endif
+        endif
+    endfor
+
+    " After the last tab, fill with TabLineFill highlight and reset
+    let l:s .= '%#TabLineFill#%T'
+
+    return l:s
+endfunction
+
+
 " Colors ----------------------------------------------------------------- {{{1
 
 " Enable true color
@@ -337,6 +437,9 @@ function! s:PatchMonotone()
     hi TabLine guifg=#8789a0 ctermfg=240
     hi TabLineSel guifg=#edeef1 guibg=#557755 ctermfg=252 ctermbg=0
     hi link TablineFill Comment
+
+    hi TabLineAlt guifg=#2f2f31 guibg=#557755 ctermfg=235 ctermbg=0
+    hi TabLineSelAlt guibg=#2f2f31 guifg=#557755 ctermbg=252 ctermfg=0
 
     " vimdiff
     hi DiffAdd     guifg=#dddddd  guibg=#557755  gui=NONE  ctermfg=107  ctermbg=0  cterm=NONE
@@ -402,18 +505,6 @@ nmap <silent> <leader>cF <Plug>ColorFgBg
 if ! has('gui_running')
     let g:airline_powerline_fonts=1
     let g:airline_right_sep=''
-
-    "" tabline
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#tab_min_count = 2
-    let g:airline#extensions#tabline#show_tab_type = 0
-    let g:airline#extensions#tabline#show_splits = 0
-    let g:airline#extensions#tabline#show_buffers = 0
-    let g:airline#extensions#tabline#show_tab_count = 0
-    let g:airline#extensions#tabline#show_close_button = 1
-
-    let g:airline#extensions#tabline#fnamemod = ':s;.\+/\(.\+/.\+$\);\1;:.'
-    let g:airline#extensions#tabline#formatter = 'jsformatter'
 
     " override theme colors
     let g:airline_theme_patch_func = 'g:AirlineThemePatch'
@@ -617,7 +708,7 @@ if isdirectory(expand('~/.fzf'))
     augroup Fzf
         autocmd!
         autocmd FileType fzf setlocal nonumber norelativenumber  " hide numbers
-        autocmd FileType fzf keepalt file FZF  " change fzf buffer name display
+        autocmd FileType fzf keepalt file [FZF]  " change fzf buffer name display
     augroup END
 
     " Finds the project root dir (looks for package.json & .git)
